@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Debug C++",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/a.out", // Replace with your executable name
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb", // Path to gdb
+            "preLaunchTask": "build", // Optional: if you have a build task
+            "sourceFileMap": {
+                "/mnt/c/": "C:\\"
+            },
+            "debugServerArgs": "",
+            "serverLaunchTimeout": 10000,
+            "filterStderr": false,
+            "filterStdout": false
+        }
+    ]
+}
