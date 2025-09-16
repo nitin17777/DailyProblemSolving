@@ -16,11 +16,11 @@ int countPrime(int n)
         {
             cnt++;
 
+            //if the number is multiple of i: make it false
+            
             for(int j = 2*i ; j<n; j = j+i)
-
             {
                 prime[j] = 0;
-
             }
         }
     }

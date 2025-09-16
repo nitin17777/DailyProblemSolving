@@ -8,51 +8,49 @@ vector<int>spiral(vector<vector<int>>& matrix)
     int row = matrix.size();
     int col = matrix[0].size();
 
-
     int count= 0;
-    int total = row*col;
-
+    int total = row * col; //total elements
     int startingRow = 0;
-    int endingCol = 0;
-    int endingRow =row - 1;
+    int startingCol = 0;
+    int endingRow = row - 1;
     int endingCol = col-1;
+
+    vector<int>ans;
+
 
 
     while(count<total)
     {
-        for(int index = startingCol; count<total && index <= endingCol; index++)
-        {
-            ans.pushback(matrix[startingRow][index]);
-        }
 
+        //printing starting row
+        for(int index = startingRow; count < total && index <= endingCol; index++)
+        {
+            ans.push_back(matrix[startingRow][index]);
+            count++;
+        }
         startingRow++;
 
-//printing starting row
-        for(int index= startingRow; index < endingRow; index++)
+//printing ending column
+        for(int index= startingRow; count < total &&index <= endingRow;index++)
         {
-
             ans.push_back(matrix[index][endingCol]);
-
-
-        
+            count++;   
+        }     
         endingCol--;
-        }
 
-        //printting ending row
-
-        for(int index = endingCol;index>=startingCol;index--;)
+        //printing ending row
+        for(int index = endingCol; count<total && index >= startingCol; index--)
         {
-            ans.push_back(matrix[index][index]);
+            ans.push_back(matrix[endingRow][index]);
         }
         
         endingRow--;
 
         //printing starting column
-
-        for(int index= endingRow; index >= startingRow; index++)
+        for(int index= endingRow; index >= startingRow && count <total ; index--)
         {
-            ans.push_back(matrix[index][starting col]);
-            col++;
+            ans.push_back(matrix[index][startingCol]);
+            count++;
         }
 
         startingCol++;
@@ -68,14 +66,22 @@ vector<int>spiral(vector<vector<int>>& matrix)
 */
 int main()
 {
-
-    vector<int>arr = {
+   vector< vector<int>>arr = {
         {1,2,3},
         {4,5,6},
         {7,8,9}
         };
 
-        cout<<spiral<<endl;
-    return 0;
+        vector<int>ans = spiral(arr);
+        for(auto & num : ans)
+        {
+            cout<<num<<" ";
+
+        }
+        cout<<endl;
+
+        
+        
+        return 0;
 
 }

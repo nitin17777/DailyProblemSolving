@@ -26,14 +26,12 @@ string countS(int n)
             if(i +1 < prev.length() && prev[i] == prev[i+1])
             {
                 count++;
-
             }
 
             else
             {
                 result += to_string(count) + prev[i];
                 count=1;
-
             }
         }
 

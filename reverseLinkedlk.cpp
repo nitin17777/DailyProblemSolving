@@ -23,11 +23,6 @@ Node* kReverse(Node* head,int k)
         return NULL;
 
     }
-
-    
-
-
-
 //reverse first k nodes
     Node* next = NULL;
     Node * curr = head;
@@ -55,8 +50,6 @@ Node* kReverse(Node* head,int k)
         head -> next = kReverse(next ,k);
 
     }
-
-
     return prev;
 }
 

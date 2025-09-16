@@ -1,93 +1,108 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
-
-
-class Node
+struct Node
 {
-    public:
     int data;
     Node* next;
-    Node(int data)
+
+    Node(int val)
     {
-    this->data = data;
+    this->data = val;
     this->next = NULL;
     }
 
+};
+
+
+
+Node* merge2(Node* list1, Node* list2)
+{
+    /*
+
+    if(list1 == NULL)
+    return list2;
+
+    if(list2 == NULL)
+    return list1;
+
+    Node* head = NULL;
+
+    if(list1->data < list2->data)
+{
+    head = list1;
+    list1 = list1->next;
+}
+else
+
+{
+    head = list2;
+    list2 = list2->next;
 }
 
-void solve(Node<int>* first , Node<int>* second)
+Node* tail = head;
+while(list1 && list2)
 {
-
-    if(first->next == NULL)
+    if(list1->data < list2->data)
     {
-        first->next = second;
-        return first;
-
-    }
-    Node* curr1= first;
-    Node* next1 = curr1->next;
-    Node* curr2= second;
-    Node* next2 = curr2 ->next;
-
-
-    while( next1 !=NULL && curr2!=NULL)
-{
-
-    if((curr2->data >= curr1->data) && ( curr2->data <= next1 ->data))
-    {
-        curr1 ->next = curr2;
-        next2 = curr2->next;
-        curr2->next = next1;
-
-
-        //update pointers
-        curr1 = curr2;
-        curr2 = next2;
+        tail->next = list1;
+        list1 = list1->next;
     }
     else
     {
-        curr1 = next1;
-        next1 = next1 ->next;
-
-        if(next1 == NULL)
-        {
-            curr1 -> next = curr2;
-            return first;
-
-        }
-
+        tail->next = list2;
+        list2 = list2->next;
     }
-}
+    tail = tail->next;
+
+
 }
 
-Node<int>* sortTwo(Node<int>* first, Node<int>* second)
+}
+*/
 
+if(list1 == NULL)
+return list2;
+
+if(list2 == NULL)
+return list1;
+
+
+if(list1 ->data < list2->data)
 {
-    if( first == NULL)
-    return second;
-
-    if(second == NULL)
-    return first;
-
-
-    if( first->data <=second->data)
-    {
-        solve (first,second);
-    }
-
-    else
-    {
-        solve(second,first);
-    }
-    
+    list1->next = merge2(list1->next, list2);
+    return list1;
 }
+
+else
+{
+    list2->next = merge2(list1,list2->next);
+    return list2;
+}
+}
+
 
 int main()
 {
+    Node* a = new Node(1);
+    a->next = new Node(3);
+    a->next ->next = new Node(6);
 
+    Node* b = new Node(4);
+    b->next = new Node(7);
+    b->next -> next = new Node(9);
 
+    Node* ans = merge2(a,b);
 
-    return 0;
+    while(ans!= NULL)
+    {
+        cout<<ans->data<<" ";
+        ans = ans->next;
+    }
+cout<<endl;
+
+return 0;
 
 }
+

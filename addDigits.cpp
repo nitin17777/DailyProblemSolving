@@ -1,40 +1,46 @@
 #include<iostream>
-#include<vector>
-
 using namespace std;
 
-int addDigits(int num) 
+/*
+int addDigits(int num)
 {
-    vector<int>arr;
+    //brute force approach using loop
 
-
-    
-
-    //add the digits of given number until the sum is single digit
-
-    while(num>0)
+    while(num >= 10)
     {
-    int digit = num%10; // getting last digit
+        int sum = 0;
 
-    arr.push_back(digit);
-    num = num /10; //now removing last digit
+        while(num > 0)
+        {
+            sum += num %10;
+            num /= 10;
+        }
+        num = sum;
     }
+    return num;
+}
+    */
+
+int addDigitss(int num) //digital root concept used(IMPORTANT)
+{
+    if(num == 0)
+    return 0;
 
     
+        if(num %9 == 0)
+        return 9;
 
-
-    
-
-
-
-
-    while()
-
+        else
+        return num%9;
 }
 
 int main()
 {
+    int num = 38;
 
+    int ans = addDigitss(num);
+
+    cout<<ans<<endl;
 
     return 0;
 

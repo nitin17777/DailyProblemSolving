@@ -1,24 +1,35 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
-int findme(vector<int>arr,size)
+int missingNumber(vector<int>nums)
 {
  //we have to find the missing number from the given array
 
+ int n = nums.size();
+ int xall = 0;
+ int xnums = 0;
+
+ for(int i=0;i<n;i++)
+ {
+    xall^=i;
+ }
+
+ for(auto&num:nums)
+ {
+    xnums^=num;
+ }
+
+ return xall^xnums;
 
 }
 
 int main()
 {
+    vector<int>nums = {3,0,1};
+    int ans = missingNumber(nums);
 
-
-
-    vector<int>arr1 = {5,6,8};
-    int n = arr1.size();
-
-    int ans = findme(arr1,n);
-
-    cout<<"Missing number is : "<<ans<<endl;
+    cout<<ans<<endl;
     
     return 0;
 

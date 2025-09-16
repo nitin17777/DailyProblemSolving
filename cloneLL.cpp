@@ -31,7 +31,6 @@ class Solution
         {
             tail->next = newNode;
             tail = newNode;
-
         }
     }
 
@@ -42,7 +41,7 @@ class Solution
 
         //Step 1 -> create a clone list
 
-        Node * cloneHead = NULL;
+        Node* cloneHead = NULL;
         Node* cloneTail = NULL;
 
         Node* temp =head;

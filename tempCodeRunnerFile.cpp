@@ -1,85 +1,28 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
-//Sum of min and max of elements of subarrays of size k
-
-int solve(int *arr , int n, int k)
+int findClosest(int x, int y, int z) 
 {
-    deque<int>maxi(k); // made two queues for max and min element of the subarray
+    //Person 1 and person 2 move towards person 3 at same speed
 
-
-    deque<int>mini(k);
-
-    //Addition of first k size window
-
-    for(int i =0; i<k; i++)
+    if(abs(z-x) < abs(z-y))
     {
-        while(!maxi.empty() && arr[maxi.back()] <= arr[i] )
-        {
-            maxi.pop_back();
-        }
-
-        while(!mini.empty() && arr[mini.back()] >= arr[i])
-        {
-            mini.pop_back();
-        }
-
-        maxi.push_back(i);
-
-        mini.push_back(i);
+        return 1;
 
     }
-    int ans = 0;
-
-    ans += arr[maxi.front()] + arr[mini.front()];
-
-    for(int i = k; i<n; i++)
+    else if(abs(z-y) < abs(z-x))
     {
-        //next window
-        while(!maxi.empty() && i - maxi.front() >=k)
-        {
-            maxi.pop_front();
-        }
+        return 2;
+    }
+    else return 0;
 
-        while(!mini.empty() && i - mini.front() >=k)
-        {
-            mini.pop_front();
-        }
-
-        //addition
-
-        while(!maxi.empty() && arr[maxi.back()] <= arr[i] )
-        {
-            maxi.pop_back();
-        }
-
-        while(!mini.empty() && arr[mini.back()] >= arr[i])
-        {
-            mini.pop_back();
-        }
-
-        maxi.push_back(i);
-
-        mini.push_back(i);
-
-    
-
-    // make sure to consider last window
-    ans += arr[maxi.front()] + arr[mini.front()];
 }
-
-    return ans;
-}
-
 
 
 int main()
 {
-
-    int arr[7] = {2,-5,-1,7,-3,-1,-2};
-
-    cout<<solve(arr,7,3) << endl;
-
+    cout<<findClosest(2,7,4);
+    
     return 0;
 
 }

@@ -6,9 +6,6 @@ int divide(int up,int down)
 {
 
     int ans = up/down;
-
-
-
 }
 
 

@@ -8,6 +8,7 @@ void merge(int *arr ,int s,int e)
 
     int len1= mid - s +1;
     int len2 = e-mid;
+
       //creating temporary arrays to hold right and left part
       int *first = new int[len1];
       int *second = new int[len2];
@@ -22,7 +23,7 @@ void merge(int *arr ,int s,int e)
 
       }
 
-      for(int i = 0;i<len2;i++)
+      for(int i = 0;i<len2;i++) // for right part
       {
         second[i] = arr[mid+1+i];
 
@@ -40,6 +41,7 @@ void merge(int *arr ,int s,int e)
             arr[mainArrayIndex++] =first[index1++];
 
         }
+
 
         else
         {
@@ -67,7 +69,7 @@ void merge(int *arr ,int s,int e)
 void mergeSort(int *arr,int s,int e)
 {
     //base case
-    if(s>=e)
+    if(s >= e)
     {
         return;
     }

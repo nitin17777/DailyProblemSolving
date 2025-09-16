@@ -17,14 +17,11 @@ void bubblesort(vector<int>&arr,int n)
             {
                 swap(arr[j],arr[j+1]);
                 swapped = true;
-
-
             }
         }
-        if (swapped =false)
+        if (!swapped)
         break;
     }
-
 }
 
 int main()
