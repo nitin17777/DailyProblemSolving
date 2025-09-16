@@ -1,12 +1,12 @@
 #include<iostream>
 #include<vector>
+#include<queue>
 using namespace std;
 #define ll long long
 
 
 bool canFinish(int numCourses, vector<vector<int>>& prerequisites)
 {
-
 
     //pre: you have to take course bi first if you want to take course ai
     
@@ -23,8 +23,8 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites)
         int courses = pre[0];
         int prereq = pre[1];
 
-        adj[prereq].push_back(course);
-        indegree[course]++;
+        adj[prereq].push_back(courses);
+        indegree[courses]++;
 
     }
 
@@ -39,18 +39,19 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites)
             takenCourses++;
         }
     }
-    
-            // Reduce indegree of neighbors
-            for (int neighbor : adj[course]) {
-                indegree[neighbor]--;
-                if (indegree[neighbor] == 0) {
-                    q.push(neighbor);
-                }
-            }
-        }
 
-        // Step 4: If we could take all courses → no cycle
-        return takenCourses == numCourses;
+    
+    // Reduce indegree of neighbors
+    for (int neighbor : adj[courses]) {
+        indegree[neighbor]--;
+        if (indegree[neighbor] == 0) {
+            q.push(neighbor);
+        }
+    }
+
+
+    // Step 4: If we could take all courses → no cycle
+    return takenCourses == numCourses;
 
 }
 

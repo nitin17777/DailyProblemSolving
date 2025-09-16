@@ -1,13 +1,19 @@
-import math
+import numpy as np
 
-def binomial_pmf(n, k, p):
-    """Compute Binomial PMF: P(X = k) for given n, k, and p."""
-    if k < 0 or k > n:
-        return 0.0
-    comb = math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
-    return comb * (p ** k) * ((1 - p) ** (n - k))
+from math import comb
 
-# Example usage:
-n, p = 12, 0.5
-for k in range(0, 5):
-    print(f"P(X={k}) = {binomial_pmf(n, k, p):.5f}")
+
+words = np.array(["I", "am", "Studying", "in", "BU"])
+
+sample = np.random.choice(words,1500)
+
+neigh = sample[np.where(sample[:-1] == "BU")]
+
+vals,counts = np.unique(neigh,return_counts = True)
+
+print("Q1", dict(zip(vals,counts/counts.sum())))
+
+
+
+
+

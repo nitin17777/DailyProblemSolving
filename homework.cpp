@@ -32,8 +32,6 @@ string homework(string a,string b,string c)// O(n) time compelxity
     }
 
     return string(dq.begin(),dq.end());
-
-
 }
 
 /*  O(n^2)time complexity

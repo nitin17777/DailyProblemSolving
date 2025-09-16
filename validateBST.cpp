@@ -16,7 +16,6 @@ struct Node
 };
 
 
-
 bool isBST(Node*root, int min , int max)
 {
 
@@ -37,14 +36,12 @@ bool isBST(Node*root, int min , int max)
 }
 bool validateBST(Node* root)
 {
-    return(isBST(root, INT_MIN,INT_MAX));
+    return(isBST(root, LLONG_MIN,LLONG_MAX));
 
 }
 
-
 int main()
 {
-
     Node* root = new Node(4);
     root ->left = new Node(2);
     root ->left ->left = new Node(1);
