@@ -1,21 +1,23 @@
 import numpy as np
 
-x = np.array([0,1,2,3,4,5,6])
-f = np.array([4,7,11,14,13,8,3])
-n = f.sum()
+# (a) Simulate number of calls in 12 hours (Poisson with λ = 60)
+calls_12_hours = np.random.poisson(lam=60)
+print("Simulated calls in 12 hours:", calls_12_hours)
 
-# probabilities
-p = f / n
+# (b) Generate 1000 random samples for 1 hour (Poisson with λ = 5)
+samples = np.random.poisson(lam=5, size=1000)
 
-# mean
-mean = np.sum(x * p)
+# Estimate probability of exactly 4 calls in an hour
+prob_4_calls = np.mean(samples == 4)
+print("Estimated P(X=4):", prob_4_calls)
 
-# variance
-variance = np.sum(x**2 * p) - mean**2
+# (c) Compare sample mean and variance with theoretical values
+sample_mean = np.mean(samples)
+sample_variance = np.var(samples, ddof=1)  # unbiased
+theoretical_mean = 5
+theoretical_variance = 5
 
-# probability of at least 4
-prob_at_least_4 = p[x >= 4].sum()
-
-print("Mean:", mean)
-print("Variance:", variance)
-print("P(X >= 4):", prob_at_least_4)
+print("Sample Mean:", sample_mean)
+print("Sample Variance:", sample_variance)
+print("Theoretical Mean:", theoretical_mean)
+print("Theoretical Variance:", theoretical_variance)

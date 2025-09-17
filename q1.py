@@ -1,9 +1,11 @@
 import numpy as np
 
-n, p, N = 12, 0.5, 2000
-s = np.random.binomial(n, p, N)
+# Generate 1000 random samples from Poisson(λ=3)
+samples = np.random.poisson(lam=3, size=1000)
 
-print("Sample mean:", s.mean(), "Theoretical mean:", n*p)
-print("Sample var:", s.var(ddof=1), "Theoretical var:", n*p*(1-p))
+# Compute sample mean and variance
+sample_mean = np.mean(samples)
+sample_variance = np.var(samples, ddof=1)  # unbiased variance
 
-print(s)
+print("Sample Mean:", sample_mean)
+print("Sample Variance:", sample_variance)

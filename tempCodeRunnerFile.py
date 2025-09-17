@@ -1,19 +1,7 @@
 import numpy as np
 
-from math import comb
+samples = np.random.poisson(lam=5, size=1000)
 
-
-words = np.array(["I", "am", "Studying", "in", "BU"])
-
-sample = np.random.choice(words,1500)
-
-neigh = sample[np.where(sample[:-1] == "BU")]
-
-vals,counts = np.unique(neigh,return_counts = True)
-
-print("Q1", dict(zip(vals,counts/counts.sum())))
-
-
-
-
-
+# Estimate probability of exactly 4 calls in an hour
+prob_4_calls = np.mean(samples == 4)
+print("Estimated P(X=4):", prob_4_calls)
