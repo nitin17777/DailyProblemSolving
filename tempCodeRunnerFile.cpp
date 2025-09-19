@@ -1,57 +1,98 @@
-#include<iostream>
-#include<unordered_set>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
 
-vector<string> findRepeatedDnaSequences(string s)
-{
-    //return the 10 letter long substring that occurs more than once in
-    unordered_set<string>seen,repeated;
+class Spreadsheet {
+
+private:
+    int rows;
+    vector<vector<int>>grid; //2d grid to store cell values
+
     
-    int n = s.size();
 
-    for(int i=0;i+10<=n;i++)
+    // helper: parse a cell string like "A12" -> (row, col)
+    pair<int,int>parsCell(const string&cell)
     {
-        string sub = s.substr(i,10);
-        if(seen.count(sub))
+        char colChar = cell[0];
+        int col = colChar -'A';
+        int row = stoi(cell.substr(1))-1;
+        return{row,col};
+    }
+
+    bool isNumber(const string&s)
+    {
+        for(char c: s)
         {
-            repeated.insert(sub);
+            if(!isdigit(c))
+            return false;
         }
-        else
+        return true;
+    }
+
+
+public:
+    Spreadsheet(int r)
+    {
+        rows = r;
+        grid.assign(rows,vector<int>(26,0));
+    }
+    
+    void setCell(string cell, int value) {
+
+        auto[row,col] = parseCell(cell);//convert cell refernce into row and column indices
+        if(row>=0 && row < rows && col >=0 && col < 26)
         {
-            seen.insert(sub);
+            grid[row][col] = value;
+        } 
+    }
+    
+    void resetCell(string cell) {
+
+        auto[row,col] = parseCell(cell);
+        if(row>=0 && row< rows && col >= 0 && col < 26)
+        {
+            grid[row][col] = 0;
         }
     }
-    vector<string>ans;
+    
+    int getValue(string formula) {
 
-    for(auto & rep : repeated)
-    {
-        ans.push_back(rep);
+        formula = formula.substr(1);
 
+        stringstream ss(formula);
+        string token;
+        int sum = 0;
+
+
+        while(getline(ss,token,'+'))
+        {
+            if(isNumber(token))
+            {
+                sum+=stoi(token);
+            }
+            else
+            {
+                auto[row,col] = parseCell(token);
+                if(row >=0 && row < rows && col >= 0 && col < 26)
+                {
+                    sum += grid[row][col];
+
+                }
+            }
+        }
+        return sum;
+        
     }
-
-    return ans;
-}
+};
 
 
+int main() {
+    Spreadsheet* obj = new Spreadsheet(10);
+    obj->setCell("A1", 5);
+    obj->setCell("B2", 10);
 
-int main()
-{
-
-    string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
-
-    vector<string>ans = findRepeatedDnaSequences(s);
-
-    for(auto&an :ans)
-    {
-        cout<<an<<" ";
-
-    }
-    cout<<endl;
-
-
-
-    return 0;
-
+    cout << obj->getValue("=A1+B2") << endl; // 15
+    cout << obj->getValue("=A1+20") << endl; // 25
+    obj->resetCell("A1");
+    cout << obj->getValue("=A1+B2") << endl; // 10
 }
