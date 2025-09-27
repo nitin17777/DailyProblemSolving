@@ -1,54 +1,51 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node
+double largestTriangleArea(vector<vector<int>>& points)
 {
-    int data;
-    Node*next;
+    //find the triangle with largest area possible using any 3 points
 
-    Node(int data)
+
+    //area = 0.5 * height * base
+    //to maximise the area of triangle 
+    double maxArea = 0.0;
+    int n  = points.size();
+
+    for(int i = 0;i<n;i++)
     {
-        this->data = data;
-        this->next = NULL;
-    }
-};
-
-int numComponents(Node* head, vector<int>& nums)
-{
-    unordered_set<int>s(nums.begin(),nums.end());
-
-    int count = 0; 
-
-    bool inComponent = false;
-
-    while(head)
-    {
-        if(s.count(head->data)) // if current node is in nums
+        for(int j = i+1;j<n;j++)
         {
-            if(!inComponent)
+            for(int k = j+1;k<n;k++)
             {
-                count++;
-                inComponent = true;
+
+                //Area= 0.5 * ∣x1(y2−y3)+x2(y3−y1)+x3(y1−y2)∣
+
+                double area = 0.5 * fabs(
+                    points[i][0] * ( points[j][1] - points[k][1])+
+                    points[j][0] *(points[k][1] - points[i][1])+ 
+                    points[k][0] *(points[i][1] - points[j][1])
+                );
+
+                maxArea = max(area,maxArea);
+
             }
         }
 
-        else
-        {
-            inComponent = false;
-        }
-        head = head ->next;
     }
-    return count;
+    return maxArea;
 }
+
 
 int main()
 {
-    Node* head = new Node(0);
-    head ->next = new Node(1);
-    head ->next->next = new Node(2);
-    head ->next->next->next = new Node(3);
 
-    vector<int>nums = {0,1,3};
+    vector<vector<int>>points = {
+        {0,0},{0,1},{1,0},{0,2},{2,0}
+    };
 
-    cout<<numComponents(head,nums)<<endl;
+    double ans = largestTriangleArea(points);
+    cout<<ans<<endl;
+
+    return 0;
+
 }
