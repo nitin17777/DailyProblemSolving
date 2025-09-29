@@ -1,51 +1,91 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-double largestTriangleArea(vector<vector<int>>& points)
+int minOps(string s)
 {
-    //find the triangle with largest area possible using any 3 points
+    //in one operation, we can choose a position i and swap (s i,s i+1)
+    //min ops to ensure that all characters of type either a or b are located strictly together forming exactly one continuous block
+
+    //we need to check if by swapping we an achieve 
+    int n = s.length();
+
+    int counta = 0, countb = 0;
 
 
-    //area = 0.5 * height * base
-    //to maximise the area of triangle 
-    double maxArea = 0.0;
-    int n  = points.size();
-
-    for(int i = 0;i<n;i++)
+    for(char c : s)
     {
-        for(int j = i+1;j<n;j++)
-        {
-            for(int k = j+1;k<n;k++)
-            {
+        if(c == 'a')counta++;
+        else countb++;
+    }
 
-                //Area= 0.5 * ∣x1(y2−y3)+x2(y3−y1)+x3(y1−y2)∣
+    //edge cases
+    if(counta ==0 ||  countb == 0 || counta == n || countb == n)return 0;
 
-                double area = 0.5 * fabs(
-                    points[i][0] * ( points[j][1] - points[k][1])+
-                    points[j][0] *(points[k][1] - points[i][1])+ 
-                    points[k][0] *(points[i][1] - points[j][1])
-                );
+    //trying to group all a's together
 
-                maxArea = max(area,maxArea);
+    int mincosta = INT_MAX;
 
-            }
-        }
+
+    int currentb = 0;
+    for(int i = 0 ; i < counta ;i++)
+    {
+        if(s[i] =='b')currentb++;
 
     }
-    return maxArea;
+
+    //slide the window
+    for(int i = counta;i<n;i++)
+    {
+        if(s[i-counta] == 'b')
+        {
+            currentb--;
+        }
+        if(s[i] == 'b')currentb++;
+
+        mincosta = min(mincosta,currentb);
+
+    }
+
+
+    //trying to group all b's together
+    int mincostb = INT_MAX;
+
+    //counting a in first window of size countb
+    int currenta = 0;
+    for(int i = 0;i<countb;i++)
+    {
+        if(s[i] == 'a')currenta++;
+    }
+
+    mincostb = currenta;
+
+    for(int i = countb;i<n;i++)
+    {
+        if(s[i -countb] == 'a')currenta--;
+        if(s[i] == 'a') currenta++;
+
+        mincostb = min(mincostb, currenta);
+    }
+    
+    return min(mincostb,mincosta);
 }
-
-
 int main()
 {
 
-    vector<vector<int>>points = {
-        {0,0},{0,1},{1,0},{0,2},{2,0}
-    };
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
 
-    double ans = largestTriangleArea(points);
-    cout<<ans<<endl;
+        string s;
+        cin>>s;
+
+        cout<<minOps(s)<<endl;
+    }
+    
 
     return 0;
-
+    
 }
