@@ -1,44 +1,78 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-string frequencySort(string s)
+#define ll long long 
+#pragma GCC optimize("03,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+
+ll canCut(vector<ll>&dandelions)
 {
-    //character with highest frequency would come first in resultant string and if same frequency, string will be in alphabetical order
+    //ith filed has ai dandelions 
 
+    //initially landmower is off
 
-    unordered_map<char,int>freq;
+    //if odd number of flowers then it toggles it's state 
+
+    //if lawnmower is on it will cut all dandelions in field otherwise no flower will be cut down
+
+    //find the max number of dandlions he can cut
+
+    //landmower can only toggle if any odd number comes
+
+    //so start the landmower put all even nums  then 
     
-    for(char c: s)
+    ll evenSum = 0;
+    ll total= accumulate(dandelions.begin(),dandelions.end(),0LL);
+
+    vector<ll>odds;
+
+
+    for(auto fl :dandelions)
     {
-        freq[c]++;
+        if(fl%2 == 0)evenSum+=fl;
+        else odds.push_back(fl);
     }
 
-    //moving to vector for sorting
-    vector<pair<char,int>>vec(freq.begin(), freq.end());
+    if(odds.size() == 1)//because then machine would never stop
+    return total;
+    
+    if(odds.empty())return 0;//machine never starts
 
 
-    sort(vec.begin(),vec.end(), [](auto&a,auto&b)
-    {
-        if(a.second == b.second)
-        {
-            return a.first < b.first;
-        }
-        return a.second> b.second;
-    });
+    sort(odds.rbegin(),odds.rend()); //descending sort
 
-    string result = "";
+    ll k = (odds.size() + 1) / 2;
 
-    for(auto&p : vec)
-    {
-        result.append(p.second,p.first);//append p.first character for p.second times
-    }
-    return result;
+    ll oddSum=0;
+
+    for(int i = 0; i < k;i++)oddSum+=odds[i];//since we can only take largest k/2 odds only
+
+    return evenSum + oddSum;
 }
-
 
 int main()
 {
-    cout<<frequencySort("tree")<<endl;
-        return 0;
 
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        
+        vector<ll>dandelions(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            cin>>dandelions[i];
+        }
+        
+        cout<<canCut(dandelions)<<endl;
+    }
+
+    return 0;
 }

@@ -1,11 +1,23 @@
 import numpy as np
 
-# Generate 1000 random samples from Poisson(λ=3)
-samples = np.random.poisson(lam=3, size=1000)
+np.random.seed(42)
 
-# Compute sample mean and variance
-sample_mean = np.mean(samples)
-sample_variance = np.var(samples, ddof=1)  # unbiased variance
+n = 40       # sample size
+sims = 1000  # number of samples
 
-print("Sample Mean:", sample_mean)
-print("Sample Variance:", sample_variance)
+# 1) Normal(18, 20)
+norm_samples = np.random.normal(18, 20, size=(sims, n))
+norm_means = norm_samples.mean(axis=1)
+
+# 2) Poisson(10)
+pois_samples = np.random.poisson(10, size=(sims, n))
+pois_means = pois_samples.mean(axis=1)
+
+# 3) Exponential(rate=20 => mean=1/20)
+exp_samples = np.random.exponential(scale=1/20, size=(sims, n))
+exp_means = exp_samples.mean(axis=1)
+
+print("Q1 Results:")
+print(f"Normal: mean={norm_means.mean():.4f}, sd={norm_means.std(ddof=1):.4f}")
+print(f"Poisson: mean={pois_means.mean():.4f}, sd={pois_means.std(ddof=1):.4f}")
+print(f"Exponential: mean={exp_means.mean():.6f}, sd={exp_means.std(ddof=1):.6f}")

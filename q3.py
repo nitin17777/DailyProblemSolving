@@ -1,16 +1,20 @@
-import numpy as np
+import math
 
-p = 0.25
+def normal_cdf(x):
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
 
-# (a) Simulate 50 games
-attempts = np.random.geometric(p, size=50)
-print("Attempts for 50 games:", attempts)
+n = 109
+mu_claim = 3800
 
-# (b) Compute sample mean
-sample_mean = np.mean(attempts)
+mean_total = n * mu_claim
+sd_total = math.sqrt(n * (mu_claim**2))
+threshold = 400000
 
-# Theoretical expected value
-theoretical_mean = 1 / p
+z = (threshold - mean_total) / sd_total
+p_total_gt = 1 - normal_cdf(z)
 
-print("Sample Mean Attempts:", sample_mean)
-print("Theoretical Expected Attempts:", theoretical_mean)
+print("Q3 Result:")
+print(f"Total mean = {mean_total:.2f}")
+print(f"Total SD   = {sd_total:.2f}")
+print(f"z = {z:.4f}")
+print(f"P(total > 400000) ≈ {p_total_gt:.6f}")

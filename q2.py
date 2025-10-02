@@ -1,23 +1,15 @@
-import numpy as np
+import math
 
-# (a) Simulate number of calls in 12 hours (Poisson with λ = 60)
-calls_12_hours = np.random.poisson(lam=60)
-print("Simulated calls in 12 hours:", calls_12_hours)
+# Helper: Normal CDF using error function
+def normal_cdf(x):
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
 
-# (b) Generate 1000 random samples for 1 hour (Poisson with λ = 5)
-samples = np.random.poisson(lam=5, size=1000)
+mu, sigma, n = 75, 25, 110
+se = sigma / math.sqrt(n)
+z = (82 - mu) / se
+p_gt_82 = 1 - normal_cdf(z)
 
-# Estimate probability of exactly 4 calls in an hour
-prob_4_calls = np.mean(samples == 4)
-print("Estimated P(X=4):", prob_4_calls)
-
-# (c) Compare sample mean and variance with theoretical values
-sample_mean = np.mean(samples)
-sample_variance = np.var(samples, ddof=1)  # unbiased
-theoretical_mean = 5
-theoretical_variance = 5
-
-print("Sample Mean:", sample_mean)
-print("Sample Variance:", sample_variance)
-print("Theoretical Mean:", theoretical_mean)
-print("Theoretical Variance:", theoretical_variance)
+print("Q2 Result:")
+print(f"Standard error = {se:.4f}")
+print(f"z = {z:.4f}")
+print(f"P(sample mean > 82) = {p_gt_82:.6f}")
