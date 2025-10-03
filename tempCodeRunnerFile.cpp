@@ -1,78 +1,78 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-#define ll long long 
-#pragma GCC optimize("03,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-
-ll canCut(vector<ll>&dandelions)
+struct Node
 {
-    //ith filed has ai dandelions 
+    Node* right;
+    Node* left;
+    int data;
 
-    //initially landmower is off
-
-    //if odd number of flowers then it toggles it's state 
-
-    //if lawnmower is on it will cut all dandelions in field otherwise no flower will be cut down
-
-    //find the max number of dandlions he can cut
-
-    //landmower can only toggle if any odd number comes
-
-    //so start the landmower put all even nums  then 
-    
-    ll evenSum = 0;
-    ll total= accumulate(dandelions.begin(),dandelions.end(),0LL);
-
-    vector<ll>odds;
-
-
-    for(auto fl :dandelions)
+    Node(int data)
     {
-        if(fl%2 == 0)evenSum+=fl;
-        else odds.push_back(fl);
+        this->right = NULL;
+        this->left = NULL;
+        this->data = data;
+    }
+};
+
+int leftHeight(Node* node)
+{
+    int h = 0 ;
+    while(node)
+    {
+        h++;
+        node = node->left;
+    }
+    return h;
+
+}
+
+int rightHeight(Node* node)
+{
+    int h = 0 ;
+    while(node)
+    {
+        h++;
+        node = node->right;
+    }
+    return h;
+}
+
+int countNodes(Node* root)
+{
+    //we just have to count the number of nodes present in the tree
+
+    if(!root)return 0;
+
+    int lh = leftHeight(root);
+    int rh = leftHeight(root);
+
+
+    //if tree is perfect
+    if(lh == rh)
+    {
+        return (1<<lh) - 1; //2^lh - 1 Nodes
     }
 
-    if(odds.size() == 1)//because then machine would never stop
-    return total;
-    
-    if(odds.empty())return 0;//machine never starts
-
-
-    sort(odds.rbegin(),odds.rend()); //descending sort
-
-    ll k = (odds.size() + 1) / 2;
-
-    ll oddSum=0;
-
-    for(int i = 0; i < k;i++)oddSum+=odds[i];//since we can only take largest k/2 odds only
-
-    return evenSum + oddSum;
+    return 1+ countNodes(root->left) + countNodes(root->right);
 }
+
+
 
 int main()
 {
 
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    Node* root = new Node(1);
+    root->left= new Node(2);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
 
-    int t;
-    cin>>t;
+    root->right = new Node(3);
+    root->right->left = new Node(6);
 
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        
-        vector<ll>dandelions(n);
-
-        for(int i = 0; i < n; i++)
-        {
-            cin>>dandelions[i];
-        }
-        
-        cout<<canCut(dandelions)<<endl;
-    }
-
+    cout<<countNodes(root)<<endl;
+    
     return 0;
+    
 }
