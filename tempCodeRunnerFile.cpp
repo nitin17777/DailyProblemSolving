@@ -1,78 +1,33 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-struct Node
+int maximumSwap(int num)
 {
-    Node* right;
-    Node* left;
-    int data;
+    //we can swap one digit at most once to get the max valued number
 
-    Node(int data)
-    {
-        this->right = NULL;
-        this->left = NULL;
-        this->data = data;
-    }
-};
+    string str = to_string(num);
+    int n = str.size();
 
-int leftHeight(Node* node)
-{
-    int h = 0 ;
-    while(node)
+    for(int i = 0;i<n;i++)
     {
-        h++;
-        node = node->left;
+        for(int j = n-1;j>=0;j--)
+        {
+            if(str[i] < str[j])
+            {
+                swap(str[i],str[j]);
+
+            }
+        }
     }
-    return h;
+    return stoi(str);
 
 }
-
-int rightHeight(Node* node)
-{
-    int h = 0 ;
-    while(node)
-    {
-        h++;
-        node = node->right;
-    }
-    return h;
-}
-
-int countNodes(Node* root)
-{
-    //we just have to count the number of nodes present in the tree
-
-    if(!root)return 0;
-
-    int lh = leftHeight(root);
-    int rh = leftHeight(root);
-
-
-    //if tree is perfect
-    if(lh == rh)
-    {
-        return (1<<lh) - 1; //2^lh - 1 Nodes
-    }
-
-    return 1+ countNodes(root->left) + countNodes(root->right);
-}
-
-
 
 int main()
 {
+    int num = 2736;
+    cout<<maximumSwap(num)<<endl;
 
-    Node* root = new Node(1);
-    root->left= new Node(2);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-
-    root->right = new Node(3);
-    root->right->left = new Node(6);
-
-    cout<<countNodes(root)<<endl;
-    
     return 0;
     
 }
