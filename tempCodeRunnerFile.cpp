@@ -1,33 +1,48 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int maximumSwap(int num)
+long long maxCakes(int n, vector<int>& cakes,int m)
 {
-    //we can swap one digit at most once to get the max valued number
+    //ith oven bakes ai cakes every second and ckae remains in their respective ovens until they are collected
 
-    string str = to_string(num);
-    int n = str.size();
+    //at end of each second she may teleport to any oven inc the one she is currently at and collect all the cakes that have acccumulated in that ovenn upto that point
 
-    for(int i = 0;i<n;i++)
+    //return the max number of cakes maple can collect in m seconds
+
+    //sorting in descending order
+    sort(cakes.begin(),cakes.end(),greater<int>());
+
+    //we can visit at most min(m,n)ovens
+
+    int ovensToVisit = min(m,n);
+
+    long long totalCakes =0;
+
+    for(int i = 0; i<ovensToVisit; i++)
     {
-        for(int j = n-1;j>=0;j--)
-        {
-            if(str[i] < str[j])
-            {
-                swap(str[i],str[j]);
-
-            }
-        }
+        long long time = m-i;
+        long long cakesFromOven = (long long)cakes[i] * time;
+        totalCakes+=cakesFromOven;
     }
-    return stoi(str);
-
+    return totalCakes;
 }
 
 int main()
 {
-    int num = 2736;
-    cout<<maximumSwap(num)<<endl;
+    int t;
+    cin>>t;
 
+    while(t--)
+    {
+        int m,n;
+        cin>>m>>n;
+
+        vector<int>cakes(n);
+        for(int i = 0;i<n;i++)
+        {
+            cin>>cakes[i];
+        }
+        cout<<maxCakes(n,cakes,m)<<endl;
+    }
     return 0;
-    
 }
