@@ -1,48 +1,41 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-long long maxCakes(int n, vector<int>& cakes,int m)
+int findJudge(int n, vector<vector<int>>& trust)
 {
-    //ith oven bakes ai cakes every second and ckae remains in their respective ovens until they are collected
+    //town judge trusts nobody
+    //everybody trusts the town judge and only such person exists
 
-    //at end of each second she may teleport to any oven inc the one she is currently at and collect all the cakes that have acccumulated in that ovenn upto that point
+    //trust[i] = [ai,bi] =>ai trusts person bi
+    //return -1 otherwise
 
-    //return the max number of cakes maple can collect in m seconds
+    if(n == 1)return 1;
 
-    //sorting in descending order
-    sort(cakes.begin(),cakes.end(),greater<int>());
+    vector<int>trustsOut(n+1,0), trustedBy(n+1,0);
 
-    //we can visit at most min(m,n)ovens
-
-    int ovensToVisit = min(m,n);
-
-    long long totalCakes =0;
-
-    for(int i = 0; i<ovensToVisit; i++)
+    for(auto& t:trust)
     {
-        long long time = m-i;
-        long long cakesFromOven = (long long)cakes[i] * time;
-        totalCakes+=cakesFromOven;
+        int a = t[0], b = t[1];
+
+        trustsOut[a]++;
+        trustedBy[b]++;
     }
-    return totalCakes;
+
+    for(int i = 0 ;i<=n;i++)
+    {
+        if(trustsOut[i] == 0 && trustedBy[i] == n-1)
+        return i;
+    }
+    return -1;
 }
+
 
 int main()
 {
-    int t;
-    cin>>t;
+    vector<vector<int>>trust = {{1,2}};
+    cout<<findJudge(2,trust)<<endl;
 
-    while(t--)
-    {
-        int m,n;
-        cin>>m>>n;
-
-        vector<int>cakes(n);
-        for(int i = 0;i<n;i++)
-        {
-            cin>>cakes[i];
-        }
-        cout<<maxCakes(n,cakes,m)<<endl;
-    }
     return 0;
+
 }

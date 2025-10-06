@@ -14,6 +14,7 @@ long long maxCakes(int n, vector<int> &cakes, int m)
 
     // we can visit at most min(m,n)ovens
 
+    // determining number of ovens to visit
     int ovensToVisit = min(m, n);
 
     long long totalCakes = 0;
