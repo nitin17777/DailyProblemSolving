@@ -1,60 +1,36 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
 using namespace std;
 
-int minSwapsCouples(vector<int>& row)
+int minOps(int a, int b)
 {
+    //choose any +ve integer x and multiply either a or b by x
 
-    //n couples sitting in 2n seats
-    //row[i] is the index of person sitting in the ith seat
+    //min tasks to make a equal to b and this is always possible
 
-    //couples are numbered in order first couple being (0,1),second : (2,3) .....(2n-2,2n-1)
+    if(a==b)return 0;
 
-    //return the min swaps required such that every couple is sitting side by side
+    if(a%b == 0 || b%a == 0)return 1;
 
-    //couple number = personID/2
-    
-    //Swap: simple swapping of both persons
+    return 2;
 
-
-    int n = row.size();
-    unordered_map<int,int>pos;
-
-    for(int i = 0;i< n;i++)
-    pos[row[i]] = i;
-
-    int swaps = 0;
-
-    for(int i = 0;i<n;i+=2)
-    {
-        int first = row[i];
-        int partner = first ^ 1;//finding partner :since  couples differ by one bit only 
-
-        if(row[i+1] != partner)
-        {
-            swaps++;
-        
-        int partnerPos = pos[partner];
-
-        //swap person in position i+1 with person at position partnerPos
-        swap(row[i+1], row[partnerPos]);
-
-        //updating their positions
-        pos[row[partnerPos]] = partnerPos;
-        pos[row[i+1]] = i+1;
-
-        }
-    }
-    return swaps;
 }
-
 
 int main()
 {
-    vector<int>row = {0,2,1,3};
-    cout<<minSwapsCouples(row)<<endl;
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int a,b;
+        cin>>a>>b;
+
+        cout<<minOps(a,b)<<endl;
+
+    }
+    
 
     return 0;
-
+    
 }
