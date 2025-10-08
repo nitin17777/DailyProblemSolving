@@ -1,56 +1,69 @@
-#include<iostream>
-#include<vector>
+#include <bits/stdc++.h>
 using namespace std;
 
-void merge(int arr1[],int n,int arr2[],int m,int arr3[])
+void merge(vector<int> &arr, int left, int mid, int right)
 {
-    int i = 0, j=0, k = 0 ;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
 
-    while(i<n && j<m)
+    vector<int> L(n1), R(n2);
+
+    // feeding elements till mid from start
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+
+    // feeding elements from mid to end
+    for (int i = 0; i < n2; i++)
+        R[i] = arr[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+
+    while (i < n1 && j < n2)
     {
-        if (arr1[i] < arr2[j])
+        if (L[i] <= R[j])
         {
-            arr3[k++] = arr1[i++];
+            arr[k++] = L[i++];
         }
         else
         {
-            arr3[k++] = arr2[j++];
+            arr[k++] = R[j++];
         }
     }
-//copy first array element
-    while(i<n)
-    {
-        arr3[k++] = arr1[i++];
 
-    }
-    while(j < m)
+    // pushing remaining elements
 
-    {
-        arr3[k++] = arr2[j++];
-    }
+    while (i < n1)
+        arr[k++] = L[i++];
+
+    while (j < n2)
+        arr[k++] = R[j++];
 }
 
-
-void print(int ans[],int n)
+void mergeSort(vector<int> &arr, int left, int right)
 {
-    for(int i = 0;i<n;i++)
-    {
-        cout<<ans[i]<<" ";
+    if (left >= right)
+        return;
 
-    }
-    cout<<endl;
+    int mid = left + (right - left) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    merge(arr, left, mid, right);
 }
 
 int main()
 {
-    int arr1[5] = {1,3,4,5,6};
-    int arr2[4] = {7,8,9,10};
+    vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
 
-    int arr3[9];
+    mergeSort(arr, 0, arr.size() - 1);
 
-    merge(arr1,5,arr2,4,arr3);
-    print(arr3,9);
+    for (auto &x : arr)
+    {
+        cout << x << " ";
+    }
 
-return 0;
+    cout << endl;
 
+    return 0;
 }
