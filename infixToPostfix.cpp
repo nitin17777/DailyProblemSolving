@@ -52,7 +52,7 @@ string infixToPostFix(string s)
                     break;
 
                 result += st.top();
-                st.pop(c);
+                st.pop();
             }
             st.push(c);
         }
@@ -68,9 +68,9 @@ string infixToPostFix(string s)
 
 int main()
 {
-    string exp = "A+B(C^D - E) ^ (F+G*H) - I";
+    string exp = "A+B(C^D-E)^(F+G*H)-I";
 
-    cout << infixToPostfix(exp) << endl;
+    cout << infixToPostFix(exp) << endl;
 
     return 0;
 }
