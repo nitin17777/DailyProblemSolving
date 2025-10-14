@@ -1,39 +1,61 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
-
-int maximumEnergy(vector<int>& energy, int k)
+vector<int> kWeakestRows(vector<vector<int>>& mat, int k)
 {
-    //after absorbing energy from magician i , we will be instantly transported to magician i+k and this will continue till i+k does not exist
+    //a row i is waker than row j if : 1-> no. of soldiers in i is less than no. of soldiers in row j
 
-    //return the max possible energy gained
+    //2 -> Both rows have same number of soldiers and i < j
 
-    //and when yu reach certain magician you must take energy 
+    //return the indices of weak rows in matrix ordered from weakest to strongest
 
+    int rows = mat.size();
+    int cols = mat[0].size();
 
-    //so find max energy we can gain 
+    //make the count list of every row with no. of soldiers. 
+    //Then push the row indices as per the number of soldiers in each row
 
-    int n = energy.size();
+    priority_queue<pair<int,int>, vector<pair<int,int>>,greater<pair<int,int>>>pq;
 
-    vector<vector<long long>dp(n);
+    
+    for(int i = 0;i< rows;i++)
+    {
+        int solCount = 0;
 
-    long long ans = LLONG_MIN;
+        for(int j = 0;j < cols;j++) 
+        {
+            solCount+=mat[i][j];
+        }
+        pq.push({solCount, i});
+    }
 
-    for (int i = n - 1; i >= 0; i--) {
-        if (i + k < n)
-            dp[i] = energy[i] + dp[i + k];
-        else
-            dp[i] = energy[i];
-        ans = max(ans, dp[i]);
+    vector<int>ans;
+    for(int i = 0; i<k; i++)
+    {
+        ans.push_back(pq.top().second);
+        pq.pop();
     }
     return ans;
 }
 
 int main()
 {
+    vector<vector<int>>matrix = 
+    {   {1,1,0,0,0},
+        {1,1,1,1,0},
+        {1,0,0,0,0},
+        {1,1,0,0,0},
+        {1,1,1,1,1}};
+    
+    vector<int>ans = kWeakestRows(matrix,3);
 
-    vector<int>energy = {5,2,-10,-5,1};
-    cout<<maximumEnergy(energy,3)<<endl;
+    for(auto & an :ans)
+    {
+        cout<<an<<" ";    
+    }
+
+    cout<<endl;
+    
     return 0;
 
 }

@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int maximumEnergy(vector<int> &energy, int k)
@@ -13,16 +13,23 @@ int maximumEnergy(vector<int> &energy, int k)
 
     int n = energy.size();
 
-    vector < vector<long long> dp(n);
+    // dp[i] will store the total energy collected if we start from index i
+
+    vector<long long> dp(n);
 
     long long ans = LLONG_MIN;
 
     for (int i = n - 1; i >= 0; i--)
     {
+        // if we can jump to i+k , add it's total energy
         if (i + k < n)
+        {
             dp[i] = energy[i] + dp[i + k];
-        else
+        }
+        else // otherwise this will be the last magician in this path
+        {
             dp[i] = energy[i];
+        }
         ans = max(ans, dp[i]);
     }
     return ans;
