@@ -1,61 +1,42 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<unordered_map>
 using namespace std;
 
-vector<int> kWeakestRows(vector<vector<int>>& mat, int k)
+int findSmallestInteger(vector<int>& nums, int value)
 {
-    //a row i is waker than row j if : 1-> no. of soldiers in i is less than no. of soldiers in row j
 
-    //2 -> Both rows have same number of soldiers and i < j
+    //in one operation we can add or subtract value from any element of nums
 
-    //return the indices of weak rows in matrix ordered from weakest to strongest
+    //return the maximimum MEX of nums after applying mentioned operation any number of times
 
-    int rows = mat.size();
-    int cols = mat[0].size();
-
-    //make the count list of every row with no. of soldiers. 
-    //Then push the row indices as per the number of soldiers in each row
-
-    priority_queue<pair<int,int>, vector<pair<int,int>>,greater<pair<int,int>>>pq;
-
-    
-    for(int i = 0;i< rows;i++)
+    unordered_map<int,int>count;
+    for(int x : nums)
     {
-        int solCount = 0;
-
-        for(int j = 0;j < cols;j++) 
-        {
-            solCount+=mat[i][j];
-        }
-        pq.push({solCount, i});
+        int r = ((x%value) + value) %value;
+        count[r]++;
     }
 
-    vector<int>ans;
-    for(int i = 0; i<k; i++)
+    int i = 0;
+
+    while(true)
     {
-        ans.push_back(pq.top().second);
-        pq.pop();
+        int r = i%value;
+
+        if(count[r] > 0) count[r]--;
+
+        else
+        return i;
+        i++;
     }
-    return ans;
+
 }
 
 int main()
 {
-    vector<vector<int>>matrix = 
-    {   {1,1,0,0,0},
-        {1,1,1,1,0},
-        {1,0,0,0,0},
-        {1,1,0,0,0},
-        {1,1,1,1,1}};
-    
-    vector<int>ans = kWeakestRows(matrix,3);
-
-    for(auto & an :ans)
-    {
-        cout<<an<<" ";    
-    }
-
-    cout<<endl;
+    vector<int>nums = {1,-10,7,13,6,8};
+    cout<<findSmallestInteger(nums,5)<<endl;
     
     return 0;
-
+    
 }

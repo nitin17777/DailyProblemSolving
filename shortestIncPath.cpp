@@ -13,11 +13,29 @@ int minSteps(int x, int y)
     // return the min number of steps needed to reach (x,y) else return -1
 
     // if y>x -> 3 steps
+
+    if (x == y || x == y + 1 || y == 1)
+        return -1;
+
+    else if (x < y)
+        return 2;
+
+    else
+        return 3;
 }
 
 int main()
 {
-    cout << minSteps(1, 2) << endl;
+    int t;
+    cin >> t;
+
+    while (t--)
+    {
+        int x, y;
+        cin >> x >> y;
+
+        cout << minSteps(x, y) << endl;
+    }
 
     return 0;
 }
