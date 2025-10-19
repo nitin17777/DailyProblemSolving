@@ -1,42 +1,75 @@
-#include<iostream>
-#include<vector>
-#include<unordered_map>
+#include<bits/stdc++.h>
 using namespace std;
 
-int findSmallestInteger(vector<int>& nums, int value)
+/*
+bool isPalindrome(string s)
 {
-
-    //in one operation we can add or subtract value from any element of nums
-
-    //return the maximimum MEX of nums after applying mentioned operation any number of times
-
-    unordered_map<int,int>count;
-    for(int x : nums)
+    int n =s.size();
+    int i =0;j=n-1;
+    while(i<=j)
     {
-        int r = ((x%value) + value) %value;
-        count[r]++;
+        if(s[i] != s[j])return false;
+        
+        else i++;
+        j--;
+
     }
+    return true;
 
-    int i = 0;
+}
+    */
 
-    while(true)
+vector<int>subSeq(string s)
+{
+    int n = s.size();
+
+    //find subsequence of p such that : 
+    //It is increasing
+
+    //Let x be string obtained by removing all characters of p from s with order of remaining characters, then x must be a palindrome
+
+    //just return any subsequence that follows it else return -1
+
+
+     
+    //Removed substring must be non increasing , still successive elements can be greater
+
+    //and now remaining string should be palindrome
+
+    //return the indices of chars removed
+    // if(isPalindrome(s))
+    // return {};
+
+    vector<int>ans;
+    for(int i = 0; i <n;i++)
     {
-        int r = i%value;
-
-        if(count[r] > 0) count[r]--;
-
-        else
-        return i;
-        i++;
+        if(s[i] =='0')
+        ans.push_back(i);
     }
-
+    return ans;
 }
 
 int main()
 {
-    vector<int>nums = {1,-10,7,13,6,8};
-    cout<<findSmallestInteger(nums,5)<<endl;
-    
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        string s;
+        cin>>s;
+
+    vector<int>ans = subSeq(s);
+
+    cout<<ans.size()<<endl;
+
+    for(auto&an:ans)
+    {
+        cout<<an<<" ";
+    }
+    cout<<endl;
+    }
     return 0;
-    
 }
