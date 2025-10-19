@@ -1,7 +1,35 @@
-#include<bits/stdc++.h>
-using namespace std; 
+#include <bits/stdc++.h>
+using namespace std;
 #define ll long long
 
+ll solve(int a, int b)
+{
+    // choose an integer k such that b is divisible by k
+
+    // multiply a by k
+    //  divide b by k
+
+    // find greatest possible even value of a+b, and if it is impossible to make a+b even , output -1 instead
+
+    ll maxEvenSum = -1;
+    for (int k = 1; k <= b; k++)
+    {
+        if (b % k == 0)
+        {
+            ll newA = a * k;
+            ll newB = b / k;
+
+            ll sum = newA + newB;
+            if (sum % 2 == 0)
+            {
+                maxEvenSum = max(sum, maxEvenSum);
+            }
+        }
+    }
+    return maxEvenSum;
+}
+
+/*
 ll solve(int a, int b)
 {
     //choose an integer k such that b is divisible by k
@@ -10,7 +38,7 @@ ll solve(int a, int b)
     {
         //then multiply a by k and divide b by k
         if(b%k == 0)
-        { 
+        {
             ll newA = a*k;
             ll newB = b/k;
 
@@ -25,20 +53,20 @@ ll solve(int a, int b)
     }
     return maxEvenSum;
 }
-
+*/
 int main()
 {
     int t;
-    cin>>t;
+    cin >> t;
 
-    while(t--)
+    while (t--)
     {
-        int a,b;
-        cin>>a>>b;
+        int a, b;
+        cin >> a >> b;
 
-        ll ans = solve(a,b);
+        ll ans = solve(a, b);
 
-        cout<<ans<<endl;
+        cout << ans << endl;
     }
     return 0;
 }

@@ -1,53 +1,48 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-/*
-bool isPalindrome(string s)
+int minCost(vector<int>&arr)
 {
-    int n =s.size();
-    int i =0;j=n-1;
-    while(i<=j)
+    //awesome if : If i odd -> bi < b i+1 holds
+                // If i is even -> bi > bi+1 holds
+                //elements at even position are always greater than elements at odd positions
+
+                 //b1<b2>b3<b4 simply
+
+    //we can do 2 opertaions:1=>select i and do ai = max(a1,a2,...ai)
+                          // 2=>or select i and decrease ai by 1
+
+    //Determine min number of times we need to do operation 2 to make given array awesome
+    int n = arr.size();
+    int cost = 0;
+
+
+    for(int i = 0;i+1 <n;i++)
     {
-        if(s[i] != s[j])return false;
+        if(i%2 ==0)
+        {
+            if(arr[i] > arr[i+1])
+            {
+                int diff = arr[i] -arr[i+1] +1;
+                cost+=diff;
+              arr[i] -= diff; // decrease current to make it smaller
+            }
+        } 
         
-        else i++;
-        j--;
-
+        else 
+        { // i is odd => need a[i] > a[i+1]
+            if (arr[i] <= arr[i+1]) {
+                int diff = arr[i+1] - arr[i] + 1;
+                cost += diff;
+                arr[i+1] -= diff; // decrease next to make it smaller
+            }
+        }
     }
-    return true;
 
+    return cost;
 }
-    */
 
-vector<int>subSeq(string s)
-{
-    int n = s.size();
-
-    //find subsequence of p such that : 
-    //It is increasing
-
-    //Let x be string obtained by removing all characters of p from s with order of remaining characters, then x must be a palindrome
-
-    //just return any subsequence that follows it else return -1
-
-
-     
-    //Removed substring must be non increasing , still successive elements can be greater
-
-    //and now remaining string should be palindrome
-
-    //return the indices of chars removed
-    // if(isPalindrome(s))
-    // return {};
-
-    vector<int>ans;
-    for(int i = 0; i <n;i++)
-    {
-        if(s[i] =='0')
-        ans.push_back(i);
-    }
-    return ans;
-}
 
 int main()
 {
@@ -58,18 +53,13 @@ int main()
     {
         int n;
         cin>>n;
-        string s;
-        cin>>s;
 
-    vector<int>ans = subSeq(s);
-
-    cout<<ans.size()<<endl;
-
-    for(auto&an:ans)
-    {
-        cout<<an<<" ";
+        vector<int>arr(n);
+        for(int i =0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        cout<<minCost(arr)<<endl;
     }
-    cout<<endl;
-    }
-    return 0;
+        return 0; 
 }
