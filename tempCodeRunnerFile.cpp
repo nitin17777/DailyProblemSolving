@@ -2,64 +2,79 @@
 #include<vector>
 using namespace std;
 
-int minCost(vector<int>&arr)
+
+
+int minStartValue(vector<int>& nums)
 {
-    //awesome if : If i odd -> bi < b i+1 holds
-                // If i is even -> bi > bi+1 holds
-                //elements at even position are always greater than elements at odd positions
-
-                 //b1<b2>b3<b4 simply
-
-    //we can do 2 opertaions:1=>select i and do ai = max(a1,a2,...ai)
-                          // 2=>or select i and decrease ai by 1
-
-    //Determine min number of times we need to do operation 2 to make given array awesome
-    int n = arr.size();
-    int cost = 0;
-
-
-    for(int i = 0;i+1 <n;i++)
+    int n = nums.size();
+    vector<int>prefixSum(n);
+    prefixSum[0] = nums[0];
+    for(int i = 1;i<n;i++)
     {
-        if(i%2 ==0)
-        {
-            if(arr[i] > arr[i+1])
-            {
-                int diff = arr[i] -arr[i+1] +1;
-                cost+=diff;
-              arr[i] -= diff; // decrease current to make it smaller
-            }
-        } 
-        
-        else 
-        { // i is odd => need a[i] > a[i+1]
-            if (arr[i] <= arr[i+1]) {
-                int diff = arr[i+1] - arr[i] + 1;
-                cost += diff;
-                arr[i+1] -= diff; // decrease next to make it smaller
-            }
-        }
+        prefixSum[i] = prefixSum[i-1] + nums[i];
     }
 
-    return cost;
+    int start = nums[0];
+
+    for(int i = 0; i < n;i++)
+    {
+        if(start+nums[i] < 1)start++;
+    }
+
+    return start;
+
 }
+
+/*
+int minStartValue(vector<int>& nums)
+{
+    //start with any value you want  
+
+    //which start value will be such that sum at none of the step would be less than 1
+
+    int n = nums.size();
+    int negative = 0, positive =0;
+
+    // for(int i =0 ;i <n;i++)
+    // {
+    //     if(nums[i] < 0)
+    //     {
+    //         negative +=nums[i];
+    //     }
+    //     else
+    //     {
+    //         positive+=nums[i];
+    //     }
+    // }
+
+    // if(negative < positive)return 1;
+
+    int start = nums[0]+1;
+
+    
+    int i = 0;
+   // for(int i = start;i<100;i++)
+   while(i<n)
+    {
+        start+=nums[i];
+
+        if(start<1)
+        start++; 
+        
+        else i++;
+    }
+    return start;
+
+
+}
+*/
 
 
 int main()
 {
-    int t;
-    cin>>t;
+    vector<int>nums = {-3,2,-3,4,2};
+    cout<<minStartValue(nums)<<endl;
 
-    while(t--)
-    {
-        int n;
-        cin>>n;
-
-        vector<int>arr(n);
-        for(int i =0;i<n;i++)
-        {
-            cin>>arr[i];
-        }
-        cout<<minCost(arr)<<endl;
-    }
-        return 0; 
+    return 0;
+    
 }

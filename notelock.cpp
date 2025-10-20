@@ -3,7 +3,7 @@ using namespace std;
 
 bool prevEle(string s, int idx, int k)
 {
-    // check if prev k-1 elements are 1 or not
+    // check if anyg of the prev k-1 elements are 1 or not
     int start = max(0, idx - (k - 1));
 
     for (int i = start; i < idx; i++)
