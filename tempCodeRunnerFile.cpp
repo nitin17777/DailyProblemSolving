@@ -1,59 +1,46 @@
-#include<iostream>
-#include<vector>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-vector<int> shuffle(vector<int>& nums, int n)
+bool canMake(vector<int>&arr)
 {
-    vector<int>ans;
+    //array a is good if and only if : mex(ai, a i+1, ai+2) = max(ai,ai+1,ai+2) - min(ai, a i+1, ai+2)
 
-    for(int i = 0;i < nums.size()/2; i++)
+    // Case 1: If MEX == 0: Then all elements must be equal, because then only MAX == MIN
+
+    // Case 2: IF MEX != 0: Then MIN == 0 and then MEX == MAX, but this is not possible because MEX can't be present in the sequence we have....So this case is not possible ....So we have only 1st condition remaining
+
+    //So remove all -1 from given array and check if all remaining elements are equal and non zero
+    int n = arr.size();
+
+    set<int>s;
+
+    for(int x: arr)
     {
-        ans.push_back(nums[i]);
-        ans.push_back(nums[n+i]);
+        if(x != -1)s.insert(x);
     }
-    return ans;
+
+    if(s.size() == 1 && *s.begin() != 0)return true;
+
+
+    else return false;
 }
-
-
-/*
-vector<int> shuffle(vector<int>& nums, int n)
-{
-    int m = nums.size();
-    vector<int>left;
-
-    vector<int>right;
-
-    for(int i = 0;i<n;i++)
-    {
-        left.push_back(nums[i]);
-    }//left = {2,5,1}
-
-    for(int i = n;i<m;i++)
-    {
-        right.push_back(nums[i]);
-    }//right = {3,4,7}
-
-    
-
-    vector<int>ans;
-    for(int i = 0;i < m/2;i++)
-    {
-        ans.push_back(left[i]);
-        ans.push_back(right[i]);    
-    }
-    return ans;
-}
-*/
 
 int main()
 {
-    vector<int>nums = {2,5,1,3,4,7};
-    vector<int>ans = shuffle(nums,3);
+    int t;
+    cin>>t;
 
-    for(auto&an: ans)cout<<an<<" ";
+    while(t--)
+    {
+        int n;
+        cin>>n;
 
-    cout<<endl;
+        vector<int>arr(n);
+        for(int i = 0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        cout<<((canMake(arr))? "Yes" : "No")<<endl;
+    }
     return 0;
-    
 }

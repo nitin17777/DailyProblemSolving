@@ -3,6 +3,20 @@ using namespace std;
 
 int maxSlices(int n)
 {
+    int ans = 0;
+
+    while (n > 2)
+    {
+        ans += n / 3;
+
+        n = n / 3 + n % 3;
+    }
+    return ans;
+}
+
+/*
+int maxSlices(int n)
+{
     // if atmost 2 slices are remaining ,alex eats all
 
     // otherwise , let m>=3 , Hao splits them into three groups of sizes m1 m2 m3 :  m= m1+m2+m3  : 1 <= m1 <= m2 <= m3
@@ -37,7 +51,7 @@ int maxSlices(int n)
         n = m3;
     }
     return totalHao;
-}
+}*/
 
 int main()
 {
