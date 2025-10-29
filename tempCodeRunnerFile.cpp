@@ -1,46 +1,24 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool canMake(vector<int>&arr)
+bool canMeasureWater(int x, int y, int target)
 {
-    //array a is good if and only if : mex(ai, a i+1, ai+2) = max(ai,ai+1,ai+2) - min(ai, a i+1, ai+2)
+    //we have two jugs with capacity x and y
 
-    // Case 1: If MEX == 0: Then all elements must be equal, because then only MAX == MIN
+    //return whether both jugs may reach target using : 1-> Fill either jug completely with water
 
-    // Case 2: IF MEX != 0: Then MIN == 0 and then MEX == MAX, but this is not possible because MEX can't be present in the sequence we have....So this case is not possible ....So we have only 1st condition remaining
+    //2->completely empty other jug
 
-    //So remove all -1 from given array and check if all remaining elements are equal and non zero
-    int n = arr.size();
+    //pour water from one jug to another until receiving jug is full
 
-    set<int>s;
-
-    for(int x: arr)
-    {
-        if(x != -1)s.insert(x);
-    }
-
-    if(s.size() == 1 && *s.begin() != 0)return true;
-
-
+    if((x+y >= target) && (target % __gcd(x,y) == 0))return true;
     else return false;
+
 }
 
 int main()
 {
-    int t;
-    cin>>t;
-
-    while(t--)
-    {
-        int n;
-        cin>>n;
-
-        vector<int>arr(n);
-        for(int i = 0;i<n;i++)
-        {
-            cin>>arr[i];
-        }
-        cout<<((canMake(arr))? "Yes" : "No")<<endl;
-    }
+    cout<<(canMeasureWater(3,5,4) ? "true" : "false")<<endl;
     return 0;
+    
 }
