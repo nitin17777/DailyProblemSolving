@@ -1,24 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool canMeasureWater(int x, int y, int target)
+int ways(int d,vector<int>& heights)
 {
-    //we have two jugs with capacity x and y
+    //find number of pairs 
+    int n = heights.size();
 
-    //return whether both jugs may reach target using : 1-> Fill either jug completely with water
-
-    //2->completely empty other jug
-
-    //pour water from one jug to another until receiving jug is full
-
-    if((x+y >= target) && (target % __gcd(x,y) == 0))return true;
-    else return false;
+    int count = 0;
+    for(int i = 0; i < n;i++)
+    {
+        for(int j = i+1;j<n;j++)
+        {
+            if(abs(heights[i] - heights[j]) <= d)count++;
+        }
+    }
+    return count*2;
 
 }
 
 int main()
 {
-    cout<<(canMeasureWater(3,5,4) ? "true" : "false")<<endl;
+    int n,d;
+    cin>>n>>d;
+
+    vector<int>heights(n);
+    for(int i = 0;i < n;i++)cin>>heights[i];
+
+    cout<<ways(d,heights)<<endl;
+
     return 0;
     
 }
