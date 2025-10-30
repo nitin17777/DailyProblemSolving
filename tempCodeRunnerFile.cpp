@@ -1,32 +1,61 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int ways(int d,vector<int>& heights)
+bool isPalindrome(string& s, int i,int j)
 {
-    //find number of pairs 
-    int n = heights.size();
-
-    int count = 0;
-    for(int i = 0; i < n;i++)
+    while(i<=j)
     {
-        for(int j = i+1;j<n;j++)
+        if(s[i] != s[j])return false;
+        i++;
+        j--;
+    }
+    return true;
+}
+
+void solve(int start, string&s, vector<string>&path,vector<vector<string>>& ans)
+{
+    //when entire string is covered, push the current partition
+    if(start == s.size())
+    {
+        ans.push_back(path);
+        return;
+    }
+
+    for(int end = start; end<s.size();end++)
+    {
+
+        if(isPalindrome(s,start,end))
         {
-            if(abs(heights[i] - heights[j]) <= d)count++;
+            path.push_back(s.substr(start,end-start+1));
+            solve(end+1, s,path,ans);
+            path.pop_back(); //backtrack 
         }
     }
-    return count*2;
+}
 
+vector<vector<string>> partition(string s)
+{
+    //partition s such that every substring of partition is a palindrome
+
+    vector<vector<string>>ans;
+    vector<string>path;
+
+    solve(0,s,path,ans);
+    return ans;
 }
 
 int main()
 {
-    int n,d;
-    cin>>n>>d;
+    vector<vector<string>>ans = partition("aab");
 
-    vector<int>heights(n);
-    for(int i = 0;i < n;i++)cin>>heights[i];
-
-    cout<<ways(d,heights)<<endl;
+    for(auto & an : ans)
+    {
+        for(auto a: an)
+        {
+            cout<<a<<" ";
+        }
+        cout<<endl;
+    }
 
     return 0;
     
