@@ -2,6 +2,7 @@
 using namespace std;
 #define ll long long
 
+/*
 bool areSame(ll a, ll b)
 {
     if (a % 2 == b % 2)
@@ -13,6 +14,7 @@ bool areSame(ll a, ll b)
 vector<ll> correct(vector<ll> &nums)
 {
     // numbers can only be swapped if both have different parity
+    // we need to find the lexicogrpahically smalles possible sequence possible
 
     int n = nums.size();
 
@@ -28,6 +30,7 @@ vector<ll> correct(vector<ll> &nums)
     }
     return nums;
 }
+    */
 
 int main()
 {
@@ -43,9 +46,25 @@ int main()
         for (int i = 0; i < n; i++)
             cin >> nums[i];
 
-        vector<ll> ans = correct(nums);
+        bool even = false;
+        bool odd = false;
 
-        for (auto &an : ans)
+        for (int i = 0; i < n; i++)
+        {
+            if (nums[i] % 2 == 0)
+                even = true;
+            else
+                odd = true;
+        }
+
+        if (even && odd)
+        {
+            sort(nums.begin(), nums.end());
+        }
+
+        // vector<ll> ans = correct(nums);
+
+        for (auto &an : nums)
         {
             cout << an << " ";
         }

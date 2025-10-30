@@ -2,32 +2,6 @@
 #define ll long long
 using namespace std;
 
-vector<ll> smallest(vector<ll> &nums)
-{
-    int n = nums.size();
-
-    // gcd of full given array
-    ll g = nums[0];
-    for (int i = 1; i < n; i++)
-    {
-        g = __gcd(g, a[i]);
-    }
-
-    if (g == 1)
-        return 2;
-
-    ll ans = -1;
-    for (ll x = 2; x <= 1000000000; x++)
-    {
-        if (__gcd(x, g) == 1)
-        {
-            ans = x;
-            break;
-        }
-        return ans;
-    }
-}
-
 int main()
 {
     int t;
@@ -43,7 +17,25 @@ int main()
         {
             cin >> nums[i];
         }
-        cout << smallest(nums) << endl;
+
+        for (ll x : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53})
+        {
+            int ok = 0;
+            for (ll i : nums)
+            {
+                if (i % x != 0)
+                {
+                    ok = 1;
+                    break;
+                }
+            }
+
+            if (ok)
+            {
+                cout << x << endl;
+                break;
+            }
+        }
     }
     return 0;
 }
