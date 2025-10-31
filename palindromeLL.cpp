@@ -1,63 +1,81 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 struct Node
 {
     int data;
-    Node* next;
+    Node *next;
 
     Node(int val)
     {
         this->data = val;
         this->next = NULL;
-
     }
 };
 
-
-Node*front;
-
-
-bool check(Node*curr)
+Node *rev(Node *head)
 {
+    Node *prev = NULL;
 
-    //Base case when current is NULL
-    if(!curr)return true;
+    while (head)
+    {
+        Node *nextNode = head->next;
 
-    if(!check(curr->next))return false;
+        head->next = prev;
+        prev = head;
 
-    if(curr->val != front->val)
-    return false;
-
-    front = front->next;
-
-    return true;
-
+        head = nextNode;
+    }
+    return prev;
 }
 
-bool isPal(Node*head)
+bool isPal(Node *head)
 {
+    if (!head || !head->next)
+        return true;
 
+    Node *slow = head, *fast = head;
+
+    // To find mid
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    // Reversing second half
+    slow = rev(slow);
+    Node *secondHalf = slow;
+    Node *firstHalf = head;
+
+    while (secondHalf)
+    {
+        if (firstHalf->data != secondHalf->data)
+            return false;
+
+        firstHalf = firstHalf->next;
+        secondHalf = secondHalf->next;
+    }
+
+    return true;
 }
 
 int main()
 {
-    Node* root = new Node(1);
+    Node *root = new Node(1);
     root->next = new Node(2);
     root->next->next = new Node(2);
     root->next->next->next = new Node(1);
 
-    if(isPal(root))
+    if (isPal(root))
     {
-        cout<<"Is Palindrome."<<endl;
-
+        cout << "Is Palindrome." << endl;
     }
     else
     {
-        cout<<"Is not a Palindrome."<<endl;
+        cout << "Is not a Palindrome." << endl;
     }
 
     return 0;
-
 }

@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 /*
 void func(char c,vector<bool>&visited)
@@ -21,7 +21,7 @@ vector<int>finalBlacks(string&s, vector<int>&initialB)
     //each cell is either black or white
     //initially m blocks are black and others are white
 
-    //if a person is on some cell x, he might be given two types of commands: 
+    //if a person is on some cell x, he might be given two types of commands:
     //A -> jump to the next cell (x+1)
     //B ->jump to the next white cell  i.e minimum y> x : y is white
 
@@ -75,45 +75,47 @@ vector<int>finalBlacks(string&s, vector<int>&initialB)
 int main()
 {
     int t;
-    cin>>t;
+    cin >> t;
 
-    while(t--)
+    while (t--)
     {
-        int n,m;
+        int n, m;
         string s;
-        cin>>n>>m>>s;
+        cin >> n >> m >> s;
 
-        set<int>a; //To store black cells
-        for(int i = 0;i<m;i++)
+        set<int> a; // To store black cells
+        for (int i = 0; i < m; i++)
         {
-            int x; 
-            cin>>x;
+            int x;
+            cin >> x;
             a.insert(x);
         }
 
-
         int curr = 1;
-        for(char c: s)
+        for (char c : s)
         {
             curr++;
 
-            //This one is for simulating correct B movement 
-            if(c == 'B')
+            // This one is for simulating correct B movement
+            if (c == 'B')
             {
-                while(a.count(curr))curr++; //until we have that curr which is already colored black
+                while (a.count(curr))
+                    curr++; // until we have that curr which is already colored black
             }
             a.insert(curr);
 
-
-            if(c == 'B')
+            // After painting, skip blacks again to prepare correct next landing position
+            if (c == 'B')
             {
-                while(a.count(curr))curr++;
+                while (a.count(curr))
+                    curr++;
             }
         }
 
-        cout<<a.size()<<'\n';
-        for(auto &x :a)cout<<x<<" ";
-        cout<<'\n';
+        cout << a.size() << '\n';
+        for (auto &x : a)
+            cout << x << " ";
+        cout << '\n';
     }
     return 0;
 }
