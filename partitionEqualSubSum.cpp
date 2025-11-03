@@ -1,38 +1,32 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-
-bool canPartition(vector<int>&arr)
+bool canPartition(vector<int> &nums)
 {
-    //we have to return true if we can partition the given array into two subsets such that the sum of elements in both subsets is equall , else return false
-
+    // we have to return true if we can partition the given array into two subsets such that the sum of elements in both subsets is equall , else return false
 
     // to calculate the sum of  elements of range
-    int total = accumulate(nums.begin(),num.end(),0);
+    int total = accumulate(nums.begin(), num.end(), 0);
     //(start_iterator, end_iterator, initial_value)
 
-    //we should know that, if the total sum is odd no. , we can't spilt it into two eqaul subsets
-    if(total % 2 != 0)
-    return false;
+    // we should know that, if the total sum is odd no. , we can't spilt it into two eqaul subsets
+    if (total % 2 != 0)
+        return false;
 
-    //defining total sum sum for one subet
-    int target = total/2;
+    // defining total sum sum for one subet
+    int target = total / 2;
 
+    // now creating a dp to track which subset sums are possible , and initially , every element is marked false;
 
-    //now creating a dp to track which subset sums are possible , and initially , every element is marked false;
+    vector<bool> dp(target + 1, false);
 
+    dp[0] = true; // since subset of 0 is always possible , i.e by taking no elements
 
-    vector<bool>dp(target +1 , false);
-
-    dp[0] =true; // since subset of 0 is always possible , i.e by taking no elements
-
-
-    for(int num :nums)
+    for (int num : nums)
     {
-        for(int j = target; j>= 0 ; j--)
+        for (int j = target; j >= 0; j--)
         {
-            dp[j] = dp[j] || dp[j-num];
-
+            dp[j] = dp[j] || dp[j - num];
         }
     }
     return dp[target];
@@ -41,16 +35,16 @@ bool canPartition(vector<int>&arr)
 int main()
 {
 
-    vector<int>arr = {1,5,11,5};
+    vector<int> arr = {1, 5, 11, 5};
 
-    if(canPartition(arr))
+    if (canPartition(arr))
     {
-        cout<<"The array can be partitioned."<<endl;
+        cout << "The array can be partitioned." << endl;
     }
 
     else
     {
-        cout<<"The array cannot be partitioned."<<endl;
+        cout << "The array cannot be partitioned." << endl;
     }
 
     return 0;
