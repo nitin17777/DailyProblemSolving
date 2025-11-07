@@ -1,56 +1,44 @@
 #include<bits/stdc++.h>
+#define int long long
 using namespace std;
 
-bool search(vector<int>& nums, int target)
+vector<int>solve(vector<int>&nums)
 {
-    int l = 0,r = nums.size()-1;
-
-    while(l<=r)
+    int n = nums.size();
+    //if two even nums are there, return them
+    for(int i= 0;i< n;i++)
     {
-        int mid = l+ (r-l)/2;
-
-        if(nums[mid] == target)return true;
-
-        //When we are unable to determine the sorted part:Simply shrink
-        if(nums[l] == nums[mid] && nums[mid] == nums[r])
+        for(int j = i+1;j<n;j++)
         {
-            l++;
-            r--;
-        }
-
-        //left half sorted
-        else if(nums[l] <= nums[mid])
-        {
-            if(nums[l] <= target && target < nums[mid])
+            int rem = nums[j] %nums[i];
+            if(rem%2 ==0)
             {
-                r = mid-1;
-            }
-            else l = mid+1;
-        }
-
-        else
-        {
-            if(nums[mid] < target && target <=nums[r])
-            {
-                l = mid+1;
-            }
-            else
-            {
-                r = mid - 1;
-
+                return {nums[i], nums[j]};
+                
             }
         }
     }
-    return false;
-    
-
+    return {-1};
 }
 
-int main()
+int32_t main()
 {
-    vector<int>nums = {2,5,6,0,0,1,2};
-    cout<<(search(nums,0) ? "true" : "false");
+    int t;
+    cin>>t;
 
+    while(t--)
+    {
+        int n;cin>>n;
+
+        vector<int>nums(n);
+        for(auto&x: nums)cin>>x;
+
+        //Find such pair such that x<y and y%x == is an even number, else return -1
+
+        vector<int>ans = solve(nums);
+        for(auto&an:ans)cout<<an<<" ";
+
+        cout<<endl;
+    }
     return 0;
-    
 }

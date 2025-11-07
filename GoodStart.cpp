@@ -1,45 +1,37 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-bool canTile(long long w,long long h,long long a,long long b,long long x1,long long y1,long long x2,long long y2)
+bool canTile(long long w, long long h, long long a, long long b, long long x1, long long y1, long long x2, long long y2)
 {
-    // Remove the check on w % a and h % b
+    // We need to cover the roof with tiles of size a*b : Sheets can't be rotated + they must not overlap + These sheets can extend beyond thhe boundaries of the recatngualar roof
 
-    // Safe mod function to handle negative coordinates
-    auto mod = [](long long x, long long m) {
-        return (x % m + m) % m;
-    };
-
-    // Check if both existing tiles align with the grid
-    if(mod(x1, a) != 0 || mod(y1, b) != 0) return false;
-    if(mod(x2, a) != 0 || mod(y2, b) != 0) return false;
-
-    return true;
+    // Determine if it is possible to completely tile the roof without removing either of the two already placed sheets
 }
-
 
 int main()
 {
-
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int t;
     cin >> t;
 
-    while(t--)
+    while (t--)
     {
-        long long w,h,a,b;
+        long long w, h, a, b;
 
-        long long x1,y1,x2,y2;
-        cin>>w >> h>> a>>b;
-        cin>>x1 >> y1>>x2>>y2;
+        long long x1, y1, x2, y2;
+        cin >> w >> h >> a >> b;
+        cin >> x1 >> y1 >> x2 >> y2;
 
-        if (canTile(w, h, a, b, x1, y1, x2, y2)) {
+        if (canTile(w, h, a, b, x1, y1, x2, y2))
+        {
             cout << "Yes\n";
-        } else {
+        }
+        else
+        {
             cout << "No\n";
         }
     }
-return 0;
+    return 0;
 }
