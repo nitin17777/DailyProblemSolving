@@ -1,44 +1,55 @@
 #include<bits/stdc++.h>
-#define int long long
 using namespace std;
 
-vector<int>solve(vector<int>&nums)
+int minGold(vector<int>& wealth)
 {
-    int n = nums.size();
-    //if two even nums are there, return them
-    for(int i= 0;i< n;i++)
-    {
-        for(int j = i+1;j<n;j++)
-        {
-            int rem = nums[j] %nums[i];
-            if(rem%2 ==0)
-            {
-                return {nums[i], nums[j]};
-                
-            }
-        }
-    }
-    return {-1};
+    int n = wealth.size();
+    
+    // Special case: if n <= 2, more than half can never be unhappy
+    if(n <= 2) return -1;
+    
+    sort(wealth.begin(), wealth.end());
+    
+    int maxWealth = wealth[n-1];
+    
+    // We need strictly more than n/2 people to be unhappy
+    // So at least (n/2 + 1) people should be unhappy
+    int requiredUnhappy = n/2 + 1;
+    
+    // The (requiredUnhappy)th person from the end should be unhappy
+    // After sorting, this is wealth[n - requiredUnhappy]
+    int medianWealth = wealth[n - requiredUnhappy];
+    
+    // For median person to be unhappy:
+    // medianWealth < (totalWealth + x) / (2 * n)
+    // 2 * n * medianWealth < totalWealth + x
+    // x > 2 * n * medianWealth - totalWealth
+    
+    long long totalWealth = 0;
+    for(int w : wealth) totalWealth += w;
+    
+    long long x = 2LL * n * medianWealth - totalWealth + 1;
+    
+    // x cannot be negative
+    if(x <= 0) return -1;
+    
+    return (int)x;
 }
 
-int32_t main()
+int main()
 {
     int t;
-    cin>>t;
-
+    cin >> t;
+    
     while(t--)
     {
-        int n;cin>>n;
-
-        vector<int>nums(n);
-        for(auto&x: nums)cin>>x;
-
-        //Find such pair such that x<y and y%x == is an even number, else return -1
-
-        vector<int>ans = solve(nums);
-        for(auto&an:ans)cout<<an<<" ";
-
-        cout<<endl;
+        int n;
+        cin >> n;
+        
+        vector<int> wealth(n);
+        for(auto& x : wealth) cin >> x;
+        
+        cout << minGold(wealth) << endl;
     }
     return 0;
 }
