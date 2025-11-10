@@ -1,55 +1,57 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minGold(vector<int>& wealth)
+bool isPossible(int k,vector<int>&h)
 {
-    int n = wealth.size();
+    /* 
+    At time 0, we are on tower heights[k]
+    Water level rises by 1 unit each second
+    //if water level  > height of tower, you perish
+
+    We can jump from tower i to tower j in |hi - hj|seconds
+    And teleportation can start the moment we just arrive at tower j
+
     
-    // Special case: if n <= 2, more than half can never be unhappy
-    if(n <= 2) return -1;
-    
-    sort(wealth.begin(), wealth.end());
-    
-    int maxWealth = wealth[n-1];
-    
-    // We need strictly more than n/2 people to be unhappy
-    // So at least (n/2 + 1) people should be unhappy
-    int requiredUnhappy = n/2 + 1;
-    
-    // The (requiredUnhappy)th person from the end should be unhappy
-    // After sorting, this is wealth[n - requiredUnhappy]
-    int medianWealth = wealth[n - requiredUnhappy];
-    
-    // For median person to be unhappy:
-    // medianWealth < (totalWealth + x) / (2 * n)
-    // 2 * n * medianWealth < totalWealth + x
-    // x > 2 * n * medianWealth - totalWealth
-    
-    long long totalWealth = 0;
-    for(int w : wealth) totalWealth += w;
-    
-    long long x = 2LL * n * medianWealth - totalWealth + 1;
-    
-    // x cannot be negative
-    if(x <= 0) return -1;
-    
-    return (int)x;
+    Goal is to reach any tower with max height before water covers me
+
+
+    */
+    int n = h.size();
+
+    sort(h.begin(),h.end());
+    int i = 0;
+
+    while(h[i] != k)i++;
+
+    //we reached the tower in which we are at
+
+    //now check and reach the end of the array
+    int diffs = 0;
+
+    for(int k = i;k<n-1;k++)//seeing difference till we reach the end
+    {
+        diffs += h[i+1] -h[i];
+    }
+
+    return i >= diffs;
 }
 
 int main()
 {
     int t;
-    cin >> t;
-    
+    cin>>t;
+
     while(t--)
     {
-        int n;
-        cin >> n;
-        
-        vector<int> wealth(n);
-        for(auto& x : wealth) cin >> x;
-        
-        cout << minGold(wealth) << endl;
-    }
+        int n,k;
+        cin>>n>>k;
+
+        vector<int>h(n);
+        for(auto&x: h)cin>>x;
+
+        cout<<(isPossible(k,h)? "Yes" : "No")<<endl;
+
+    }    
     return 0;
+    
 }

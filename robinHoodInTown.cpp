@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#define ll long long
 using namespace std;
 
-int minGold(vector<int> &wealth)
+ll minGold(vector<ll> &wealth)
 {
     int n = wealth.size();
 
@@ -9,36 +10,30 @@ int minGold(vector<int> &wealth)
     if (n <= 2)
         return -1;
 
-    sort(wealth.begin(), wealth.end());
+    sort(wealth.begin(), wealth.end()); // to find average money etc
 
-    // Calculate total wealth
-    long long totalWealth = 0;
-    for (int w : wealth)
-        totalWealth += w;
+    // so basically kth person (i.e more than half population = n/2 +1 persons) should have less than average money
 
-    // We need strictly more than n/2 people to be unhappy
-    // That means at least (n/2 + 1) people unhappy
-    int requiredUnhappy = n / 2 + 1;
+    /* a[k] < avg /2;
+        a[n/2 + 1] < sum +x / 2n => x > a[k] *2n - s
 
-    // The person at index (requiredUnhappy - 1) needs to be unhappy
-    // This is the "threshold" person - if they're unhappy, enough people are unhappy
-    int thresholdWealth = wealth[requiredUnhappy - 1];
+        => so x = a[k]*2n -s +1 -------->Ans
 
-    // For this person to be unhappy:
-    // thresholdWealth < (totalWealth + x) / (2 * n)
-    // 2 * n * thresholdWealth < totalWealth + x
-    // x > 2 * n * thresholdWealth - totalWealth
 
-    long long minX = 2LL * n * thresholdWealth - totalWealth;
+    */
 
-    // If minX is already <= 0, then Robin Hood already appears (or never will)
-    if (minX < 0)
-        return 0;
+    // n , ak , s
 
-    return (int)minX;
+    int k = n / 2 + 1;
+    ll ak = wealth[k - 1];
+
+    ll s = accumulate(wealth.begin(), wealth.end(), 0LL);
+
+    ll ans = max(0LL, 2 * n * ak - s + 1);
+    return ans;
 }
 
-int main()
+int32_t main()
 {
     int t;
     cin >> t;
@@ -48,7 +43,7 @@ int main()
         int n;
         cin >> n;
 
-        vector<int> wealth(n);
+        vector<ll> wealth(n);
         for (auto &x : wealth)
             cin >> x;
 
