@@ -1,57 +1,59 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool isPossible(int k,vector<int>&h)
+struct Node
 {
-    /* 
-    At time 0, we are on tower heights[k]
-    Water level rises by 1 unit each second
-    //if water level  > height of tower, you perish
+    Node* left;
+    Node* right;
+    int data;
 
-    We can jump from tower i to tower j in |hi - hj|seconds
-    And teleportation can start the moment we just arrive at tower j
-
-    
-    Goal is to reach any tower with max height before water covers me
-
-
-    */
-    int n = h.size();
-
-    sort(h.begin(),h.end());
-    int i = 0;
-
-    while(h[i] != k)i++;
-
-    //we reached the tower in which we are at
-
-    //now check and reach the end of the array
-    int diffs = 0;
-
-    for(int k = i;k<n-1;k++)//seeing difference till we reach the end
+    Node(int data)
     {
-        diffs += h[i+1] -h[i];
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
+};
 
-    return i >= diffs;
+void flattenBST(Node* root,Node* &prev)
+{
+    if(root == NULL)return;
+
+    flattenBST(root->right,prev);//processign right subtree first
+    flattenBST(root->left,prev);//processign right subtree first
+    
+
+    root->right = prev;//remove the left link
+    root->left = NULL;// linking previous node to current 
+    prev = root; //and move prev pointer
 }
+
+void flatten(Node*& root)
+{
+    Node* prev = NULL;
+    flattenBST(root,prev);
+}
+
+void printList(Node* root) {
+    while (root) {
+        cout << root->data << " ";
+        root = root->right;
+    }
+}
+
 
 int main()
 {
-    int t;
-    cin>>t;
+    Node* root = new Node(5);
+    root->left = new Node(3);
+    root->right = new Node(7);
+    root->left->left = new Node(2);
+    root->left->right = new Node(4);
+    root->right->right = new Node(8);
 
-    while(t--)
-    {
-        int n,k;
-        cin>>n>>k;
+    flatten(root);
 
-        vector<int>h(n);
-        for(auto&x: h)cin>>x;
+   printList(root);
 
-        cout<<(isPossible(k,h)? "Yes" : "No")<<endl;
-
-    }    
     return 0;
-    
 }
