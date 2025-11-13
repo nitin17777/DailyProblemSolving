@@ -1,61 +1,58 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-int coinChange(vector<int>& coins, int amount)
+vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval)
 {
-    int n = coins.size();
+    //we have to insert the given interval in the existing interval
+    int n = intervals.size();
+    int m = intervals[0].size();
 
-    const int infinity = 1e9;
+    //Compare the end of last interval with start of the new interval
 
-    vector<int>dp(amount +1,infinity);
+    vector<vector<int>>ans;
 
-    dp[0] = 0;//since we need 0 coins to make 0 amount
+    int open = newInterval[0],close = newInterval[1];
 
-    //Building dp array from 1 to amount
-    for(int x = 1;x<=amount;x++)
+    for(auto curr : intervals)
     {
-        //Try using every coin one by one
-        for(int coin :coins)
+        if(curr[1] < open)
         {
-            //If this coin can be used 
-            if(coin <= x)
-            {
-                dp[x] = min(dp[x],dp[x-coin] +1);
-            }
+            ans.push_back(curr);
+        }
+
+        else if(curr[0] > close)
+        {
+            ans.push_back(newInterval);
+            newInterval = curr;
+            
+        }
+
+        else
+        {
+            newInterval[0] = min(newInterval[0],curr[0]);
+            newInterval[1] = max(newInterval[1],curr[1]);
+            
         }
     }
-    return(dp[amount] == infinity)? -1 : dp[amount];
+
+    ans.push_back(newInterval);
+    return ans;
+
 }
-
-
-/* This approach is fine for canonical coins only,therfore we will be going with dp method to solve this question
-
-int coinChange(vector<int>& coins, int amount)
-{
-    //return min number of coins to complete the given amount
-
-    int n = coins.size();
-    sort(coins.begin(),coins.end());
-    int count = 0;
-
-    for(int i = n-1;i>=0;i--)
-    {
-        int take = amount / coins[i];
-        count+=take;
-
-        amount = amount - (take * coins[i]);
-    }
-
-    if(amount != 0)return -1;
-    return count;
-}*/
 
 int main()
 {
-    vector<int>coins = {1,2,5};
-    cout<<coinChange(coins,11)<<endl;
+    vector<vector<int>>intervals = {{1,3},{6,9}};
+    vector<int>newInterval = {2,5};
 
+    vector<vector<int>>ans = insert(intervals,newInterval);
+
+    for(auto&an :ans)
+    {
+        for(auto&a : an)cout<<a<<" ";
+
+        cout<<endl;
+    }
     return 0;
     
 }
