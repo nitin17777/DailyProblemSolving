@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int ans(vector<int> &s)
+int ans(string &s)
 {
     /*
 
@@ -14,16 +14,14 @@ int ans(vector<int> &s)
 
     //if he can sail infinitely, return -1;
 
+
+    if there is something like : ><,answer will be -1
+
+    if string is like : <<<<.....<<>>..>>>> => max number of ether arrows would be the answer
+
+
+
     */
-
-    // if both types of arrow are there, return -1,
-    // else
-
-    // He must move to left or right, even if no current is there
-
-    // if
-    if (s.size() == 1 && s[0] == '*')
-        return 1;
 }
 
 int main()
