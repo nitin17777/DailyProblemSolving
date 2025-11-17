@@ -10,6 +10,8 @@ vector<int> maxi(vector<int> &prices, int lf)
 
 int main()
 {
+    int t;
+    cin >> t;
 
     while (t--)
     {

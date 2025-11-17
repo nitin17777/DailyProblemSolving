@@ -1,40 +1,66 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int  solve(vector<int>& arr)
+vector<ll>solve(vector<ll>&arr,ll k)
 {
-    int n = arr.size();
+    /*we can either add k to every element or not
 
-    sort(arr.begin(),arr.end());
+    Perform at most k operations to make gcd of elements of all elements of the array  > 1
 
-    //first and last element should both be of same parity
 
-    //if not,move from smallest element until we get to match the parity of largest digit and vice versa
+    so we have to : ai + k*ci =0 mod(g) =>ci = -ai * (1/k)mod(k+1)
 
-    int cnt = 0;
-    int i = 0; 
-    for(int i=0;i<n;i++)
+    */
+
+    vector<ll>ans;
+
+
+    for(ll g=2;;g++)//choosing smallest g that gcd of g and k == 1
     {
-        if((arr[i]+ arr[n-1]) % 2 == 0)
-        return i;
-    }
-    return -1;
+        if(__gcd(g,k) != 1)
 
+        continue;
+
+
+        //forcing each number to become divisible by g
+        for(auto & i : arr)
+        {
+            while(i % g !=0)i+=k;
+        }
+
+        //returning new values now
+        for(auto i : arr)
+        {
+            ans.push_back(i);
+        }
+        break;
+    }
+    return ans;
 }
 
 int main()
 {
 
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int t;
     cin>>t;
+
     while(t--)
     {
-        int n;cin>>n;
-        vector<int>arr(n);
+        ll n,k;
+        cin>>n>>k;
 
-        for(auto &x: arr)cin>>x;
-        cout<<solve(arr)<<endl;
+        vector<ll>arr(n);
+        for(auto & x : arr)cin>>x;
 
+        vector<ll>ans = solve(arr,k);
+
+        for(auto & an : ans)cout<<an<<" ";
+
+        cout<<endl;
     }
     return 0;
 }
