@@ -1,41 +1,42 @@
-#include<iostream>
-#include<vector>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-int monotoneIncreasingDigits(int n)
+
+bool isPos(vector<int>&s)
 {
+    int n = s.size();
 
-    //return the largest number less than or equal to n with monotone increasing digits
+    /*
+    worst case for any clock i : going to end or first: 2(n-i) or 2(i-1)
+    and we will solve this question taking these extremums onnly
 
-    
-    string s = to_string(n);
-    int mark =s.size();
+    so max gap : 2*(max(i-1,n-1))
+    */
 
-
-    for(int i =n-2;i >=0 ;i--)
+    for(int i = 0;i<n;i++)
     {
-        if(s[i] > s[i+1])
-        {
-            s[i]--;
-            mark = i+1;
-        }
+        int need = 2*max(i,n-i-1);
+        if(s[i] <= need)return false;
     }
-
-    for(int i = mark;i<s.size();i++)
-    {
-        s[i] = '9';
-    }    
-
-    return stoi(s);
+    return true;
 }
-
 
 int main()
 {
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        int n;
+        cin>>n;
 
-    cout<<monotoneIncreasingDigits(10)<<endl;
+        vector<int>s(n);
+        for(auto&x: s)cin>>x;
 
+        cout<<(isPos(s)? "YES": "NO")<<endl;
+
+    }
     return 0;
     
 }
