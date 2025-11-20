@@ -2,41 +2,64 @@
 using namespace std;
 
 
-bool isPos(vector<int>&s)
+const int N=1000010;
+int T,n;
+int a[N],b[N];
+
+void init()
 {
-    int n = s.size();
+    cin>>n;
+    for(int i = 1;i<=n;i++)
+    {
+        cin>>a[i]>>b[i];
+    }
+}
 
+void solve()
+{
     /*
-    worst case for any clock i : going to end or first: 2(n-i) or 2(i-1)
-    and we will solve this question taking these extremums onnly
+    select subset s' such that f(s') - g(s') is maximized
 
-    so max gap : 2*(max(i-1,n-1))
+    If segment [a[i],b[i]] is inside [a[j],b[j]],it will not add any length but may create cycles in the graph thus increasing g(s)
+
     */
 
-    for(int i = 0;i<n;i++)
+    vector<int>tag(n+4,1),ans;
+
+    // tag[i] = 1 => We keep segment i intitially
+    //tag[i] = 0 => segment i is contained inside another and should be removed
+
+    for(int i =1;i<=n;i++)
     {
-        int need = 2*max(i,n-i-1);
-        if(s[i] <= need)return false;
+        for(int j =1;j<=n;j++)
+        {
+            if(i==j)continue;
+
+
+            if(a[j] <= a[i] && b[i] <= b[j])tag[i]=0;
+        }
+        if(tag[i])ans.push_back(i);
     }
-    return true;
+
+    cout<<ans.size()<<endl;
+
+    for(int i=0;i<ans.size();i++)
+    {
+        cout<<ans[i] << (i+1 ==ans.size()? "\n": " ");
+    }
+
 }
 
 int main()
 {
-    int t;
-    cin>>t;
-    
-    while(t--)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin>>T;
+    while(T--)
     {
-        int n;
-        cin>>n;
-
-        vector<int>s(n);
-        for(auto&x: s)cin>>x;
-
-        cout<<(isPos(s)? "YES": "NO")<<endl;
-
+        init();
+        solve();
     }
-    return 0;
-    
+    return 0; 
 }
