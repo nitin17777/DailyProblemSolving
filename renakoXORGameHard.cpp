@@ -24,7 +24,8 @@ int winner(vector<int> &a, vector<int> &b)
     */
 
     int xr = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         xr ^= a[i];
         xr ^= b[i];
     }
@@ -32,29 +33,29 @@ int winner(vector<int> &a, vector<int> &b)
     if (xr == 0)
         return 0; // Tie
 
+    // Finding most significant bit
+    int bit = 0;
 
-    //Finding most significant bit
-    int  bit =0;
-
-    for(int i = 0;i<20;i++)
+    for (int i = 0; i < 20; i++)
     {
-        if(xr & (1 << i))//
-        bit = i;
+        if (xr & (1 << i)) //
+            bit = i;
     }
     //"bit" will be highest set bit in xr
 
     int idx = -1;
 
-
-    //Now findin the largest index where this bit differs:
-    for(int i = 0;i<n;i++)
+    // Now finding the largest index where this bit differs:
+    for (int i = 0; i < n; i++)
     {
-        if((a[i] ^b[i]) & (1 << bit)) idx = i;       
+        if ((a[i] ^ b[i]) & (1 << bit))
+            idx = i;
     }
 
-    if((idx & 1))return 2;
+    if ((idx & 1)) // if index is odd,Mai mins
+        return 2;
 
-    return 1;
+    return 1; // else ajisai wins
 }
 
 int main()

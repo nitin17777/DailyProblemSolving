@@ -18,43 +18,30 @@ int winner(vector<int> &a, vector<int> &b)
 
     Final Score: Score of both arrays
 
-    And player with higher score will win else ti
-
-    Difference in this hard version is that value of each element can eb amnything >= 1
+    And player with higher score will win else tie
     */
 
-    int xr = 0;
-    for (int i = 0; i < n; i++) {
-        xr ^= a[i];
-        xr ^= b[i];
-    }
+    int xra = accumulate(a.begin(), a.end(), 0, [](int x, int y)
+                         { return x ^ y; });
 
-    if (xr == 0)
+    int xrb = accumulate(b.begin(), b.end(), 0, [](int x, int y)
+                         { return x ^ y; });
+
+    if (xra ^ xrb == 0)
         return 0; // Tie
 
-
-    //Finding most significant bit
-    int  bit =0;
-
-    for(int i = 0;i<20;i++)
+    for (int i = n - 1; i >= 0; i--)
     {
-        if(xr & (1 << i))//
-        bit = i;
+        if (a[i] != b[i])
+        {
+            if ((i + 1) % 2 != 0)
+                return 1; // A
+
+            else
+                return 2; // M
+        }
     }
-    //"bit" will be highest set bit in xr
-
-    int idx = -1;
-
-
-    //Now findin the largest index where this bit differs:
-    for(int i = 0;i<n;i++)
-    {
-        if((a[i] ^b[i]) & (1 << bit)) idx = i;       
-    }
-
-    if((idx & 1))return 2;
-
-    return 1;
+    return 0;
 }
 
 int main()
