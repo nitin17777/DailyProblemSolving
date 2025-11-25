@@ -1,11 +1,10 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
 
 struct Node
 {
-    Node* left;
-    Node*right;
+    Node *left;
+    Node *right;
     int data;
 
     Node(int data)
@@ -13,15 +12,15 @@ struct Node
         this->left = NULL;
         this->right = NULL;
         this->data = data;
-
     }
 };
 
-unordered_map<int,int>freq;
+unordered_map<int, int> freq;
 
-int subTreeSum(Node*root)
+int subTreeSum(Node *root)
 {
-    if (root == NULL)return 0;
+    if (root == NULL)
+        return 0;
     int left = subTreeSum(root->left);
     int right = subTreeSum(root->right);
 
@@ -31,24 +30,24 @@ int subTreeSum(Node*root)
     return sum;
 }
 
-vector<int> findFrequentTreeSum(Node* root)
+vector<int> findFrequentTreeSum(Node *root)
 {
-    //we have to return the most frquent subtree sum()
+    // we have to return the most frquent subtree sum()
 
     freq.clear();
     subTreeSum(root);
-    
-    int maxFreq= 0;
-    for(auto & p : freq)
+
+    int maxFreq = 0;
+    for (auto &p : freq)
     {
-        maxFreq = max(maxFreq,p.second);
+        maxFreq = max(maxFreq, p.second);
     }
 
-    vector<int>ans;
+    vector<int> ans;
 
-    for(auto&p:freq)
+    for (auto &p : freq)
     {
-        if(p.second == maxFreq)
+        if (p.second == maxFreq)
         {
             ans.push_back(p.first);
         }
@@ -57,19 +56,19 @@ vector<int> findFrequentTreeSum(Node* root)
     return ans;
 }
 
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    Node * root = new Node(5);
+    Node *root = new Node(5);
     root->left = new Node(2);
     root->right = new Node(-3);
-    vector<int>ans = findFrequentTreeSum(root);
-    for(auto&an:ans)cout<<an<<" ";
+    vector<int> ans = findFrequentTreeSum(root);
+    for (auto &an : ans)
+        cout << an << " ";
 
-    cout<<endl;
+    cout << endl;
 
     return 0;
 }
