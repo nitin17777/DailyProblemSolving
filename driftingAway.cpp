@@ -1,29 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int ans(string &s)
-{
-    /*
-
-    < => Leftward Current
-    > => RightWard Current
-    * => No Current
-
-    //Each move takes one minutes
-    //Return the max time monocarp can sail along the river before endng up on the shore
-
-    //if he can sail infinitely, return -1;
-
-
-    if there is something like : ><,answer will be -1
-
-    if string is like : <<<<.....<<>>..>>>> => max number of ether arrows would be the answer
-
-
-
-    */
-}
-
 int main()
 {
     int t;
@@ -31,10 +8,52 @@ int main()
 
     while (t--)
     {
-        int s;
+        string s;
+
         cin >> s;
 
-        cout << ans(s) << endl;
+        int n = s.size();
+        /*
+
+        < => Leftward Current
+        > => RightWard Current
+        * => No Current
+
+
+        ALGO:
+        if there is something like : ><,answer will be -1,as he can get stuck forever.
+
+        And if no such pattern is there, then all <<< must appear before >>>
+
+        and simply the return the arrow with max count
+
+        if string is like : <<<<.....<<>>..>>>> => max number of ether arrows would be the answer
+
+        replace each * with < or > to maximise the sailing length without creaitng any < substring
+        */
+
+        bool bad = false;
+
+        for (int i = 0; i + 1 < n; i++)
+        {
+            if (s[i] != '<' && s[i + 1] != '>')
+            {
+                bad = true;
+                break;
+            }
+        }
+
+        if (bad)
+        {
+            cout << -1 << endl;
+            continue;
+        }
+
+        int cntL = count(s.begin(), s.end(), '<');
+        int cntR = count(s.begin(), s.end(), '>');
+
+        int ans = n - min(cntL, cntR);
+        cout << ans << endl;
     }
     return 0;
 }

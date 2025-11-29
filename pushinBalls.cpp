@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isPos(vector<int> &a)
-{
-}
+bool isPos()
 
-int main()
+    int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -16,12 +14,7 @@ int main()
     {
         int n;
         cin >> n;
-
-        vector<int> a(n);
-        for (auto &x : a)
-            cin >> x;
-
-        cout << (isPos(a) ? "Yes" : "No") << endl;
     }
+
     return 0;
 }

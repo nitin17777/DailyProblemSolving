@@ -6,7 +6,7 @@ vector<int> lexicalOrder(int n)
 
     // we have to return all numbers in range [1,n] sorted in lexicographical order
 
-    vector < int < ans;
+    vector < int> ans;
     ans.reserve(n);
 
     int curr = 1;

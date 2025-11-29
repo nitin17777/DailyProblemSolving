@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isPos(vector<int> &a)
+int maxi(vector<int> &a)
 {
+    vector <
 }
 
 int main()
@@ -18,10 +19,8 @@ int main()
         cin >> n;
 
         vector<int> a(n);
-        for (auto &x : a)
-            cin >> x;
-
-        cout << (isPos(a) ? "Yes" : "No") << endl;
+        cout << maxi(a) << endl;
     }
+
     return 0;
 }
