@@ -1,8 +1,8 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define ll long long 
+#define ll long long
 
-ll maxRunTime(int n, vector<int>& batteries)
+ll maxRunTime(int n, vector<int> &batteries)
 {
 
     /*ith battery can run a computer for battries[i] minutes
@@ -25,48 +25,44 @@ ll maxRunTime(int n, vector<int>& batteries)
     */
 
     ll sum = 0;
-    for(ll b: batteries)sum += b;
+    for (ll b : batteries)
+        sum += b;
 
+    // max possible time cannot exceed (totalPower /n)
+    ll left = 0, right = sum / n, ans = 0;
 
-    //max possible time cannot exceed (totalPower /n)
-    ll left = 0, right = sum/n, ans= 0;
-
-    //binary search on possible running time T
-    while(left <= right)
+    // binary search on possible running time T
+    while (left <= right)
     {
-        ll T = left + (right-left)/2;
+        ll T = left + (right - left) / 2;
 
-
-
-        //Calculating how much power we can use if we target T minutes
-        //each battery contributes at most min(b,T)
+        // Calculating how much power we can use if we target T minutes
+        // each battery contributes at most min(b,T)
         ll total = 0;
-        for(ll b: batteries)total += min(b,T);
+        for (ll b : batteries)
+            total += min(b, T);
 
-
-        //to run n comps for T minutes , we need total usable power > = T*n
-        if(total >= T*n)
+        // to run n comps for T minutes , we need total usable power > = T*n
+        if (total >= T * n)
         {
             ans = T;
             left = T + 1;
         }
         else
         {
-            right = T-1;
-
+            right = T - 1;
         }
     }
     return ans;
 }
-
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>b = {3,3,3};
-    cout<<maxRunTime(2,b)<<endl;
-    
+    vector<int> b = {3, 3, 3};
+    cout << maxRunTime(2, b) << endl;
+
     return 0;
 }
