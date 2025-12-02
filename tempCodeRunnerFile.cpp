@@ -1,55 +1,82 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-ll minNum(vector<int>&a)
+struct Node
 {
-    /*
-    Array is called good if for any subarray of length atleast 2 sum of elements at even indices is greater than or equal to sum of elements at odd indices(1 based indexing)
+    Node* right;
+    Node* left;
+    int data;
 
-    In one operation,  we can decrease any element by 1, return min number of ops required to make the given array good
-
-    */
-   int n = a.size();
-
-   vector<ll>b(n,0);
-   ll ans = 0;
-
-   for(int i = 0;i < n;i+=2)
-   {
-    ll mn = a[i];
-    if(i >= 2)
+    Node(int data)
     {
-        mn = min(mn,(ll)a[i-1] - b[i-2]);
+        this->data = data;
+        this->left =NULL;
+        this->right = NULL;
     }
-    if(i+1 <n)
+};
+
+
+vector<vector<int>> levelOrderBottom(Node* root)
+{
+
+    // We have to return bottom-up level order traversal
+
+    vector<vector<int>>result;
+
+    if(root==NULL)return result;
+
+    queue<Node*>q;
+
+    q.push(root);
+
+    while(!q.empty())
     {
-        mn = min(mn ,(ll)a[i+1]);
+        int size = q.size();
+
+        vector<int>level;
+        
+        for(int i = 0; i < size;i++)
+        {
+            Node* node =q.front();
+            q.pop();
+
+            level.push_back(node->data);
+
+            if(node->left)q.push(node->left);
+            if(node->right)q.push(node->right);
+
+        }
+        result.push_back(level);
     }
+    reverse(result.begin(),result.end());
 
-    b[i] = mn;
-
-    ans+=(a[i]-b[i]);
-   }
-   return ans;
+    return result;
 }
+
+
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
+    Node* root = new Node(3);
+    root->right = new Node(20);
+    root->right->right = new Node(7);
+    root->left = new Node(9);
+    root->right->left = new Node(15);
+
+    vector<vector<int>>ans = levelOrderBottom(root);
+    for(auto &an :ans)
     {
-        int n;
-        cin>>n;
-
-        vector<int>a(n);
-        for(auto&i:a)cin>>i;
-
-        cout<<minNum(a)<<endl;
+        for(auto& a : an)
+        {
+            cout<<a<<" ";
+        }
+        cout<<endl;
     }
+    
     return 0;
+    
 }
