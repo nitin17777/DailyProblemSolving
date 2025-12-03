@@ -1,82 +1,26 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-struct Node
+ll minCost(vector<ll> &a)
 {
-    Node* right;
-    Node* left;
-    int data;
+    /*
 
-    Node(int data)
+    Choose a position i and make all elements to left of i equal to ai and cost = (i-1) * ai
+
+    Choose a position i and make all elements to right of i equal to ai and cost = (n−i) * ai
+
+    What would be the minimum total cost to make all elements of array equal
+
+
+    We are checking if we make the whole array equal to this number x how costly will it be  and then picking the cheapest option at the end
+
+    */
+
+    int n = a.size();
+
+    ll ans = LLONG_MAX;
+
+    int i = 0;
+    while (i < n)
     {
-        this->data = data;
-        this->left =NULL;
-        this->right = NULL;
-    }
-};
-
-
-vector<vector<int>> levelOrderBottom(Node* root)
-{
-
-    // We have to return bottom-up level order traversal
-
-    vector<vector<int>>result;
-
-    if(root==NULL)return result;
-
-    queue<Node*>q;
-
-    q.push(root);
-
-    while(!q.empty())
-    {
-        int size = q.size();
-
-        vector<int>level;
-        
-        for(int i = 0; i < size;i++)
-        {
-            Node* node =q.front();
-            q.pop();
-
-            level.push_back(node->data);
-
-            if(node->left)q.push(node->left);
-            if(node->right)q.push(node->right);
-
-        }
-        result.push_back(level);
-    }
-    reverse(result.begin(),result.end());
-
-    return result;
-}
-
-
-
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    Node* root = new Node(3);
-    root->right = new Node(20);
-    root->right->right = new Node(7);
-    root->left = new Node(9);
-    root->right->left = new Node(15);
-
-    vector<vector<int>>ans = levelOrderBottom(root);
-    for(auto &an :ans)
-    {
-        for(auto& a : an)
-        {
-            cout<<a<<" ";
-        }
-        cout<<endl;
-    }
-    
-    return 0;
-    
-}

@@ -21,7 +21,6 @@ vector<vector<int>> levelOrderBottom(Node *root)
     // We have to return bottom-up level order traversal
 
     vector<vector<int>> result;
-
     if (root == NULL)
         return result;
 
