@@ -1,26 +1,75 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-ll minCost(vector<ll> &a)
+vector<int>order(vector<int>&h,int k)
 {
+
     /*
 
-    Choose a position i and make all elements to left of i equal to ai and cost = (i-1) * ai
+    Decrease k from the greatest element everytime, if several greates elements are there, on with smaller index will be decresed,
 
-    Choose a position i and make all elements to right of i equal to ai and cost = (n−i) * ai
+    Keep pushing elements in ans array as soon as they become less than equal to 0
 
-    What would be the minimum total cost to make all elements of array equal
+    
+    //Determine the order in which they will move
 
+    //
 
-    We are checking if we make the whole array equal to this number x how costly will it be  and then picking the cheapest option at the end
+    ALGO:
 
+    push element with min mod first, if many start with smaller index
+    
+    //store (index,mod) pair
+
+    sort with mod value and if mod same , consider the smaller index first
     */
 
-    int n = a.size();
+    int n = h.size();
+    vector<pair<int,int>>p; //index,mod
 
-    ll ans = LLONG_MAX;
-
-    int i = 0;
-    while (i < n)
+    for(int i=0;i < n;i++)
     {
+        int mod = h[i] % k;
+        p.push_back({i+1, mod});
+    }
+    sort(p.begin(),p.end(), [&](auto & a,auto&b)
+    {
+        if(a.second == b.second)return a.first < b.first;
+
+        return a.second < b.second;
+
+    });
+
+    vector<int>ans; 
+    for(auto & pr :p)
+    {
+        ans.push_back(pr.first);
+    }
+    return ans;
+
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k;
+        cin>>n>>k;
+
+        vector<int>h(n);
+        for(auto&x:h)cin>>x;
+
+        vector<int>ans = order(h,k);
+        for(auto&an : ans)cout<<an<<" ";
+
+        cout<<endl;
+    }
+
+    return 0;
+    
+}
