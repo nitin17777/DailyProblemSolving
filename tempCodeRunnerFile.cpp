@@ -1,52 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int>order(vector<int>&h,int k)
-{
 
+int winner(vector<int>&a)
+{
     /*
 
-    Decrease k from the greatest element everytime, if several greates elements are there, on with smaller index will be decresed,
+    If ai == 0, the player looses the game 
+    Player chooses some i with 2 <= i <= n,then player decreases the value of a1 by 1 and swaps a1 by ai
 
-    Keep pushing elements in ans array as soon as they become less than equal to 0
+    Determine the winner of the game if both play optimally
 
-    
-    //Determine the order in which they will move
-
-    //
-
-    ALGO:
-
-    push element with min mod first, if many start with smaller index
-    
-    //store (index,mod) pair
-
-    sort with mod value and if mod same , consider the smaller index first
+    Alice will play first
     */
 
-    int n = h.size();
-    vector<pair<int,int>>p; //index,mod
+    int s = accumulate(a.begin(),a.end(),0);
+    if(s%2 ==0 )return 2;
 
-    for(int i=0;i < n;i++)
-    {
-        int mod = h[i] % k;
-        p.push_back({i+1, mod});
-    }
-    sort(p.begin(),p.end(), [&](auto & a,auto&b)
-    {
-        if(a.second == b.second)return a.first < b.first;
-
-        return a.second < b.second;
-
-    });
-
-    vector<int>ans; 
-    for(auto & pr :p)
-    {
-        ans.push_back(pr.first);
-    }
-    return ans;
-
+    else return 1;
 }
 
 int main()
@@ -58,18 +29,14 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n,k;
-        cin>>n>>k;
+        int n;
+        cin>>n;
 
-        vector<int>h(n);
-        for(auto&x:h)cin>>x;
+        vector<int>a(n);
+        for(auto&x: a)cin>>x;
 
-        vector<int>ans = order(h,k);
-        for(auto&an : ans)cout<<an<<" ";
-
-        cout<<endl;
+        if(winner(a) == 1)cout<<"Alice"<<endl;
+        else cout<<"Bob"<<endl;
     }
-
     return 0;
-    
 }
