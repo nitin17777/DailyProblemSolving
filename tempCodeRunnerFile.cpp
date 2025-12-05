@@ -1,42 +1,58 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
-int winner(vector<int>&a)
+int mincostTickets(vector<int>& days, vector<int>& costs)
 {
+
     /*
 
-    If ai == 0, the player looses the game 
-    Player chooses some i with 2 <= i <= n,then player decreases the value of a1 by 1 and swaps a1 by ai
+    1 day Pass : costs[0]
+    7 day Pass : costs[1];
+    30 day Pass : cost[2];
 
-    Determine the winner of the game if both play optimally
 
-    Alice will play first
+    Return the min number of dollars need to travel every day in given list of days
+
     */
+    vector<int> dp(366, 0);
 
-    int s = accumulate(a.begin(),a.end(),0);
-    if(s%2 ==0 )return 2;
 
-    else return 1;
+    vector<bool>travel(366,false);
+
+    for(int d : days)travel[d] = true;
+
+    for(int i = 365;i>=1;i--)
+    {
+        if(!travel[i])
+        {
+            dp[i] = dp[i+1];
+        }
+
+        else
+        {
+
+            int cost1 = costs[0] + dp[min(366,i+1)];
+            int cost7 = costs[1] + dp[min(366,i+7)];
+            int cost10 = costs[2] + dp[min(366,i+30)];
+
+            dp[i] = min({cost1,cost7,cost10});
+        }
+    }
+    return dp[days[0]];
+
 }
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
+    vector<int>days = {1,4,6,7,8,20};
+    vector<int>costs = {2,7,15};
 
-        vector<int>a(n);
-        for(auto&x: a)cin>>x;
+    cout<<mincostTickets(days,costs)<<endl;
 
-        if(winner(a) == 1)cout<<"Alice"<<endl;
-        else cout<<"Bob"<<endl;
-    }
     return 0;
+    
 }
