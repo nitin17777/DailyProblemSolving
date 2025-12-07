@@ -16,7 +16,7 @@ int modString(const string &s, int m)
     int r = 0;
     for (char c : s)
     {
-        r = (r * 10 + (c - '0')) % m;
+        r = (r * 10 + (c - '0')) % m; // No problem in building the digti now cuz n is capped to max  now
     }
     return r;
 }
