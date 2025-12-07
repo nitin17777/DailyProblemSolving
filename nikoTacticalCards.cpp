@@ -4,14 +4,31 @@ using namespace std;
 
 ll maxi(vector<ll> &a, vector<ll> &b)
 {
+    int n = a.size();
+
+    ll mx = 0, mn = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        ll newmx = max(mx - a[i], b[i] - mn);
+        ll newmn = min(mn - a[i], b[i] - mx);
+
+        mx = newmx, mn = newmn;
+    }
+    return mx;
+}
+
+/*
+ll maxi(vector<ll> &a, vector<ll> &b)
+{
     /*
 
     Red card -> Score becomes k -ai
     Blue Card -> Score becomes bi - k
 
     Return max possible score niko cna obtain
-    */
-    inDone t n = a.size();
+
+    int n = a.size();
 
     ll s = 0;
     for (int i = 0; i < n; i++)
@@ -22,7 +39,7 @@ ll maxi(vector<ll> &a, vector<ll> &b)
         s = max(sa, sb);
     }
     return s;
-}
+}*/
 
 int main()
 {

@@ -4,23 +4,32 @@ using namespace std;
 int solve(string s, int k)
 {
     int n = s.size();
-
     int cnt = 0;
 
     // i = 1 => skip it including next k classes
 
-    for (int i = 0; i < n;)
+    vector<bool> check(n, false);
+
+    // mark every class in which we can sleep
+
+    int i = 0;
+    while (i < n)
     {
         if (s[i] == '1')
         {
-            i = min(i + k + 1, n);
+            i += (k + 1);
         }
-
-        else
+        else // when 0 is encontered
         {
-            cnt++;
+            check[i] = true;
             i++;
         }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        if (check[i] == true)
+            cnt++;
     }
     return cnt;
 }

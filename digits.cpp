@@ -1,21 +1,22 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 #define ll long long
 
 ll fact(ll n)
 {
 
-    if(n == 0)return 1;
+    if (n == 0)
+        return 1;
 
-    return n *fact(n-1);
+    return n * fact(n - 1);
 }
 
-int modString(const string &s,int m)
+int modString(const string &s, int m)
 {
     int r = 0;
-    for(char c: s)
+    for (char c : s)
     {
-        r = (r*10 + (c-'0'))%m;
+        r = (r * 10 + (c - '0')) % m;
     }
     return r;
 }
@@ -34,7 +35,7 @@ vector<ll> solve(ll n, ll d)
     while(times > 0)
     {
         num = num *10 + d;
-        times--;       
+        times--;
     }
 
     vector<ll>ans;
@@ -52,29 +53,29 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
-        int n,d;
-        cin>>n>>d;
+        int n, d;
+        cin >> n >> d;
 
         // vector<ll>ans = solve(n,d);
         // for(auto & an:ans)cout<<an<<" ";
 
-        //Because 7! = 5040 and contains factors : 1,3,5,7,9 => So we can simply cap it
-        n = min(n,7);
+        // Because 7! = 5040 and contains factors : 1,3,5,7,9 => So we can simply cap it
+        n = min(n, 7);
         ll cnt = fact(n);
 
-        string num(cnt,'0'+d);//making that required string
+        string num(cnt, '0' + d); // making that required string
 
-        for(int d = 1;d<=9;d+=2)
+        for (int d = 1; d <= 9; d += 2)
         {
-            if(modString(num,d) == 0)
+            if (modString(num, d) == 0)
             {
-                cout<<d<<" ";
+                cout << d << " ";
             }
         }
-        cout<<endl;
+        cout << endl;
     }
     return 0;
 }
