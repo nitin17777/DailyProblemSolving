@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>&c)
+int solve(vector<int> &c)
 {
     /*
     ith cell is colored with color ai
@@ -13,20 +13,20 @@ int solve(vector<int>&c)
 
     */
 
-    set<int>st(c.begin(),c.end());
+    set<int> st(c.begin(), c.end());
 
     int sz = st.size();
 
-    //check the just greater element than sz present in given array
-    sort(c.begin(),c.end());
-    
-    for(auto&x: c)
+    // check the just greater element than sz present in given array
+    sort(c.begin(), c.end());
+
+    for (auto &x : c)
     {
-        if(x>=sz)return x;
+        if (x >= sz)
+            return x;
     }
     return -1;
 }
-
 
 int main()
 {
@@ -34,17 +34,17 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
         int n;
-        cin>>n;
-        vector<int>c(n);
+        cin >> n;
+        vector<int> c(n);
 
-        for(auto &x:c)cin>>x;
-        
-        cout<<solve(c)<<endl;
+        for (auto &x : c)
+            cin >> x;
+
+        cout << solve(c) << endl;
     }
     return 0;
-    
 }
