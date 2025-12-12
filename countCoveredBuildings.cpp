@@ -22,7 +22,7 @@ int countCoveredBuildings(int n, vector<vector<int>> &buildings)
 
     for (auto &b : buildings)
     {
-        int x = b[0], b = b[1];
+        int x = b[0], y = b[1];
 
         rows[y].push_back(x);
         cols[x].push_back(y);
