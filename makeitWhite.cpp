@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int solve(string s)
@@ -14,15 +14,16 @@ int solve(string s)
     */
     int n = s.size();
 
-    int i = 0 ;
-    int j = n-1;
-    while(s[i] != 'B' && i<= n-1)i++;
+    int i = 0;
+    int j = n - 1;
+    while (s[i] != 'B' && i <= n - 1)
+        i++;
 
-    while(s[j] != 'B' && j>=0)j--;
+    while (s[j] != 'B' && j >= 0)
+        j--;
 
-    return j-i+1;
+    return j - i + 1;
 }
-
 
 int main()
 {
@@ -30,16 +31,16 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
         int n;
-        cin>>n;
+        cin >> n;
 
         string s;
-        cin>>s;
+        cin >> s;
 
-        cout<<solve(s)<<endl;
+        cout << solve(s) << endl;
     }
     return 0;
 }
