@@ -1,52 +1,53 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long 
 
-long long getDescentPeriods(vector<int>& prices)
+int maxi(vector<int>& a)
 {
-
-    int n = prices.size();
-
+    int n = a.size();
     /*
+    Height of tower from ith admirer = ai
+    
+    She can: Take 1<= i != j<=n ,ai + aj is odd and ai>0, then decrease ai by 1 
+    and increase aj by 1
 
-    Smooth des period ->one or more contiguous days such that price on each day is lower than price of preceding day by exactly 1
+    find the max possible beauty of gifts after any number of operations
 
-    Also, the first day is exempted
-
-
-    Return the number of smooth descent periods
     */
+   int odd = 0,even = 0;
 
-    //return the max subarray such that difference bw consecutive elements is at max 1 
+   int s = accumulate(a.begin(),a.end(),0);
 
-    ll len = 1;
-    ll cnt = 1;
+   int aMax = *max_element(a.begin(),a.end());
 
-    for(int r = 1;r<n;r++)
+    for(auto& x: a)
     {
-
-        if(prices[r-1] - prices[r]== 1)
-        {
-            len++;
-            //Each time an index satisfies this condition, it contributes r-l+1
-        }
-        else
-        {
-            len = 1;
-        }
-        cnt+=len;
+        if(x%2 != 0)odd++;
+        else even++;
     }
-    return cnt;
+
+    if(odd == n || even == n)return aMax;
+
+    else return s - odd +1;
 }
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>prices=  {3,2,1,4};
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        
+        vector<int>a(n);
+        for(auto &x:a)cin>>x;
 
-    cout<<getDescentPeriods(prices)<<endl;
-    
+        cout<<maxi(a)<<endl;
+    }
     return 0;
+    
 }
