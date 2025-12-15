@@ -44,7 +44,7 @@ bool stoneGame(vector<int> &piles)
     int n = piles.size();
 
     // dp[i][i] -> max score difference
-    vector<vectoR<int>> dp(n, vector<int>(n));
+    vector<vector<int>> dp(n, vector<int>(n));
 
     // Base case
     for (int i = 0; i < n; i++)
