@@ -1,35 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int maxi(vector<int>& a)
+bool can(int n,int m, int p, int q)
 {
-    int n = a.size();
-    /*
-    Height of tower from ith admirer = ai
-    
-    She can: Take 1<= i != j<=n ,ai + aj is odd and ai>0, then decrease ai by 1 
-    and increase aj by 1
+    if(n%p == 0 && (n/p)*q != m)return false;
 
-    find the max possible beauty of gifts after any number of operations
-
-    */
-   int odd = 0,even = 0;
-
-   int s = accumulate(a.begin(),a.end(),0);
-
-   int aMax = *max_element(a.begin(),a.end());
-
-    for(auto& x: a)
-    {
-        if(x%2 != 0)odd++;
-        else even++;
-    }
-
-    if(odd == n || even == n)return aMax;
-
-    else return s - odd +1;
+    return true;
 }
-
 
 int main()
 {
@@ -40,13 +17,10 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        
-        vector<int>a(n);
-        for(auto &x:a)cin>>x;
+        int n,m,p,q;
+        cin>>n>>m>>p>>q;
 
-        cout<<maxi(a)<<endl;
+        cout<<(can(n,m,p,q)? "Yes" : "No")<<endl;
     }
     return 0;
     

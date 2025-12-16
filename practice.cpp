@@ -2,16 +2,43 @@
 #include <vector>
 using namespace std;
 
-int minimumTotalSum(vector<vector<int>> triangle)
+void dfs(int node, vector<vector<int>> &adj, vector<bool> &vis)
 {
-    int n = triangle.size();
+    int n = adj.size();
+    vis[node] = true;
 
-    for (int row = n - 2; row >= 0; row++)
+    cout << node << " ";
+
+    for (int next : adj[node])
     {
-        for (int col = 0; col < triangle[row].size(); col++)
+        if (!vis[next])
         {
-            triangle[row][col] += min(triangle[row + 1][col], triangle[row + 1][col + 1]);
+            dfs(next, adj, vis);
         }
     }
-    return triangle[0][0];
+}
+
+void maxheapify(vector<int> &arr, int n, int i)
+{
+    int largest = 1;
+
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+    {
+        largest = left;
+    }
+
+    if (left < n && arr[right] > arr[largest])
+    {
+        largest = right;
+    }
+
+    if (largest != i)
+    {
+        swap(arr[i], arr[largest]);
+
+        maxheapify(arr, n, i);
+    }
 }
