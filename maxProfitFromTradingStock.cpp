@@ -18,7 +18,6 @@ int maxProfit(int n, vector<int> &present, vector<int> &future, vector<vector<in
 
     Return the max profit that can be achieved without exeeding the given budget
 
-
     //////////////////////////////////
 
     profit[i] = future[i] - present[i]
