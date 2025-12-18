@@ -1,83 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 long long maximumProfit(vector<int> &prices, int k)
 {
 
-    /*/prices[i] is the price of stock
-
-    We can make atmost k transactions :
-    Normal : Buy on day i, sell on later day j : Profit = prices[j] - prices[i]
-
-    Short : Sell on day i, then buy back on later day j: Profit = prices[i] - prices[j]
-
-
-    Return the max total profit we can earn by making atmost k transactions
-
-    State : [t,0]->Free
-            [t,1]-> Holding long posi
-            [t,2]->Holding short posi
-
-    We cannot start new trasnsaction until the current one is finished
-
-
-    */
-
     int n = prices.size();
+    const long long NEG_INF = -1e18;
 
-    const int NEG_INF = -1e9;
+    /*
+    dp[t][0] → free
+    dp[t][1] → holding long
+    dp[t][2] → holding short
+    */
+    vector<vector<long long>> dp(k + 1, vector<long long>(3, NEG_INF));
 
-    vector<vector<int>> dp(k + 1, vector<int>(3, NEG_INF));
+    // Day 0 initialization
+    dp[0][0] = 0;
+    dp[0][1] = -prices[0]; // buy
+    dp[0][2] = prices[0];  // short sell
 
-    // intitiallising day 0
-
-    dp[0][0] = 0;          // do nothing
-    dp[0][1] = -prices[0]; // buy on day 0
-    dp[0][2] = prices[0];  // short sell on day 0
-
-    // Process each day
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
-        vector<vector<int>> newdp = dp; // Copying previous day states
+        vector<vector<long long>> newdp = dp;
 
         for (int t = 0; t <= k; t++)
         {
-            // Option 1 : Stay free
+
+            // ===== FREE =====
             newdp[t][0] = dp[t][0];
 
-            // Option 2:  Sell long or buy short
             if (t > 0)
             {
-                // close long posi, sell today
                 newdp[t][0] = max(newdp[t][0], dp[t - 1][1] + prices[i]);
-
-                // close short posi, and buy back today
                 newdp[t][0] = max(newdp[t][0], dp[t - 1][2] - prices[i]);
-
-                // State 1: Long
-
-                // Option 1: Keep Holding long
-                newdp[t][1] = dp[t][1];
-
-                // Buy today if you were free
-                newdp[t][1] = max(newdp[t][1], dp[t][0] - prices[i]);
-
-                // State 2: Short
-
-                // Option 1: Keep holding short
-                newdp[t][2] = dp[t][2];
-
-                // Option 2 : Short sell today if free
-                newdp[t][2] = max(newdp[t][2], dp[t][0] + prices[i]);
             }
-            dp = newdp;
+
+            // ===== LONG =====
+            newdp[t][1] = max(dp[t][1], dp[t][0] - prices[i]);
+
+            // ===== SHORT =====
+            newdp[t][2] = max(dp[t][2], dp[t][0] + prices[i]);
         }
+
+        dp = newdp;
     }
-    int ans = 0;
+
+    long long ans = 0;
     for (int t = 0; t <= k; t++)
-    {
         ans = max(ans, dp[t][0]);
-    }
+
     return ans;
 }
 
