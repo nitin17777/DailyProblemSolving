@@ -1,84 +1,59 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
 
 struct Node
 {
     int data;
-    Node * left;
-    Node* right;
+    Node *left;
+    Node *right;
 
-    Node(int d)
+    Node(int data)
     {
-        this ->data = d;
-        this ->right = NULL;
-        this ->left = NULL;
-
+        this->data = data;
+        this->right = NULL;
+        this->left = NULL;
     }
 };
-int height(Node * root)
+
+int diameter = 0;
+
+int height(Node *root)
 {
-    if(root == NULL)
-    {
+
+    // we have to return the length of the binary tree
+
+    // Diameter : Length of the longest path between any two nodes in the tree
+
+    if (root == NULL)
         return 0;
 
-    }
-    int left = height(root->left);
-    int right = height(root->right);
+    int lh = height(root->left);
+    int rh = height(root->right);
 
-    int ans = max(left,right) + 1;
-    return ans;
+    // Updatinng diameter at this node
+    diameter = max(diameter, lh + rh);
+
+    return 1 + max(lh, rh);
 }
 
-
-pair<int,int>diameterFast(Node* root)
-//int diameter(Node* root)
+int diameterOfBinaryTree(Node *root)
 {
-    if(root == NULL)
-    {
-        pair<int,int>p = make_pair(0,0);
-        return p;
-
-
-    }
-
-    pair<int,int>left = diameterFast(root->left);
-    pair<int,int>right = diameterFast(root->right);
-
-    int op1 = left.first;
-    int op2 = right.first;
-    int op3 = left.second + right.second +1;
-
-    pair<int,int>ans;
-    ans.first =max(op1,max(op2,op3));
-    ans.second = max(left.second , right.second) + 1;
-    return ans;
-
+    height(root);
+    return diameter;
 }
 
-    int diameter(Node* root)
-    {
-        return diameterFast(root).first;
-
-    }
 int main()
 {
 
-    Node* root = new Node(1);
+    Node *root = new Node(1);
 
-    root ->left = new Node(2);
-    root ->right = new Node(3);
+    root->left = new Node(2);
+    root->right = new Node(3);
 
-    root-> left -> left = new Node(4);
-    root ->left ->right = new Node(5);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
 
-    int dia = diameter(root);
+    cout << diameterOfBinaryTree(root) << endl;
 
-    cout<<"Diameter is "<<dia<<endl;
-
-
-
-
-    return 0 ;
-
+    return 0;
 }
