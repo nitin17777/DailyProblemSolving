@@ -1,59 +1,64 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool predictTheWinner(vector<int>& nums)
+string solve(int n,vector<int>&a,vector<int>&q)
 {
-    int n = nums.size();
-    
     /*
-    Player 1 will start first 
 
-    In each turn, player can take element from either end
-
-    And chosen element is added to their score 
-
-    Game ends when no element is remaining
-
-    We have to justify if player 1 can win the game
+    n different questions can be asked in the exam
 
 
+    ai -> The only question which is not present in the ith list
 
-    We have to make dp 
+
+    He will recieve one of these m lists of questions
+
+    And he will pass only if he knows all the questions from the list 
+
+
+    He knows the answer for k questions : q1, q2,...qk
+
+    ith character should be 1 if he passes the exam if he recieves the ith question list, 0 if won't pass
     */
 
-    //dp[l][r] = max score diff current player can achieve
-    vector<vector<int>>dp(n,vector<int>(n,0));
+    int m = a.size();
+    int k = q.size();
 
-    // Base Case: When single element is only there
-    for(int i = 0; i <n;i++)
+    string ans = "";
+
+    vector<bool>used(n+1,false);
+
+    for(int i=0;i<k;i++)used[q[i]] = true;//marking the questions he knows
+
+    for(int i = 0;i<m;i++)
     {
-        dp[i][i] = nums[i];
+        if((k == n) || ((k == n-1) && !used[a[i]]))ans+='1';
+
+        else ans+='0';
     }
-
-    for(int len = 2;len<=n;len++)
-    {
-        for(int l = 0;l+len-1<n;l++)
-        {
-            int r = l+len-1;
-
-            int pl = nums[l] - dp[l+1][r];
-            int rl = nums[r] - dp[l][r-1];
-
-            dp[l][r] =max(pl,rl);
-
-        }
-    }
-    // Player 1 wins if score difference >= 0
-    return dp[0][n - 1] >= 0;
+    return ans;
 }
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>nums = {1,5,2};
-    cout<<(predictTheWinner(nums)?"True" : "False")<<endl;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,m,k;
+        cin>>n>>m>>k;
 
+        vector<int>a(m),q(k);
+
+        for(auto&x:a)cin>>x;
+        for(auto&x:q)cin>>x;
+
+        cout<<solve(n,a,q)<<endl;
+    }
     return 0;
+    
 }
