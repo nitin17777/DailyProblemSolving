@@ -1,42 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-string solve(int n,vector<int>&a,vector<int>&q)
+int minDistance(string word1, string word2)
 {
-    /*
-
-    n different questions can be asked in the exam
-
-
-    ai -> The only question which is not present in the ith list
+    //Return the number of steps to make w1 and w2 same
+    //In one step we can delete exaactly one character in either string
 
 
-    He will recieve one of these m lists of questions
+    int n =word1.length(),m = word2.length();
 
-    And he will pass only if he knows all the questions from the list 
+    // dp[i][j] = length of longest common subsequence
+
+    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
 
 
-    He knows the answer for k questions : q1, q2,...qk
-
-    ith character should be 1 if he passes the exam if he recieves the ith question list, 0 if won't pass
-    */
-
-    int m = a.size();
-    int k = q.size();
-
-    string ans = "";
-
-    vector<bool>used(n+1,false);
-
-    for(int i=0;i<k;i++)used[q[i]] = true;//marking the questions he knows
-
-    for(int i = 0;i<m;i++)
+    for(int i = 1;i<=n;i++)
     {
-        if((k == n) || ((k == n-1) && !used[a[i]]))ans+='1';
+        for(int j = 1;j<=m;j++)
+        {
+            //if current characters match they must be part of the LCS
+            if(word1[i-1] == word2[j-1])
+            {
+                dp[i][j] = 1 + dp[i-1][j-1];
+            }
 
-        else ans+='0';
+            //IF they don't match we have 2 choices:
+            // Ignore the current char of word1
+            // ignore the current char of word2
+
+            //SO take the better maximum 
+            else
+            {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
     }
-    return ans;
+
+    int lcs = dp[n][m];
+
+    return (n-lcs) + (m-lcs);
 }
 
 
@@ -45,20 +47,9 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n,m,k;
-        cin>>n>>m>>k;
+    string w1 = "sea",w2 = "eat";
 
-        vector<int>a(m),q(k);
-
-        for(auto&x:a)cin>>x;
-        for(auto&x:q)cin>>x;
-
-        cout<<solve(n,a,q)<<endl;
-    }
+    cout<<minDistance(w1,w2)<<endl;
     return 0;
     
 }
