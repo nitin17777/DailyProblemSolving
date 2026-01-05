@@ -1,33 +1,61 @@
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-bool canIWin(int maxChoosableInteger, int desiredTotal)
+int maxNum;
+unordered_map<int, bool> memo;
+
+bool dfs(int mask, int rem)
 {
-    //we have to check whether the player can win the game if started first
+    // if already computed, return the stored result
+    if (memo.count(mask))
+        return memo[mask];
 
-    if(maxChoosableInteger >= desiredTotal)
-    return true;
+    // Try all possible unused numbers
+    for (int i = 1; i <= maxNum; i++)
+    {
+        int bit = 1 << (i - 1);
 
-    //start counting from 1st player with first step as maxCho...Int and then check if 1st player can make the final winning move
+        /// if number i is unused
+        if ((mask & bit) == 0)
+        {
+            // if picking i wins immediately
+            if (i >= rem)
+                return memo[mask] = true;
 
-    int first = 0, second = 0;
-   
+            // Otherwise see if opponent loses
+            if (!dfs(mask | bit, rem - i))
+            {
+                return memo[mask] = true;
+            }
+        }
+    }
+    return memo[mask] = false; // when no winning move exists
+}
+
+bool canIWin(int maxi, int desi)
+{
+    /*
+
+    The player who first causes the running total to reach or exceed 100 wins
+
+
+    Return true if first player to move can force a win
+    */
+
+    int s = (maxi * (maxi + 1)) / 2;
+    if (desi <= 0)
+        return true;
+
+    if (s < desi)
+        return false;
+
+    maxNum = maxi;
+    // Starting with empty mask
+    return dfs(0, desi);
 }
 
 int main()
 {
-
-    int maxChoosableInteger = 10;
-    int desiredTotal = 11;
-
-    if(canIWin)
-    cout<<"True"<<endl;
-
-    else
-    cout<<"False"<<endl;
-
-
-
+    cout << (canIWin(10, 11) ? "true" : "false") << endl;
     return 0;
-
 }
