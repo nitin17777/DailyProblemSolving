@@ -1,44 +1,47 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minDistance(string word1, string word2)
+int solve(int a1,int a2,int a3,int a4)
 {
-    //Return the number of steps to make w1 and w2 same
-    //In one step we can delete exaactly one character in either string
+    /*
+
+    a-> A+B
+    b-> A
+    c-> B
+    d-> None
+
+    Initial mood = 0;
+
+    If heard a joke they like,their moods increase by 1
+    And if not liked, their mood decreases by 1
+
+    If mood becomes negative, they leave the show 
+
+    Ends the show when: When someone leaves and eve gets sad
+                        If no one leaves and eve is out of jokes 
+
+    So Eve wants to arrnage her jokes such that show lasts as longer as possible 
+
+    Determine the max jokes she can make before the show ends
+
+    */
 
 
-    int n =word1.length(),m = word2.length();
+    //Let Eve tell joke of 1st type initially and joke of 4th type at last
 
-    // dp[i][j] = length of longest common subsequence
-
-    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+    //We will tell the jokes of type2 and type 3 in pairs until one runs out
 
 
-    for(int i = 1;i<=n;i++)
-    {
-        for(int j = 1;j<=m;j++)
-        {
-            //if current characters match they must be part of the LCS
-            if(word1[i-1] == word2[j-1])
-            {
-                dp[i][j] = 1 + dp[i-1][j-1];
-            }
+    /*
+    Total jokes = a1 -> Type 1
+                2 * min(a2,a3) -> paired 2 and 3 type jokes
+                min(a1 + 1,abs(a2-a3) + a4) ->Final harmful for both jokes
+    */
 
-            //IF they don't match we have 2 choices:
-            // Ignore the current char of word1
-            // ignore the current char of word2
+    if(a1 == 0)return 1;
 
-            //SO take the better maximum 
-            else
-            {
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
-            }
-        }
-    }
+    else return (a1+ min(a2,a3)*2 + min(a1+1, abs(a2-a3) + a4));
 
-    int lcs = dp[n][m];
-
-    return (n-lcs) + (m-lcs);
 }
 
 
@@ -47,9 +50,13 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string w1 = "sea",w2 = "eat";
-
-    cout<<minDistance(w1,w2)<<endl;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int a,b,c,d;
+        cin>>a>>b>>c>>d;
+        cout<<solve(a,b,c,d)<<endl;
+    }
     return 0;
-    
 }
