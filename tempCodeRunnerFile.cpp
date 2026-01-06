@@ -1,49 +1,53 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(int a1,int a2,int a3,int a4)
+vector<int>solve(int n,int m,vector<vector<int>>cards)
 {
     /*
+    Each cow should only be able to play 1 card per round
 
-    a-> A+B
-    b-> A
-    c-> B
-    d-> None
+    He decides to determine a turn order determine by a permutation p of length n such that pith cow will be ith cow to place a card on top of the center pile in a round
 
-    Initial mood = 0;
 
-    If heard a joke they like,their moods increase by 1
-    And if not liked, their mood decreases by 1
+    Means something like this happens: 
+    p1th cow places any card from their deck on top of the center pile 
+    and similary for other cows
 
-    If mood becomes negative, they leave the show 
+    In order to place a card, the number of the card must be greater than the number of card on the top of the center pile 
 
-    Ends the show when: When someone leaves and eve gets sad
-                        If no one leaves and eve is out of jokes 
+    If a cow is unable to do so, the game is considered to be lost
 
-    So Eve wants to arrnage her jokes such that show lasts as longer as possible 
-
-    Determine the max jokes she can make before the show ends
-
+    If there is any possible permutation p such that all cows can empty their deck after playing m rounds of the game ,if so, return the permutation else return -1
     */
 
-
-    //Let Eve tell joke of 1st type initially and joke of 4th type at last
-
-    //We will tell the jokes of type2 and type 3 in pairs until one runs out
+    vector<int>p(n,-1); //p[x] = index of cow whose min card is x
 
 
-    /*
-    Total jokes = a1 -> Type 1
-                2 * min(a2,a3) -> paired 2 and 3 type jokes
-                min(a1 + 1,abs(a2-a3) + a4) ->Final harmful for both jokes
-    */
+    for(int i = 0;i<n;i++)
+    {
+        //Sorting card of each row
 
-    if(a1 == 0)return 1;
+        sort(cards[i].begin(),cards[i].end());
 
-    else return (a1+ min(a2,a3)*2 + min(a1+1, abs(a2-a3) + a4));
+        //every succesive element of each row must differ by n
+
+        for(int j = 1;j<m;j++)
+        {
+            if(cards[i][j] - cards[i][j-1] != n)return {-1};
+        }
+
+        int minCard = cards[i][0];
+
+        if(minCard <0 || minCard>=n)return {-1};
+
+        if(p[minCard] != -1)return {-1};
+
+        p[minCard] = i;
+    }
+
+    return p;
 
 }
-
 
 int main()
 {
@@ -54,9 +58,22 @@ int main()
     cin>>t;
     while(t--)
     {
-        int a,b,c,d;
-        cin>>a>>b>>c>>d;
-        cout<<solve(a,b,c,d)<<endl;
+        int n,m;
+        cin>>n>>m;
+    
+        vector<vector<int>>a(n,vector<int>(m));
+        for(int i =0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                cin>>a[i][j];
+            }
+        }
+        
+        vector<int>ans = solve(n,m,a);
+        for(auto&an:ans)cout<<an<<" ";
+
+        cout<<endl;
     }
     return 0;
 }
