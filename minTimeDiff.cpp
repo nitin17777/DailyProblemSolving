@@ -3,9 +3,6 @@ using namespace std;
 
 int minutes(string s)
 {
-
-    
-
     int hr = (s[0] - '0')*10 + (s[1]-'0');
     int mn = (s[3] - '0') * 10 + (s[4] -'0');
 
@@ -37,10 +34,12 @@ int findMinDifference(vector<string>& timePoints)
     for(int i =1;i<arr.size();i++)
     {
         int diff = arr[i] - arr[i-1];
-
         mini = min(mini,diff);
-
     }
+
+    //circular difference case
+    mini = min(mini,1440 - arr.back()+arr[0]);
+    
     return mini;
 }
 
