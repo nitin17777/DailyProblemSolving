@@ -1,27 +1,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool solve(vector<int>&a)
+int solve(string l,string r)
 {
     /*
-    Equality characteristic = arr b where bi = 1,if both of a's neighbour are equal to ai
+    Between given two ranges, find 2 numbers such that their strength is the maximum
 
-    0 otherwise
-
-    We are given array b, we have to determine if any array a exists or not
+    to maximise this strength, we need a combo of 0 and 9 at every index possible
 
 
     */
 
-    string s = "";
+    //Padding zeroes to l first, no R padding as R>L
+    if(l.size() < r.size())
+    {
+        l = string(r.size()-l.size(), '0') + l;
+    }
 
-    for(auto & x: a)
-    s+=to_string(x);
+    int n = l.size(),ans = 0;
 
-    size_t pos = s.find("101");
-    if(pos != string::npos)return false;
-    
-    return true;
+    //Finding first position where both the number differ
+    for(int i = 0;i<n;i++)
+    {
+        if(l[i] != r[i])
+        {
+            //difference in the first differing digit 
+            int diff = (r[i] -'0') - (l[i]-'0');
+
+            ans = diff + 9 * (n-i-1); // 9 * remaining digits
+            return ans;
+        }
+    }
+    return 0;
 }
 
 int main()
@@ -33,13 +43,10 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
+        string L,R;
+        cin>>L>>R;
 
-        vector<int>a(n);
-        for(auto&x:a)cin>>x;
-
-        cout<<(solve(a)?"Yes":"No")<<endl;
+        cout<<solve(L,R)<<endl;
     }
     return 0;
 }
