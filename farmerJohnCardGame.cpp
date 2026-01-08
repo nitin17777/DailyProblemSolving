@@ -29,7 +29,6 @@ vector<int> solve(int n, int m, vector<vector<int>> cards)
         sort(cards[i].begin(), cards[i].end());
 
         // every succesive element of each row must differ by n
-
         for (int j = 1; j < m; j++)
         {
             if (cards[i][j] - cards[i][j - 1] != n)

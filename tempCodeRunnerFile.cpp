@@ -1,47 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minutes(string s)
+int solve(vector<int>&a)
 {
+    /*
+    1-> Deal 1 damage to any monster alive 
+    2-> Deal 1 damage to all alive monster and if a monster dies due to this, repaeat it 
 
+    Spell 2 can be used just once
+
+    Return the min number of times spell 1 can be used
+    */
+
+    //Use it when atleast one monster has 1 hp remaining
+
+    //use spell 1 until we have proper counting from 1 to ...
+
+    // check which count we have ,and find the changes required to get it
     
+    sort(a.begin(),a.end());
+    int n = a.size();
 
-    int hr = (s[0] - '0')*10 + (s[1]-'0');
-    int mn = (s[3] - '0') * 10 + (s[4] -'0');
+    int hp = 1;
+    int ans=0;
 
-
-    if(hr == 0 && mn == 0)return 24* 60;
-
-    int ans = hr*60 + mn;
-}
-
-int findMinDifference(vector<string>& timePoints)
-{
-    //Return the min minute diff bw any two points in the list
-
-
-    //Just convert every element of string to minutes and form a new array
-
-    vector<int>arr;
-    for(auto& s:timePoints)
+    for(int i=0;i<n;i++)
     {
-        int m = minutes(s);
-        arr.push_back(m);
+        if(a[i] - hp != 0)
+        {
+            int needed = a[i]-(hp+1);
+            hp++;
+            ans+=needed;
+        }
     }
-
-    int mini = INT_MAX;
-
-    sort(arr.begin(),arr.end());
-
-
-    for(int i =1;i<arr.size();i++)
-    {
-        int diff = arr[i] - arr[i-1];
-
-        mini = min(mini,diff);
-
-    }
-    return mini;
+    return ans;
 }
 
 int main()
@@ -49,9 +41,17 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<string>t = {"23:59","00:00"};
-    cout<<findMinDifference(t)<<endl;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
 
-
+        vector<int>a(n);
+        for(auto& x: a)cin>>x;
+        cout<<solve(a)<<endl;
+        
+    }
     return 0;
 }
