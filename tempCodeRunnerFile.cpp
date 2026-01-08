@@ -1,57 +1,59 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>&a)
+bool lemonadeChange(vector<int>& bills)
 {
     /*
-    1-> Deal 1 damage to any monster alive 
-    2-> Deal 1 damage to all alive monster and if a monster dies due to this, repaeat it 
+    Each costs 5
 
-    Spell 2 can be used just once
+    Each customer will buy one at a time and pay with 5,10 or 20 
 
-    Return the min number of times spell 1 can be used
+    We have to return the correct change such that bill amount is 5 
+
+
+    Return true if we can give the changes back properly to every customer
     */
+   int five = 0,ten= 0;
 
-    //Use it when atleast one monster has 1 hp remaining
-
-    //use spell 1 until we have proper counting from 1 to ...
-
-    // check which count we have ,and find the changes required to get it
-    
-    sort(a.begin(),a.end());
-    int n = a.size();
-
-    int hp = 1;
-    int ans=0;
-
-    for(int i=0;i<n;i++)
+    for(int b:bills)
     {
-        if(a[i] - hp != 0)
+        if(b==5)five++;
+        
+        
+        else if(b == 10)
         {
-            int needed = a[i]-(hp+1);
-            hp++;
-            ans+=needed;
+            if(five == 0)return false;
+
+            five--;
+            ten++;
+        }
+
+        else//When bill is of 20 
+        {
+            if(ten > 0 && five >0)
+            {
+                ten--;
+                five--;
+            }
+
+            else if(five >=3)
+            {
+                five-=3;
+            }
+            else return false;
         }
     }
-    return ans;
+    return true;
+    
 }
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-
-        vector<int>a(n);
-        for(auto& x: a)cin>>x;
-        cout<<solve(a)<<endl;
-        
-    }
+    vector<int>bills = {5,5,5,10,20};
+    cout<<(lemonadeChange(bills)?"True": "False")<<endl;
     return 0;
 }

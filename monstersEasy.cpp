@@ -11,7 +11,6 @@ ll solve(vector<int> &a)
     Spell 2 can be used just once
 
     Return the min number of times spell 1 can be used
-    */
 
     // Use it when atleast one monster has 1 hp remaining
 
@@ -22,17 +21,18 @@ ll solve(vector<int> &a)
     sort(a.begin(), a.end());
     int n = a.size();
 
-    int hp = 1;
-    ll ans = a[0] - 1;
+    int hp = 0;
+    ll ans = 0;
 
     for (int i = 1; i < n; i++)
     {
         hp = min(hp + 1, a[i]);
         ans += a[i] - hp;
     }
-    return ans; // Wrong Approach idk why
+    return ans; // Wrong Approach
 
-    /* Tourist's Method
+    */
+    // Tourist's Method
 
     int n = a.size();
 
@@ -52,7 +52,7 @@ ll solve(vector<int> &a)
     {
         ans += a[i] - b[i];
     }
-    return ans;*/
+    return ans;
 }
 
 int main()
