@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
@@ -7,13 +7,13 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
         int n;
-        cin>>n;
-        
-        cout<< ((n*n)/ 4 ) + 1<< endl;
+        cin >> n;
+
+        cout << ((n * n) / 4) + 1 << endl;
     }
     return 0;
 }
