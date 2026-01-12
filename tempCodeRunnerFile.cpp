@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -10,12 +11,15 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
+        int n,y;
+        cin>>n>>y;
+        
+        vector<int>a(n);
+        for(auto & x: a)cin>>x;
 
-        if(n%3 == 1)cout<<"Yes"<<endl;
+        int su = accumulate(a.begin(),a.end(),0);
 
-        else cout<<"No"<<endl;
+        cout<<((su / a.size() == y )?"Yes": "No")<<endl;
     }
     return 0;
 }
