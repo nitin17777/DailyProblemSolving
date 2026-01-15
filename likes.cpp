@@ -27,7 +27,7 @@ int main()
         cin >> n;
 
         vector<int> a(n);
-        for (auot &x : a)
+        for (auto &x : a)
             cin >> x;
 
         vector<int> ans = solve(a);
