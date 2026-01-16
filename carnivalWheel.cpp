@@ -12,6 +12,21 @@ int solve(int l, int a, int b)
     Determine the max prize we can get
 
     */
+
+    vector<bool> visited(l, false);
+    int ans = 0;
+
+    int curr = a;
+
+    while (!visited[curr])
+    {
+        visited[curr] = true;
+        ans = max(ans, curr);
+
+        curr = (curr + b) % l;
+    }
+
+    return ans;
 }
 
 int main()
