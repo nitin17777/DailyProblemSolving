@@ -1,56 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-const long long MOD = 1e9+7;
-
-int maximizeSquareArea(int m, int n, vector<int>& hFences, vector<int>& vFences)
+vector<int>solve(int n)
 {
     /*
-    Return the max area of square field that can be formed by removing some fences or return -1 if it is impossible to remove the fences
+    sum of elements at k multiples is a multiple of k
+
+    Return this beautiful array
 
     */
 
-    vFences.push_back(1);
-    vFences.push_back(n);
+    vector<int>ans(n,0);
 
-    hFences.push_back(1);
-    hFences.push_back(m);
-
-
-    sort(hFences.begin(),hFences.end());
-    sort(vFences.begin(),vFences.end());
-
-
-
-    //Storing all possible horizontal Gaps
-    unordered_set<int>hGaps;    
-    for(int i = 0;i< hFences.size();i++)
+    for(int i = 0;i<n;i++)
     {
-        for(int j=i+1;j<hFences.size();j++)
-        {
-            hGaps.insert(hFences[j] - hFences[i]);
-        }
+        ans[i] = (i+1) * (i+1);
     }
-
-    long long maxSide = -1;
-
-
-    
-    for(int i = 0;i< vFences.size();i++)
-    {
-        for(int j=i+1;j<vFences.size();j++)
-        {
-            int gap = vFences[j] - vFences[i];
-            if(hGaps.count(gap))
-            {
-                maxSide = max(maxSide,(long long)gap);
-
-            }
-        }
-    }
-    if(maxSide == -1)return -1;
-    
-    return (maxSide *maxSide )%MOD;
+    return ans;
 }
 
 int main()
@@ -58,10 +24,18 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>hf= {2,3};
-    vector<int>vf = {2};
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
 
-    cout<<maximizeSquareArea(4,3,hf,vf)<<endl;
-    
+        vector<int>ans = solve(n);
+        for(auto & an :ans)cout<<an<<" ";
+
+        cout<<endl;
+        
+    }
     return 0;
 }

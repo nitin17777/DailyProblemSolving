@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> solve(vector<int> &a)
+{
+    /*
+    Find  array b such that exactly two out of the following 3 conditions are satisfied
+
+
+
+    index at which b = 2 ->
+    */
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+        for (auto &x : a)
+            cin >> x;
+    }
+    return 0;
+}
