@@ -1,38 +1,81 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int numRescueBoats(vector<int>& people, int limit)
+
+
+int largestMagicSquare(vector<vector<int>>& grid)
 {
- 
+    int m = grid.size();
+    int n = grid[0].size();
+    
     /*
-    we have weight of people 
+    Grid filled with integrs such that every col,row,diagonal sums are equal 
 
-    Return the min number of boats to carry every given person
-
+    Return the side length of largest magic that can be found within this grid
     */
 
-    int n = people.size();
+    vector<vector<int>>row(m,vector<int>(n+1,0));
+    vector<vector<int>>col(m+1,vector<int>(n,0));
 
-    sort(people.begin(),people.end());
 
-    int l = 0,r= n-1,boats =0;
-
-    //Pairing heaviest person with lightest under limits
-    while(l <= r)
+    for(int i =0;i<m;i++)
     {
-        if(people[l] + people[r] <= limit)
+        for(int j = 0;j<n;j++)
         {
-            l++;
-            r--;
+            row[i][j+1] = row[i][j] + grid[i][j];
+            col[i+1][j] = col[i][j] + grid[i][j];
         }
-
-        else r--;
-
-
-        boats++;
     }
 
-    return boats;
+    //
+    auto isMagic = [&](int r,int c,int k)
+{
+    //Taregt Sum -> Sum of first row of the square
+
+    int target = row[r][c+k] - row[r][c];
+
+
+    //Checking all row sums
+    for(int i = r; i <r+k;i++)
+    {
+        int currRowSum = row[i][c+k] - row[i][c];
+        if(currRowSum != target)return false;
+    }
+
+
+    //Checking col sums
+    for (int j = c; j < c + k; j++)
+    {
+        int currColSum = col[r + k][j] - col[r][j];
+        if (currColSum != target)return false;
+    }
+
+    //checking diagonals
+    int diag1 = 0,diag2 = 0;
+    for(int  i =0 ;i<k;i++)
+    {
+        diag1 += grid[r+i][c+i];
+        diag2 += grid[r+i][c+k-i-1];
+    }
+
+    if(diag1 != target || diag2 != target)return false;
+    
+
+    return true;
+};
+
+
+for(int k = min(m,n); k >= 1;k--)
+{
+    for (int i = 0; i + k <= m; i++)
+    {
+        for (int j = 0; j + k <= n; j++)
+        {
+            if (isMagic(i, j, k))return k;
+        }
+    }
+}
+    return 1;
 
 }
 
@@ -41,8 +84,9 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>people = {1,2};
-    cout<<numRescueBoats(people,3)<<endl;
+    vector<vector<int>>grid = {{7,1,4,5,6},{2,5,1,6,4},{1,5,4,3,2},{1,2,7,3,4}};
 
+    cout<<largestMagicSquare(grid)<<endl;
+    
     return 0;
 }
