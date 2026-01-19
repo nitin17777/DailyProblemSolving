@@ -1,82 +1,46 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-
-
-int largestMagicSquare(vector<vector<int>>& grid)
+bool isPrime(ll n)
 {
-    int m = grid.size();
-    int n = grid[0].size();
-    
-    /*
-    Grid filled with integrs such that every col,row,diagonal sums are equal 
+    if(n<=1)return false;
+    if(n<=3)return true;
+    if(n%2 == 0 || n%3 == 0)return false;
 
-    Return the side length of largest magic that can be found within this grid
+
+    for(ll i = 5;i*i <= n;i+=6)
+    {
+        if(n%i == 0 || n% (i+2) == 0)return false;
+    }
+    return true;
+}
+
+
+bool solve(ll x,ll k)
+{
+    /*
+    To obtain new num y, repeat k times the decimal representation of number x without leading zero
+
+    Check if y is prime or not
+
     */
 
-    vector<vector<int>>row(m,vector<int>(n+1,0));
-    vector<vector<int>>col(m+1,vector<int>(n,0));
-
-
-    for(int i =0;i<m;i++)
+    string str ="";
+    while(k!=0)
     {
-        for(int j = 0;j<n;j++)
-        {
-            row[i][j+1] = row[i][j] + grid[i][j];
-            col[i+1][j] = col[i][j] + grid[i][j];
-        }
-    }
-
-    //
-    auto isMagic = [&](int r,int c,int k)
-{
-    //Taregt Sum -> Sum of first row of the square
-
-    int target = row[r][c+k] - row[r][c];
-
-
-    //Checking all row sums
-    for(int i = r; i <r+k;i++)
-    {
-        int currRowSum = row[i][c+k] - row[i][c];
-        if(currRowSum != target)return false;
-    }
-
-
-    //Checking col sums
-    for (int j = c; j < c + k; j++)
-    {
-        int currColSum = col[r + k][j] - col[r][j];
-        if (currColSum != target)return false;
-    }
-
-    //checking diagonals
-    int diag1 = 0,diag2 = 0;
-    for(int  i =0 ;i<k;i++)
-    {
-        diag1 += grid[r+i][c+i];
-        diag2 += grid[r+i][c+k-i-1];
-    }
-
-    if(diag1 != target || diag2 != target)return false;
+        if(x > 9)str+=to_string(x);
     
 
-    return true;
-};
+        else str += char('0' + x);
+        
 
-
-for(int k = min(m,n); k >= 1;k--)
-{
-    for (int i = 0; i + k <= m; i++)
-    {
-        for (int j = 0; j + k <= n; j++)
-        {
-            if (isMagic(i, j, k))return k;
-        }
+        k--;
     }
-}
-    return 1;
 
+    ll num = stoi(str);
+
+    return isPrime(num);
 }
 
 int main()
@@ -84,9 +48,14 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<vector<int>>grid = {{7,1,4,5,6},{2,5,1,6,4},{1,5,4,3,2},{1,2,7,3,4}};
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int x,k;
+        cin>> x >> k;
 
-    cout<<largestMagicSquare(grid)<<endl;
-    
+        cout<<(solve(x,k)? "Yes": "No")<<endl;
+    }
     return 0;
 }
