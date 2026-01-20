@@ -4,6 +4,31 @@ using namespace std;
 int solve(vector<int> &a)
 {
 
+    sort(a.begin(), a.end());
+
+    a.erase(unique(a.begin(), a.end()), a.end());
+
+    int n = a.size();
+
+    int best = 0, current = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        // If not consecutive, reset current
+        if (i == 0 || a[i] != a[i - 1] + 1)
+            current = 0;
+
+        current++;
+
+        best = max(best, current);
+    }
+    return best;
+}
+
+/*
+int solve(vector<int> &a)
+{
+
     int n = a.size();
     sort(a.begin(), a.end());
 
@@ -44,6 +69,7 @@ int solve(vector<int> &a)
     }
     return mex;
 }
+    */
 
 int main()
 {

@@ -1,28 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int reachNumber(int target)
+bool searchMatrix(vector<vector<int>>& matrix, int target)
 {
-    /*
-    In each move we can either go right or left
+    int m = matrix.size();
 
+    if(m==0)return false;
 
+    int n = matrix[0].size();
 
-    Return the min number of moves to reach the destination
+    int row = 0,col = n-1;
 
-    */
-
-    target = abs(target);
-    long long sum = 0;
-    int k = 0;
-
-    while(sum < target || (sum- target) %2 != 0)
+    while(row <m && col >= 0)
     {
-        k++;
-        sum+=k;
-    }
+        if(matrix[row][col] == target)return true;
 
-    return k;
+        else if(matrix[row][col] > target)col--;
+
+        else row++;
+    }
+    return false;
 }
 
 int main()
@@ -30,7 +27,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<reachNumber(2)<<endl;
+    vector<vector<int>>matrix = {{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
 
+    cout<<(searchMatrix(matrix,5)?"True": "No")<<endl;
     return 0;
 }
