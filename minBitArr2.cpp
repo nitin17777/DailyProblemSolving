@@ -14,8 +14,6 @@ vector<int> minBitwiseArray(vector<int> &nums)
     Each value of ans should be minimised
 
     put -1 if not possible
-
-
     */
 }
 

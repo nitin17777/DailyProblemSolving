@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-bool solve(double xs, double ys, double xt, double yt, const vector<pair<double, double>> &circles)
+bool solve(ll xs, ll ys, ll xt, ll yt, const vector<pair<ll, ll>> &circles)
 {
     /*
     ith circle is centered at (xi,yi)
@@ -13,13 +14,15 @@ bool solve(double xs, double ys, double xt, double yt, const vector<pair<double,
 
     */
 
-    double yourTime = (xs - xt) * (xs - xt) + (ys - yt) * (ys - yt);
+    const ll EPS = 1e-9;
+
+    ll yourTime = (xs - xt) * (xs - xt) + (ys - yt) * (ys - yt);
 
     for (const auto &c : circles)
     {
-        double cirTime = (c.first - xt) * (c.first - xt) + (c.second - yt) * (c.second - yt);
+        ll cirTime = (c.first - xt) * (c.first - xt) + (c.second - yt) * (c.second - yt);
 
-        if (cirTime <= yourTime)
+        if (cirTime <= yourTime + EPS)
             return false;
     }
     return true;
@@ -37,13 +40,13 @@ int main()
         int n;
         cin >> n;
 
-        vector<pair<double, double>> circles(n);
+        vector<pair<ll, ll>> circles(n);
         for (int i = 0; i < n; i++)
         {
             cin >> circles[i].first >> circles[i].second;
         }
 
-        double xs, ys, xt, yt;
+        ll xs, ys, xt, yt;
         cin >> xs >> ys >> xt >> yt;
 
         cout << (solve(xs, ys, xt, yt, circles) ? "YES" : "NO") << endl;
