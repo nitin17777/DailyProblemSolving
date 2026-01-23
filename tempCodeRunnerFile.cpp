@@ -1,40 +1,65 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>&a,vector<int>&b)
+vector<int> largestDivisibleSubset(vector<int>& nums)
 {
-
-    int n = a.size();
-    int m = b.size();
-
     /*
-    jth operation would be to choose  the boards and change the integr written on it to bj
-    
+    Return the subset such that it satisfies: 
+    Every pair of elements satisfy"
+    ans[i] % ans[j] == 0
+    OR ans[j] % ans[i] == 0
+
+    Such that element in every pair in it are divisible by each other
+
+    Return any of the valid solution
     */
 
+    int n = nums.size();
+    if(n == 0)return {};
 
+    sort(nums.begin(),nums.end());
 
-    vector<int>arr;
+    //dp[i] = length of largest divisible subet that ends at index i
+    vector<int>dp(n,1);
 
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
+    //previous index int the subset chain
+    vector<int>parent(n,-1);
 
-    for(auto& x:a)arr.push_back(x);
-    for(auto& x:b)arr.push_back(x);
+    int maxLen =1;
+    int lastIdx = 0;
 
+    //Building dp 
 
-    //now we have all elements in arr
-    
-
-    int ans=0;
-    int sz =arr.size();
-
-    for(int i = sz-1;i>=sz-n;i--)
+    for(int i = 0;i<n;i++)
     {
-        ans+=arr[i];
-    }
-    return ans;
+        for(int j = 0;j<i;j++)
+        {
+            if(nums[i] % nums[j] == 0)
+            {
+                if(dp[j] + 1  > dp[i])
+                {
+                    dp[i] = dp[j] + 1;
+                    parent[i] = j;
+                }
+            }
+        }
 
+        if(dp[i] > maxLen)
+        {
+            maxLen = dp[i];
+            lastIdx = i;
+        }
+    }
+
+    vector<int>ans;
+
+    while(lastIdx != -1)
+    {
+        ans.push_back(nums[lastIdx]);
+        lastIdx = parent[lastIdx];
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
 }
 
 int main()
@@ -42,18 +67,12 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n,m;
-        cin>>n>>m;
+    vector<int>nums = {1,2,3};
+    vector<int>ans = largestDivisibleSubset(nums);
 
-        vector<int>a(n),b(m);
-        for(auto & x: a)cin>>x;
-        for(auto & x: b)cin>>x;
+    for(auto& an:ans)cout<<an<<" ";
 
-        cout<<solve(a,b)<<endl;
-    }
+    cout<<endl;
+
     return 0;
 }

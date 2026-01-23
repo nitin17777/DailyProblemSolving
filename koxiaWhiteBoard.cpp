@@ -1,33 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int solve(vector<int> &a, vector<int> &b)
+ll solve(vector<ll> &a, vector<ll> &b)
 {
-
     int n = a.size();
     int m = b.size();
 
     /*
     jth operation would be to choose  the boards and change the integr written on it to bj
-
     */
 
-    vector<int> arr;
-
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
+    vector<ll> arr;
+    arr.reserve(n + m);
 
     for (auto &x : a)
         arr.push_back(x);
     for (auto &x : b)
         arr.push_back(x);
 
+    sort(arr.begin(), arr.end());
+
     // now we have all elements in arr
 
-    int ans = 0;
-    int sz = arr.size();
-
-    for (int i = sz - 1; i >= sz - n; i--)
+    ll ans = 0;
+    for (int i = m; i < n + m; i++)
     {
         ans += arr[i];
     }
@@ -46,7 +43,7 @@ int main()
         int n, m;
         cin >> n >> m;
 
-        vector<int> a(n), b(m);
+        vector<ll> a(n), b(m);
         for (auto &x : a)
             cin >> x;
         for (auto &x : b)
