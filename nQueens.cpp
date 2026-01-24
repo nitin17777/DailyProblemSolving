@@ -16,8 +16,8 @@ void backtrack(int row)
     if (row == n)
     {
         result.push_back(board);
+        return;
     }
-    return;
 
     // Let's try placing queen in each col of this row
     for (int c = 0; c < n; c++)
@@ -45,13 +45,15 @@ void backtrack(int row)
     }
 }
 
-vector<vector<string>> solveNQueens(int n)
+vector<vector<string>> solveNQueens(int N)
 {
     // n Queens should be placed such that no two queens can attack each other
 
     // Chess board is of size n
 
     // So, no two queens wll share column, row, diagonal
+
+    n = N;
 
     board = vector<string>(n, string(n, '.'));
 
