@@ -1,38 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-bool solve(int n,int c,int d,vector<int>&a)
+vector<int>solve(int n)
 {
+    /*
 
-
-    /* c = 2 ; d = 3
-    3 9 6
-    5 7 1
-    11 4 8
+    Permutation is of size consisting of numbers from 1 to n only
+    
+    construct a permutation such that sum of adjacent elements is composite over every interval,if not possible return -1;    
     */
 
-    sort(a.begin(),a.end());
+    if(n < 5)return {-1};
 
-    vector<int>b(n*n);
-    b[0] = a[0];
-    
-    for(int i=1;i<n;i++)
+    vector<int>ans;
+    int l = 1,r = n;
+    while(l <= r)
     {
-        b[i] = b[i-1] + c;
+        ans.push_back(l);
+        ans.push_back(r);
+        l++;
+        r--;
     }
 
-    for(int i = 1;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            b[i*n + j] = b[(i-1)*n + j] + d;
-        }
-    }
-    sort(b.begin(),b.end());
-    return (a==b);
+    return ans;
 }
-
 
 int main()
 {
@@ -43,13 +34,14 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n,c,d;
-        cin>>n>>c>>d;
+        int n;
+        cin>>n;
+        vector<int>ans = solve(n);
 
-        vector<int>a(n*n);
-        for(int i =0;i<n*n;i++)cin>>a[i];
+        for(auto&x :ans)cout<<x<<" ";
 
-        cout<<(solve(n,c,d,a)?"Yes" :"No")<<endl;        
+        cout<<endl;
+        
     }
     return 0;
 }

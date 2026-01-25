@@ -5,12 +5,11 @@ int solve(int n)
 {
     /*
 
-    25% weight of total weight evaporates after the production
+    We have to place n chips
+
+    Cost of placing chip at x,y = x+y
+
     */
-
-    // Return the amount(kg) of berries needed to prepare n 3kg jars of jams
-
-    return 2 * n;
 }
 
 int main()
@@ -24,6 +23,7 @@ int main()
     {
         int n;
         cin >> n;
+
         cout << solve(n) << endl;
     }
     return 0;
