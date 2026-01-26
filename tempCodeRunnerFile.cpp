@@ -1,39 +1,42 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+vector<vector<int>> minimumAbsDifference(vector<int>& arr)
+{
+    int n = arr.size();
+    sort(arr.begin(),arr.end());
 
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
+    int mini = INT_MAX;
 
-        vector<int> p(n);
-        for (int &x : p) cin >> x;
-
-        for (int i = 0; i < n; i++) {
-            int mx = p[i];
-            int pos = -1;
-
-            // find maximum in suffix
-            for (int j = i + 1; j < n; j++) {
-                if (p[j] > mx) {
-                    mx = p[j];
-                    pos = j;
-                }
-            }
-
-            // if better element found, reverse and stop
-            if (pos != -1) {
-                reverse(p.begin() + i, p.begin() + pos + 1);
-                break;
-            }
-        }
-
-        for (int x : p) cout << x << " ";
-        cout << "\n";
+    for(int i=1;i<n;i++)
+    {
+        mini = min(mini,arr[i]- arr[i-1]);
     }
+    vector<vector<int>>ans;
+
+    for(int i =1;i<n;i++)
+    {
+        if(arr[i] - arr[i-1] == mini)
+        {
+            ans.push_back({arr[i-1],arr[i]});
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    vector<int>arr = {4,2,1,3};
+    vector<vector<int>>ans = minimumAbsDifference(arr);
+
+    for(auto & an :ans)
+    {
+        for(auto &x: an)cout<<x<<" ";
+
+        cout<<endl;
+    }
+    return 0;
 }
