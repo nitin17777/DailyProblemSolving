@@ -15,20 +15,8 @@ int solve(vector<int> &a, vector<int> &b, int l, int r)
     */
     int n = a.size();
 
-    vector<int> best(n);
-    best[n - 1] = max(a[n - 1], b[n - 1]);
-
-    for (int i = n - 2; i >= 0; i--)
-    {
-        best[i] = max({best[i + 1], a[i], b[i]});
-    }
-
     // Atlast finding sum in the given range
-    vector<long long> pref(n + 1, 0);
-    for (int i = 0; i < n; i++)
-    {
-        pref[i + 1] = pref[i] + best[i];
-    }
+    vector<long long> pref;
 
     return pref[r] - pref[l - 1];
 }
@@ -45,18 +33,31 @@ int main()
         int n, q;
         cin >> n >> q;
 
-        vector<int> a(n), b(n);
-        for (auto &x : a)
-            cin >> x;
-        for (auto &x : b)
-            cin >> x;
+        vector<int> a(n + 5), b(n + 5), pref(n + 5);
 
-        while (q--)
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+        for (int i = 1; i <= n; i++)
+            cin >> b[i];
+
+        a[n + 1] = 0;
+
+        for (int i = n; i > 0; i--)
         {
-            int l, r;
-            cin >> l >> r;
+            a[i] = max({a[i + 1], a[i], b[i]});
+        }
 
-            cout << solve(a, b, l, r) << " ";
+        pref[0] = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            pref[i] = pref[i - 1] + a[i];
+        }
+
+        for (int i = 1; i <= q; i++)
+        {
+            int L, R;
+            cin >> L >> R;
+            cout << pref[R] - pref[L - 1] << " ";
         }
         cout << endl;
     }
