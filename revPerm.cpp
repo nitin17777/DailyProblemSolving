@@ -27,26 +27,26 @@ vector<int> solve(vector<int> &a)
     // return a;
     int n = a.size();
 
-    for (int i = 0; i < n; i++)
+    // We need to find the first index for which pi != n-i+1
+
+    int i = 0;
+    while (i < n && a[i] == n - i)
+        i++;
+
+    int num = n - i;
+
+    int idx = 0;
+    // Finding the index of this num
+    for (int k = 0; k < n; k++)
     {
-        int mx = a[i];
-        int pos = -1;
-
-        for (int j = i + 1; j < n; j++)
+        if (a[k] == num)
         {
-            if (a[j] > mx)
-            {
-                mx = a[j];
-                pos = j;
-            }
-        }
-
-        if (pos != -1)
-        {
-            reverse(a.begin() + i, a.begin() + pos + 1);
+            idx = k;
             break;
         }
     }
+
+    reverse(a.begin() + i, a.begin() + idx + 1);
     return a;
 }
 
