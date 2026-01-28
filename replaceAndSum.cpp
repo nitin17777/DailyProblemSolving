@@ -1,26 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int solve(vector<int> &a, vector<int> &b, int l, int r)
-{
-    /*
-
-    he can perform following operations:
-
-    Choose index i and replace ai with ai+1
-    choose index i and replae ai with bi
-
-    Find the max value of sum for each query
-
-    */
-    int n = a.size();
-
-    // Atlast finding sum in the given range
-    vector<long long> pref;
-
-    return pref[r] - pref[l - 1];
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
