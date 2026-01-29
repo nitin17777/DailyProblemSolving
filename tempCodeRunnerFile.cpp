@@ -1,37 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool solve(string s)
+int solve(vector<int>&a,int n)
 {
-    int n = s.size();
+
+    int k = a.size();
+
     /*
+    2 Operations are : 
+    Pick piece ai > 2 and divide it into two pieces -> 1, ai - 1
+    Pick slice ai with another slice aj = 1 and merge them into one piece with length ai + 1, due to which arr length would decrease by 1
 
-    We have 2 types of operations:
 
-    1->We can appennd any letter to the end of the string 
-    2->Copy continuous substring of already typed string and paste it at the end of the string 
-
-    Determine if we can type the string s in strictly less than n operations
-
+    Return the min number of ops to restore pie 
     */
 
-    //IF the string has a repetitive substring of in length 2 , then yes, else no
+    int maxi = *max_element(a.begin(),a.end());
+   return 2 * (n - maxi) -k+1;
 
-   //Stores the first index where each length 2 substring appears
-   unordered_map<string,int>fp;
-
-   for(int i = 0;i<n-1;i++)
-   {
-        string sub = s.substr(i,2);
-
-        if(fp.count(sub))
-        {
-            //checking non overlapping condition
-            if(fp[sub]<i-1)return true;
-        }
-        else fp[sub] = i;
-   }
-   return false;;
 }
 
 int main()
@@ -43,12 +29,13 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        string s;
-        cin>>s;
+        int n,k;
+        cin>>n>>k;
 
-        cout<<(solve(s)?"Yes":"No")<<endl;
+        vector<int>a(k);
+        for(auto &x :a)cin>>x;
+
+        cout<<solve(a,n)<<endl;
     }
     return 0;
 }
