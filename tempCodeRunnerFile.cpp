@@ -1,41 +1,43 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>&a)
+bool hasDigit(string s)
 {
-
-    int n = a.size();
-
-    unordered_map<int,int>freq;
-    for(auto&c:a)freq[c]++;
-
-
-    int maxi = 0;
-    for(auto&c: freq)
+    for(int i=0;i<s.size();i++)
     {
-        maxi = max(maxi,c.second);
+        if(isalnum(s[i]))return true;
     }
-
-    return n-maxi;
+    return false;
 }
 
+bool both(string s)
+{
+    bool hasUpper = false, hasLower = false;
+
+    for (char c : s) 
+    {
+        if (c >= 'A' && c <= 'Z') hasUpper = true;
+        if (c >= 'a' && c <= 'z') hasLower = true;
+    }
+
+    return hasUpper && hasLower;
+}
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
+
+    string s;
+    cin>>s;
+
+    if((s.size() >= 5) && (hasDigit(s)) && both(s))
     {
-        int n;
-        cin>>n;
-
-        vector<int>a(n);
-        for(auto&x:a)cin>>x;
-
-        cout<<solve(a)<<endl;
+        cout<<"Correct"<<endl;
     }
+
+    else cout<<"Too weak"<<endl;
+    
     return 0;
 }
