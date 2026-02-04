@@ -1,20 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(int l,int r,int k)
+int guessNumber(int n)
 {
-    /*
-    We can perform this operation any number itmes
+    int l=1,r=n;
 
-    Choose number x from set such that there are atleast k multiples of x in s and then remove x from s
-    */
+    while(l<=r)
+    {
+        int mid = l + (r-l)/2;
 
-    //Integer x can be  removed iff x *k <= r --> x <= r/k---->
-    //So valid range = (l, r/k)
+        int res = guess(mid);
 
-
-    int ans = max((r/k) - l + 1,0);
-    return ans;
+        if(res == 0)return mid;
+        else if(res == -1)high = mid-1;
+        else low = mid+1;
+    }
+    return -1;
 }
 
 int main()
@@ -26,10 +27,9 @@ int main()
     cin>>t;
     while(t--)
     {
-        int l,r,k;
-        cin>>l>>r>>k;
-
-        cout<<solve(l,r,k)<<endl;
+        int n;
+        cin>>n;
+        
     }
     return 0;
 }
