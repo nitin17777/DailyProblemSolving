@@ -1,51 +1,21 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-
-
-
-bool isDifficult(string&s)
-{
-        
-    //case when no FFT and NNT found in string
-    return(s.find("FFT") != string::npos || s.find("NTT") != string::npos);
-}
-
-
-
-string notDifficultContest(string s)
-{
-
-     sort(s.begin(), s.end());
-    do {
-        if (!isDifficult(s))
-            return s;
-    } while (next_permutation(s.begin(), s.end()));
-    
-    return "-1"; // if no valid permutation foun
-
-
-
-}
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int t;
-    cin>>t;
-
-    while(t--)
+    cin >> t;
+    while (t--)
     {
         string s;
+        cin >> s;
 
-        cin>>s;
+        sort(s.rbegin(), s.rend());
 
-        string ans = notDifficultContest(s);
-
-        cout<<ans<<endl;
+        cout << s << endl;
     }
-
     return 0;
-    
 }

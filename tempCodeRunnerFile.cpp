@@ -1,21 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int guessNumber(int n)
+int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker)
 {
-    int l=1,r=n;
 
-    while(l<=r)
+    //Return the max profit we can achieve after assigning the workerts to the job
+    int ans=0;
+
+    //
+    for(int i = 0;i < worker.size();i++)
     {
-        int mid = l + (r-l)/2;
+        int j=0;
+        while(difficulty[j] < worker[i])j++;
 
-        int res = guess(mid);
-
-        if(res == 0)return mid;
-        else if(res == -1)high = mid-1;
-        else low = mid+1;
+        
+        ans+=profit[j];
     }
-    return -1;
+    return ans;
 }
 
 int main()
@@ -23,13 +24,10 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        
-    }
+    vector<int>dif = {2,4,6,8,10};
+    vector<int>profit = {10,20,30,40,50};
+    vector<int>work = {4,5,6,7};
+    cout<<maxProfitAssignment(dif,profit,work)<<endl;
+
     return 0;
 }
