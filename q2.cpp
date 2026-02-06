@@ -1,24 +1,37 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-
-int solve(vector<int> &a)
-{
-    int s = accumulate(a.begin(), a.end(), 0);
-    int n = a.size() + 1;
-
-    int su = (n * (n + 1) / 2);
-
-    return su - s;
-}
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    int n;
+    cin >> n;
 
-    vector<int> a = {1, 2, 3, 5};
+    int arr[n][n];
 
-    cout << solve(a) << endl;
+    // Input matrix elements
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> arr[i][j];
+        }
+    }
+
+    int sum = 0;
+
+    // Finding sum of elements below diagonal (i > j)
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i > j)
+            {
+                sum += arr[i][j];
+            }
+        }
+    }
+
+    cout << sum << endl;
 
     return 0;
 }

@@ -1,22 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker)
+int solve(vector<int>& a,int c)
 {
+    int n = a.size();
 
-    //Return the max profit we can achieve after assigning the workerts to the job
-    int ans=0;
+    //If WE don't type a word for c seconds, everything disappears
 
-    //
-    for(int i = 0;i < worker.size();i++)
+    // word disappears after we don't type after c seconds
+
+    int cnt=0;
+
+    for(int i = 0;i<n;i++)
     {
-        int j=0;
-        while(difficulty[j] < worker[i])j++;
+        if(i==0)cnt++;
 
-        
-        ans+=profit[j];
+        else
+        {
+            if(a[i] - a[i-1] <= c)cnt++;
+
+            else cnt = 1;
+        }
     }
-    return ans;
+    return cnt;
 }
 
 int main()
@@ -24,10 +30,14 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>dif = {2,4,6,8,10};
-    vector<int>profit = {10,20,30,40,50};
-    vector<int>work = {4,5,6,7};
-    cout<<maxProfitAssignment(dif,profit,work)<<endl;
+    
+    int n,c;
+    cin>>n>>c;
 
+    vector<int>a(n);
+    for(auto&x : a)cin>>x;
+
+    cout<<solve(a,c)<<endl;
+    
     return 0;
 }

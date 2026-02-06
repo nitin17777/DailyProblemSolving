@@ -1,21 +1,43 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-
-int solve(int n)
-{
-    for (int i = 1; i < n / 2; i++)
-    {
-        if (i * i == n)
-            return i;
-    }
-    return -1;
-}
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    int m, n;
 
-    cout << solve(16) << endl;
+    // Input rows and columns
+    cin >> m;
+    cin >> n;
+
+    int arr[m][n];
+
+    // Input matrix elements
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> arr[i][j];
+        }
+    }
+
+    // Swapping columns
+    for (int j = 0; j < n / 2; j++)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            swap(arr[i][j], arr[i][n - 1 - j]);
+        }
+    }
+
+    // Display updated matrix
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+
     return 0;
 }
