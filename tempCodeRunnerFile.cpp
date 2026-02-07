@@ -1,28 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>& a,int c)
+int minimumDeletions(string s)
 {
-    int n = a.size();
+    int n = s.size();
 
-    //If WE don't type a word for c seconds, everything disappears
+    //Return the min number of deletions needed to make s balanced
 
-    // word disappears after we don't type after c seconds
+    //Balanced if a is always before and no a can be after b
 
-    int cnt=0;
+    int b = 0,del = 0;
 
-    for(int i = 0;i<n;i++)
+    for(char c:s)
     {
-        if(i==0)cnt++;
-
-        else
-        {
-            if(a[i] - a[i-1] <= c)cnt++;
-
-            else cnt = 1;
-        }
+        if(c=='b')b++;
+        else del = min(b,del+1);
     }
-    return cnt;
+    return del;
 }
 
 int main()
@@ -30,14 +24,6 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    
-    int n,c;
-    cin>>n>>c;
-
-    vector<int>a(n);
-    for(auto&x : a)cin>>x;
-
-    cout<<solve(a,c)<<endl;
-    
+    cout<<minimumDeletions("aababbab")<<endl;
     return 0;
 }
