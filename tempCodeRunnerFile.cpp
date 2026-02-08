@@ -1,29 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minimumDeletions(string s)
-{
-    int n = s.size();
-
-    //Return the min number of deletions needed to make s balanced
-
-    //Balanced if a is always before and no a can be after b
-
-    int b = 0,del = 0;
-
-    for(char c:s)
-    {
-        if(c=='b')b++;
-        else del = min(b,del+1);
-    }
-    return del;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<minimumDeletions("aababbab")<<endl;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        vector<int>a(3);
+        for(auto&x:a)cin>>x;
+
+        sort(a.begin(),a.end());
+
+        if(a[1] != a[2])cout<<"No"<<endl;
+
+        else 
+        {
+            cout<<"Yes"<<endl;
+            cout<<a[0]<<" "<<a[0]<<" "<<a[2]<<endl;
+        }
+    }
     return 0;
 }
