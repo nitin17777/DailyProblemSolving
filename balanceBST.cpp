@@ -20,11 +20,11 @@ void inorder(Node *root, vector<Node *> nodes)
     if (root == NULL)
         return;
     inorder(root->left, nodes);
-    nodes.push_back(root->data);
+    nodes.push_back(root);
     inorder(root->right, nodes);
 }
 
-Node *build(vector<Node> *nodes, int l, int r)
+Node *build(vector<Node *> nodes, int l, int r)
 {
     if (l > r)
         return NULL;
