@@ -1,6 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+int solve(vector<int>&a)
+{
+    int n = a.size();
+    int ans = 0;
+
+    int prev = a[0];
+    sort(a.begin(),a.end());
+    for(int i =1;i<n;i++)
+    {
+        int ad = (prev + a[i])/2;
+        prev = ad;
+    }
+    return prev;
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -10,18 +25,12 @@ int main()
     cin>>t;
     while(t--)
     {
-        vector<int>a(3);
-        for(auto&x:a)cin>>x;
+        int n;
+        cin>>n;
+        vector<int>a(n);
+        for(auto &x:a)cin>>x;
 
-        sort(a.begin(),a.end());
-
-        if(a[1] != a[2])cout<<"No"<<endl;
-
-        else 
-        {
-            cout<<"Yes"<<endl;
-            cout<<a[0]<<" "<<a[0]<<" "<<a[2]<<endl;
-        }
+        cout<<solve(a)<<endl;
     }
     return 0;
 }
