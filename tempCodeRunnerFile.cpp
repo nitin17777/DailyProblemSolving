@@ -1,19 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>&a)
+vector<int>solve(int n)
 {
-    int n = a.size();
-    int ans = 0;
 
-    int prev = a[0];
-    sort(a.begin(),a.end());
-    for(int i =1;i<n;i++)
+    //permutation of size n such that abs(pi - pi+ 1) is divisible by i
+
+
+    vector<int>p(n+1);
+    p[n] = n;
+    p[n-1] = 1;
+
+    for(int i = n-2;i>=1;i--)
     {
-        int ad = (prev + a[i])/2;
-        prev = ad;
+        if(i%2 == 1)
+        {
+            p[i] = p[i+1] +1;
+        }
+        else
+        {
+            p[i] = p[i+1] -1;
+        }
     }
-    return prev;
+    return p;
+
 }
 
 int main()
@@ -27,10 +37,11 @@ int main()
     {
         int n;
         cin>>n;
-        vector<int>a(n);
-        for(auto &x:a)cin>>x;
+        
+        vector<int>p=solve(n);
+        for(int i = 1;i<=n;i++)cout<<p[i]<<" ";
 
-        cout<<solve(a)<<endl;
+        cout<<endl;
     }
     return 0;
 }
