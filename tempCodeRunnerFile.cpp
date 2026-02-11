@@ -1,31 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int>solve(int n)
+int solve(vector<int>&a)
 {
+    int n = a.size();
+    
+    //We can select any 2 indices and assignn ai = ai + aj and set aj = 0, and this can be done only once
 
-    //permutation of size n such that abs(pi - pi+ 1) is divisible by i
-
-
-    vector<int>p(n+1);
-    p[n] = n;
-    p[n-1] = 1;
-
-    for(int i = n-2;i>=1;i--)
-    {
-        if(i%2 == 1)
-        {
-            p[i] = p[i+1] +1;
-        }
-        else
-        {
-            p[i] = p[i+1] -1;
-        }
-    }
-    return p;
-
+    //Return the min value of min(a1) + min(a1,a2) +....
+    return min(2*a[0], a[0] + a[1]);
 }
-
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -37,11 +21,12 @@ int main()
     {
         int n;
         cin>>n;
-        
-        vector<int>p=solve(n);
-        for(int i = 1;i<=n;i++)cout<<p[i]<<" ";
 
-        cout<<endl;
+        vector<int>a(n);
+        for(auto&x:a)cin>>x;
+
+        cout<<solve(a)<<endl;
+        
     }
     return 0;
 }

@@ -4,29 +4,11 @@ using namespace std;
 vector<int> solve(int n)
 {
     // permutation of size n such that abs(pi - pi+ 1) is divisible by i
-    vector<int> p(n + 1);
-
     if (n == 1)
-    {
-        p[1] = 1;
-        return p;
-    }
+        return {0, 1};
 
-    p[n] = n;
-    p[n - 1] = 1;
-
-    for (int i = n - 2; i >= 1; i--)
-    {
-        if (i % 2 == 1) // Can do vice versa also
-        {
-            p[i] = p[i + 1] + i;
-        }
-        else
-        {
-            p[i] = p[i + 1] - i;
-        }
-    }
-    return p;
+    vector<int> p;
+    unordered_set<int> used;
 }
 
 int main()
