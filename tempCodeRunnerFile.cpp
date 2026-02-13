@@ -1,42 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-
-int maxRotateFunction(vector<int>& nums)
+bool halvesAreAlike(string s)
 {
-    int n = nums.size();
+    int n = s.size();
 
-    //Return the max value of F(0) + F(1)+....
+    int w1 =0,w2 = 0 ;
 
-    ll sum = 0;
-    ll F = 0;
+    set<char>st = {'a', 'e', 'i', 'o', 'u'};
 
+    transform(s.begin(),s.end(),s.begin(), ::tolower);
 
-    //Computing sum and F(0)
-    for(int i = 0;i<n;i++)
+    for(int i = 0; i<n/2; i++)
     {
-        sum += nums[i];
-        F += 1LL * i * nums[i];
-    }
+        if(st.find(s[i]) != st.end())w1++;
 
-    ll ans = F;
-    //Now computing each F(k) using recurence relation 
-    for(int k = 1;k<n;k++)
-    {
-        F = F + sum - 1LL * n * nums[n-k];
-        ans = max(ans,F);
+        if(st.find(s[i+n/2]) != st.end())w2++;
     }
-    return ans;
+    return w1  == w2;
 }
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>nums = {4,3,2,6};
-    cout<<maxRotateFunction(nums)<<endl;
+    cout<<(halvesAreAlike("book")?"true" : "false")<<endl;
 
     return 0;
 }

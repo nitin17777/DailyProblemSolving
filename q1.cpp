@@ -1,43 +1,69 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
+
+// Structure to represent an item with value and weight
+struct Item
+{
+    int value;
+    int weight;
+};
+
+// Comparator function to sort items by their value/weight ratio in descending order
+bool compareItems(Item a, Item b)
+{
+    double ratio1 = (double)a.value / (double)a.weight;
+    double ratio2 = (double)b.value / (double)b.weight;
+    return ratio1 > ratio2;
+}
 
 int main()
 {
-    int m, n;
+    int n;
 
-    // Input rows and columns
-    cin >> m;
+    // Match the requested input format from the sample test cases
+    cout << "Enter number of items: ";
     cin >> n;
 
-    int arr[m][n];
-
-    // Input matrix elements
-    for (int i = 0; i < m; i++)
+    vector<Item> items(n);
+    cout << "Enter value and weight for each item:" << endl;
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
+        cin >> items[i].value >> items[i].weight;
+    }
+
+    int capacity;
+    cout << "Enter knapsack capacity: ";
+    cin >> capacity;
+
+    // Sort items based on highest value-to-weight ratio
+    sort(items.begin(), items.end(), compareItems);
+
+    double maxValue = 0.0;
+    int currentWeight = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        // If adding the whole item doesn't exceed capacity, take the whole item
+        if (currentWeight + items[i].weight <= capacity)
         {
-            cin >> arr[i][j];
+            currentWeight += items[i].weight;
+            maxValue += items[i].value;
+        }
+        // If we can't take the whole item, take the remaining fractional part
+        else
+        {
+            int remainingCapacity = capacity - currentWeight;
+            // Add fraction of the item's value
+            maxValue += items[i].value * ((double)remainingCapacity / items[i].weight);
+            break; // The knapsack is now exactly full
         }
     }
 
-    // Swapping columns
-    for (int j = 0; j < n / 2; j++)
-    {
-        for (int i = 0; i < m; i++)
-        {
-            swap(arr[i][j], arr[i][n - 1 - j]);
-        }
-    }
-
-    // Display updated matrix
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
-    }
+    // Output the result matching the sample format
+    cout << "Maximum Value: " << maxValue << endl;
 
     return 0;
 }

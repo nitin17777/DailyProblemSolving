@@ -1,8 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 int longestBalanced(string s)
 {
+    // Still getting tle
+
     int n = s.size();
 
     // A substring is balanced if all distinct chars in the substring appear same number of times
