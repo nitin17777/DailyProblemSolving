@@ -1,32 +1,45 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool halvesAreAlike(string s)
+int surfaceArea(vector<vector<int>>& grid)
 {
-    int n = s.size();
+    int n = grid.size();
+    int area = 0;
 
-    int w1 =0,w2 = 0 ;
-
-    set<char>st = {'a', 'e', 'i', 'o', 'u'};
-
-    transform(s.begin(),s.end(),s.begin(), ::tolower);
-
-    for(int i = 0; i<n/2; i++)
+    for(int i =0;i<n;i++)
     {
-        if(st.find(s[i]) != st.end())w1++;
+        for(int j = 0;j<n;j++)
+        {
+            int v = grid[i][j];
 
-        if(st.find(s[i+n/2]) != st.end())w2++;
+            if(v > 0)
+            {
+                area += 4 * v + 2;//Full tower surface 
+
+
+                if(i > 0)
+                {
+                    area -= 2* min(v,grid[i-1][j]);
+                }
+
+                if(j > 0 )
+                {
+                    area -= 2*min(v,grid[i][j-1]);
+                }
+
+            }
+        }
     }
-    return w1  == w2;
+    return area;
 }
-
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<(halvesAreAlike("book")?"true" : "false")<<endl;
+    vector<vector<int>>grid = {{1,2},{3,4}};
+    cout<<surfaceArea(grid)<<endl;
 
     return 0;
 }
