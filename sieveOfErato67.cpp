@@ -10,7 +10,7 @@ bool solve(vector<int> &a)
         if (x == 67)
             return true;
     }
-    return false;
+    return false; // d
 }
 
 int main()

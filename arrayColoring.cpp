@@ -19,7 +19,7 @@ bool solve(vector<int> &a)
         // Parity of current number  != parity of next index
         cnt += (a[i] % 2 != (i + 1) % 2);
     }
-    // Since all correct or all needs to be flipped
+    // Since all correct or all needs to be flippedd
 
     return (cnt == 0 || cnt == n);
 }
