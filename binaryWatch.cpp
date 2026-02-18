@@ -36,6 +36,9 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout << readBinaryWatch(1) << endl;
+    vector<string> ans = readBinaryWatch(1);
+
+    for (auto &x : ans)
+        cout << x << endl;
     return 0;
 }
