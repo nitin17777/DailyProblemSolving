@@ -1,17 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int solve(int x,int y,int k)
+ll solve(vector<int>&a,vector<int>&b)
 {
-    //Return min moves required to land on point (x,y)
-    //At each step he must alter 
+    //We must defeat a monster at level i to reach level i+1
+    //And to defeat ith monster ,we need to deal it bi sword strikes 
 
-    int yy = (y+k-1)/k;
-    int xx = (x+k-1)/k;
+    //ai = strength
+    //bi = required swords strikes 
 
-    if(yy >= xx)return 2*yy;
-    else return 2*xx-1;
+    //score = difficulty(x) * levels comepleted
+    int n = a.size();
 
+
+    sort(a.rbegin(),a.rend());
+
+    ll ans = 0; // Max score
+    ll sum  = 0; // total words used so far
+    int h = 0; //Levels completed till now
+
+
+    //Trying each sword as difficulty
+    for(int i = 0;i<n;i++)
+    {
+        while(h<n && sum + b[h] <= i+1)
+        {   
+            sum+=b[h];//Add required strikes
+             h++;//Complete next level
+        }
+
+        ans = max(ans, 1ll* a[i]*h);
+    }
+    return ans;
 }
 
 int main()
@@ -23,10 +44,14 @@ int main()
     cin>>t;
     while(t--)
     {
-        int x,y,k;
-        cin>>x>>y>>k;
+        int n;
+        cin>>n;
+        vector<int>a(n),b(n);
+        for(auto &x:a)cin>>x;
+        for(auto &x:b)cin>>x;
 
-        cout<<solve(x,y,k)<<endl;
+        cout<<solve(a,b)<<endl;
+        
     }
     return 0;
 }
