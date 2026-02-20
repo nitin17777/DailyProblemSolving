@@ -1,38 +1,64 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-ll solve(vector<int>&a,vector<int>&b)
+unordered_map<int,int>parent;
+
+
+int find(int x)//To find root of a node with path compression
 {
-    //We must defeat a monster at level i to reach level i+1
-    //And to defeat ith monster ,we need to deal it bi sword strikes 
+    if(parent[x] != x)parent[x] = find(parent[x]);
 
-    //ai = strength
-    //bi = required swords strikes 
+    return parent[x];
 
-    //score = difficulty(x) * levels comepleted
-    int n = a.size();
+}
+
+void unite(int x,int y)//To connect two nodes
+{
+    int px = find(x);
+    int py = find(y);
+
+    //Merge if they are in different component
+
+    if(px != py)parent[px] = py;
+}
+
+int removeStones(vector<vector<int>>& stones)
+{
+    //Each coordinate may have at most one stone
+
+    //Stone can be removed if it shares same row or col as another stone that has not been removed 
+
+    int n = stones.size();
 
 
-    sort(a.rbegin(),a.rend());
+    //return the largest possible number of stones that can be removed
 
-    ll ans = 0; // Max score
-    ll sum  = 0; // total words used so far
-    int h = 0; //Levels completed till now
+    //in the end, only coordinates with unique (x,y) will survive
 
+    const int OFFSET = 100001;
 
-    //Trying each sword as difficulty
-    for(int i = 0;i<n;i++)
+    for(auto & stone:stones)
     {
-        while(h<n && sum + b[h] <= i+1)
-        {   
-            sum+=b[h];//Add required strikes
-             h++;//Complete next level
-        }
+        int row = stone[0];
+        int col = stone[1] + OFFSET;
 
-        ans = max(ans, 1ll* a[i]*h);
+        //If not in DSU, initilise row and col
+        if(parent.find(row) == parent.end())parent[row] = row;
+
+        if(parent.find(col) == parent.end())parent[col] = col;
+
+        unite(row,col);
     }
-    return ans;
+
+    unordered_set<int>comps;
+
+    for(auto &stone :stones)
+    {
+        int root = find(stone[0]);
+        comps.insert(root);
+    }
+
+    return stones.size() - comps.size();
 }
 
 int main()
@@ -40,18 +66,10 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        vector<int>a(n),b(n);
-        for(auto &x:a)cin>>x;
-        for(auto &x:b)cin>>x;
+    vector<vector<int>>stones = {{0,0},{0,1},{1,0},{1,2},{2,1},{2,2}};
 
-        cout<<solve(a,b)<<endl;
-        
-    }
+    cout<<removeStones(stones)<<endl;
+    
+
     return 0;
 }
