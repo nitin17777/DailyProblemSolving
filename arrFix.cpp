@@ -10,6 +10,30 @@ bool solve(vector<int> &a)
     // Determine if we can make a sorted using the given operation  any number of times
 
     // Do this operation when the succeeding element is smaller than the previus one
+
+    // break the number when next element is smaller
+
+    vector<int> fin;
+    fin.push_back(a[n - 1]);
+
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (a[i] > fin.back())
+        {
+            int d1 = a[i] / 10;
+            int d2 = a[i] % 10;
+
+            fin.push_back(d2);
+            fin.push_back(d1);
+        }
+
+        else
+        {
+            fin.push_back(a[i]);
+        }
+    }
+
+    return is_sorted(fin.rbegin(), fin.rend());
 }
 
 int main()
