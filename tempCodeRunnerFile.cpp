@@ -1,44 +1,73 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int count(vector<int>&a)
+vector<int> loudAndRich(vector<vector<int>>& richer, vector<int>& quiet)
 {
-    int cnt = 0;
-    if(a[0] ==1)cnt=1;
+    //richer[i] = (ai,bi) : ai has more money than bi
 
-    for(int i = 1;i < a.size();i++)
+
+    //Return ans : ans[x] = y if y is the least quiet person
+
+
+    //find the min quiet value with all the ancestors of node x
+    int n = quiet.size();
+
+    vector<vector<int>>adj(n);
+
+    for(auto &r:richer)
     {
-        if(a[i-1] != 1)
-        {
-            if(a[i] == 1)cnt++;
-        }
+        int richP = r[0];
+        int poorP = r[1];
+
+
+        adj[poorP].push_back(richP);
     }
-    return cnt;
-}
+
+        vector<int>ans(n,-1);//To store the index of the least quiet person
+
+
+        function<int(int)>dfs = [&](int node)
+        {
+
+            //If answer is already computed 
+            if(ans[node] != 1)return ans[node];
+
+
+            //Initially assuming that person itself is the most silent
+            ans[node] = node;
+
+            for(int richerP : adj[node])
+            {
+                int candidate = dfs(richerP);
+
+
+                if(quiet[candidate] < quiet[ans[node]])
+                {
+                    ans[node] = candidate;
+                }
+            }
+            return ans[node];
+        };
+
+        for(int i = 0; i < n;i++)dfs(i);
+
+        return ans;
+
+    }
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,m;
-    cin>>n>>m;
 
-    //if two 1s are consecutive -> count 1 only
+    vector<vector<int>>richer = {{1,0},{2,1},{3,1},{3,7},{4,3},{5,3},{6,3}};
+    vector<int>quiet = {3,2,5,4,6,1,7,0};
 
-    //else also just count 1
-    int sz = m*n;
+    vector<int>ans = loudAndRich(richer,quiet);
+    for(auto  & x:ans)cout<<x<<" ";
 
-    vector<int>a(sz);
-    for(auto &x:a)cin>>x;
-
-    int ans = count(a);
-
-    vector<int>b(sz);
-    for(auto &x:b)cin>>x;
-
-    ans+=count(b);
+    cout<<endl;
     
-    cout<<ans<<endl;
     return 0;
 }

@@ -1,26 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool solve(vector<int> &a)
-{
-    int n = a.size();
-
-    vector<int> temp = a;
-    // Determine if we can make the array sorted or not
-
-    for (int i = 0; i < n / 2; i++)
-    {
-        if (a[i] > a[n - i - 1])
-            swap(a[i], a[n - i - 1]);
-    }
-
-    sort(temp.begin(), temp.end());
-
-    if (temp == a)
-        return true;
-
-    return false;
-}
+// Found it bit hard  though it was just a div3 b
 
 int main()
 {
@@ -33,10 +14,27 @@ int main()
     {
         int n;
         cin >> n;
-        vector<int> a(n);
-        for (auto &x : a)
-            cin >> x;
-        cout << (solve(a) ? "Yes" : "No") << endl;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+
+        for (int i = 1; i <= n; i += 2)
+        {
+            for (int j = i; j <= n; j *= 2)
+            {
+                for (int k = i * 2; k <= n; k *= 2)
+                {
+                    if (a[k / 2] > a[k])
+                        swap(a[k / 2], a[k]);
+                }
+            }
+        }
+
+        if (is_sorted(a.begin(), a.end()))
+            cout << "Yes" << endl;
+
+        else
+            cout << "No" << endl;
     }
     return 0;
 }
