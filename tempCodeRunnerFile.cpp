@@ -6,15 +6,21 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int d,l,v1,v2;
-    cin>>d>>l>>v1>>v2;
-    //Luke dies as soon as distance bw presses < d 
 
-    //Determine how long can he survive
 
-    long double ans =  (long double)(l-d)/(v1+v2);
+    string s;
+    getline(cin,s);
 
-    cout<<fixed<<setprecision(20)<<ans<<endl;
+    int n = s.size();
+
+    // last letter vowel -> Yes else no
+    s[n-2] = tolower((unsigned char)s[n-2]);
+
+    set<char>vowels = {'a','e','i','o','u'};
+
+    if(vowels.find(s[n-2]) != vowels.end())cout<<"Yes"<<endl;
+
+    else cout<<"No"<<endl;
 
     return 0;
 }
