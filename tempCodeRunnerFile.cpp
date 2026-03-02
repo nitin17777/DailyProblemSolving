@@ -1,16 +1,26 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long 
 
-vector<int>solve(vector<int>&a)
+int solve(int n)
 {
+    //find min k such that n is divisor of k^n
 
-    //He can choose any two elements and swap them and he can do this only once
 
-    //Find permutation q from p such that number of ugly indices in q is mininmised
-    
-    //index i is ugly iff i = max(arr)
-    sort(a.rbegin(),a.rend());
-    return a;
+    ll k = 1;
+    for(ll i= 2;i*i<=n;i++)
+    {
+        if(n%i == 0)
+        {
+            k*=i;
+
+            while(n%i == 0)n/=i;
+        }
+    }
+
+    if(n>1)k*=n;
+
+    return k;
 }
 
 int main()
@@ -24,13 +34,8 @@ int main()
     {
         int n;
         cin>>n;
-        vector<int>a(n);
-        for(int i = 0;i<n;i++)cin>>a[i];
-
-        vector<int>ans = solve(a);
-        for(auto&x:ans)cout<<x<<" ";
+        cout<<solve(n)<<endl;
         
-        cout<<endl;
     }
     return 0;
 }
