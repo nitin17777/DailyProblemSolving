@@ -14,14 +14,13 @@ bool solve(string &s)
  */
 
     stack<int> st;
-    for (auto c : s)
+    for (auto&c : s)
     {
         if (st.size() && c == st.top())
             st.pop();
         else
             st.push(c);
     }
-
     return st.empty();
 }
 
