@@ -8,7 +8,7 @@ int solve(int n)
 
     // We just have to make sure: every prime dividing n appears in k
 
-    // Ans = prodcut of distinct prime factors of nn
+    // Ans = prodcut of distinct prime factors of n
 
     ll k = 1;
     for (ll i = 2; i * i <= n; i++)
