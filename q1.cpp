@@ -1,69 +1,68 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-
+#include <climits>
 using namespace std;
 
-// Structure to represent an item with value and weight
-struct Item
-{
-    int value;
-    int weight;
-};
+int V = 7;
 
-// Comparator function to sort items by their value/weight ratio in descending order
-bool compareItems(Item a, Item b)
+bool dfs(int s, int t, vector<int>& parent, vector<vector<int>>& cap, vector<bool>& vis)
 {
-    double ratio1 = (double)a.value / (double)a.weight;
-    double ratio2 = (double)b.value / (double)b.weight;
-    return ratio1 > ratio2;
+    vis[s] = true;
+
+    if(s == t) return true;
+
+    for(int v = 0; v < V; v++)
+    {
+        if(!vis[v] && cap[s][v] > 0)
+        {
+            parent[v] = s;
+            if(dfs(v, t, parent, cap, vis))
+                return true;
+        }
+    }
+
+    return false;
 }
 
-int main()
+int fordFulkerson(vector<vector<int>> cap, int source, int sink)
 {
-    int n;
+    vector<int> parent(V);
+    int maxFlow = 0;
+    int pathCount = 1;
 
-    // Match the requested input format from the sample test cases
-    cout << "Enter number of items: ";
-    cin >> n;
-
-    vector<Item> items(n);
-    cout << "Enter value and weight for each item:" << endl;
-    for (int i = 0; i < n; i++)
+    while(true)
     {
-        cin >> items[i].value >> items[i].weight;
+        vector<bool> vis(V,false);
+        fill(parent.begin(), parent.end(), -1);
+
+        if(!dfs(source, sink, parent, cap, vis))
+            break;
+
+        int flow = INT_MAX;
+
+        for(int v = sink; v != source; v = parent[v])
+        {
+            int u = parent[v];
+            flow = min(flow, cap[u][v]);
+        }
+
+        cout << "Path " << pathCount++ << " : ";
+
+        for(int v = sink; v != -1; v = parent[v])
+            cout << v;
+
+        cout << endl;
+        cout << "Maximum flow in this path = " << flow << endl;
+
+        for(int v = sink; v != source; v = parent[v])
+        {
+            int u = parent[v];
+            cap[u][v] -= flow;
+            cap[v][u] += flow;
+        }
+
+        maxFlow += flow;
     }
 
-    int capacity;
-    cout << "Enter knapsack capacity: ";
-    cin >> capacity;
-
-    // Sort items based on highest value-to-weight ratio
-    sort(items.begin(), items.end(), compareItems);
-
-    double maxValue = 0.0;
-    int currentWeight = 0;
-
-    for (int i = 0; i < n; i++)
-    {
-        // If adding the whole item doesn't exceed capacity, take the whole item
-        if (currentWeight + items[i].weight <= capacity)
-        {
-            currentWeight += items[i].weight;
-            maxValue += items[i].value;
-        }
-        // If we can't take the whole item, take the remaining fractional part
-        else
-        {
-            int remainingCapacity = capacity - currentWeight;
-            // Add fraction of the item's value
-            maxValue += items[i].value * ((double)remainingCapacity / items[i].weight);
-            break; // The knapsack is now exactly full
-        }
-    }
-
-    // Output the result matching the sample format
-    cout << "Maximum Value: " << maxValue << endl;
-
-    return 0;
+    return maxFlow;
 }

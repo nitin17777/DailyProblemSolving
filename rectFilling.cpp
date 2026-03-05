@@ -8,22 +8,35 @@ bool solve(vector<vector<int>>&a)
 
     //Determine if it's possible to make all the squares of grid of same color
 
-    bool top = false;
-    for(int i = 1;i<m;i++)
+    bool topSame = true,bottomSame = true;
+
+    //Checking the top row
+    for(int j = 1;j<m;j++)
     {
-        if(a[0][i-1] != a[0][i])top = true; 
+        if(a[0][j] != a[0][0])topSame = false; 
     }
 
 
-    bool left = false,right = false;
+    //Checking the bottom row now
+    for(int j = 1;j<m;j++)
+    {
+        if(a[n-1][j] != a[n-1][0])bottomSame = false; 
+    }
 
+    if(topSame && bottomSame && a[0][0] != a[n-1][0])return false;
+
+
+    bool left = true, right = true;
+
+    //Left and right col
     for(int i = 1;i<n;i++)
     {
-        if(a[i-1][0] != a[i][0])left = true;
-        if(a[i-1][m-1] != a[i][m-1])right = true; 
+        if(a[0][0] != a[i][0])left = false;
+        if(a[0][m-1] != a[i][m-1])right = false; 
     }
+    if (left && right && a[0][0] != a[0][m-1]) return false;
 
-    return left && right && top;
+    return true;
 }
 
 int main()
