@@ -3,9 +3,8 @@ using namespace std;
 
 int sumSubarrayMins(vector<int>& arr)
 {
-
-
     //Find the sum of every contiguous subarray of arr
+    
 }
 
 

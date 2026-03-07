@@ -19,7 +19,7 @@ int minFlips(string s)
 
     int left = 0;
 
-    for(int right = 0;right<n;right++)
+    for(int right = 0; right<2*n; right++)
     {
         char ex1 = (right%2 ==0)?'0':'1';
         char ex2 = (right%2 ==0)?'1':'0';
@@ -31,10 +31,11 @@ int minFlips(string s)
         //Maintaining window size of n
         if(right-left+ 1>n)
         {
-            char leftex1 = (right%2 ==0)?'0':'1';
-            char leftex2 = (right%2 ==0)?'1':'0';
+            //Expected chars for left window
+            char leftex1 = (left%2 ==0)?'0':'1';
+            char leftex2 = (left%2 ==0)?'1':'0';
 
-            //Counting mismathces now
+            //Remove contribution of left element
             if(s2[left] != leftex1)mis1--;
             if(s2[left] != leftex2)mis2--;
 
