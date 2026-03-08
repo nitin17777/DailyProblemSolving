@@ -1,23 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minSteps(int n)
+
+pair<int,int> solve(string &s)
 {
-    //Return the min number of ops to get char 'A' exactly n times on the screeen
-   
-    int ans =0;
 
-    //Min ops = sum of prime factors of n
+    int n = s.size();
 
-    for(int i = 2;i<=n;i++)
+    int ones=count(s.begin(),s.end(),'1');
+    if(ones ==0)return{0,0};
+
+    int first = -1, last = -1;
+    for(int i = 0;i<n;i++)
     {
-        while(n%i == 0)
+        if(s[i] == '1')
         {
-            ans+=i;
-            n/=i;
+            if(first == -1)first=i;
+            last = i;
         }
     }
-    return ans;
+
+    int mini = ones;
+    int maxi = last-first+1;
+
+
+
+    // for(auto&x:s)
+    // {
+    //     if(x=='1')ones++;
+    // }
+
+    // //Counting the number of places between two 1s 
+    // int freeOnes=0,freeZeros=0;
+
+    // for(int i = 1;i<n-1;i++)
+    // {
+    //     if(s[i-1] == '1' && s[i+1] == '1'&& s[i] =='1')freeOnes++;
+
+    //      if(s[i-1] == '1' && s[i+1] == '1' && s[i] == '0')freeZeros++;
+    // }
+
+
+    // int mini = ones-freeOnes;
+    // int maxi = ones+freeZeros;
+     return {mini,maxi};
+
 }
 
 int main()
@@ -25,6 +52,19 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<minSteps(10)<<endl;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        string s;
+        cin>>s;
+
+        pair<int,int>ans = solve(s);
+        cout<<ans.first<<" "<<ans.second<<endl;
+        
+        
+    }
     return 0;
 }
