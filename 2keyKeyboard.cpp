@@ -26,5 +26,6 @@ int main()
     cin.tie(NULL);
 
     cout<<minSteps(10)<<endl;
+    
     return 0;
 }
