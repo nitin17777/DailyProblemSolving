@@ -16,11 +16,11 @@ int main()
     while(t--)
     {
         int n,m,l;
-        cin>>n>m>>l;
+        cin>>n>>m>>l;
         vector<int>a(n);
         for(auto& x:a)cin>>x;
 
-        cout<<solve()<<end;
+        cout<<solve(a,m,l)<<endl;
     
     }
     return 0;
