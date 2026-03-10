@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 const int MOD = 1e9+7;
 
-int numberOfStableArrays(int zero, int one, int limit )
+int numberOfStableArrays(int zero, int one, int limit)
 {
     //Stable if: number of occurences of 0 and 1 are exactly numZero and numOne respectively   
             // + no more than 'limit' consecutive elements should be there
@@ -15,6 +15,7 @@ int numberOfStableArrays(int zero, int one, int limit )
     len = current consecutive streak length of 'last'
 
     */
+   int maxLen = min(limit,max(zero,one));
 
     static ll dp[205][205][2][205];
     memset(dp,0,sizeof(dp));
@@ -36,7 +37,7 @@ int numberOfStableArrays(int zero, int one, int limit )
             for(int last = 0;last<2;last++)
             {
                 //Now over the curent streak length
-                for(int len = 1;len <= limit;len++)
+                for(int len = 1;len <= maxLen;len++)
                 {
                     ll curr = dp[z][o][last][len];
 
@@ -50,7 +51,7 @@ int numberOfStableArrays(int zero, int one, int limit )
                         if(last == 0)
                         {
                             //We can extend the streak only if  <= limit
-                            if(len+1 <=limit)
+                            if(len+1 <=maxLen)
                             {
                                 dp[z+1][o][0][len +1] = (dp[z+1][o][0][len+1] + curr)%MOD;
                             }
@@ -69,7 +70,7 @@ int numberOfStableArrays(int zero, int one, int limit )
                         if(last == 1)
                         {
                             //Extending the streak if allowed
-                            if(len + 1 <= limit)
+                            if(len + 1 <= maxLen)
                             {
                                 dp[z][o+1][1][len+1] = (dp[z][o+1][1][len+1] +curr)%MOD;
                             }
@@ -90,7 +91,7 @@ int numberOfStableArrays(int zero, int one, int limit )
     //Final ans : Sum of all the ways that used exactly zero zeors and one ones without taking care of streak lenght and ending element
     for(int last = 0;last<2;last++)
     {
-        for(int len = 1;len<=limit;len++)
+        for(int len = 1;len<=maxLen;len++)
         {
             ans = (ans+ dp[zero][one][last][len])%MOD;
         }

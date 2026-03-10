@@ -27,6 +27,7 @@ vector<int> gardenNoAdj(int n, vector<vector<int>>& paths)
         ///checking all neighbours of garden i 
         for(auto neigh: adj[i])
         {
+            //If flower is already used, mark it as unavailable now
             if(ans[neigh] != 0)
             {
                 used[ans[neigh]] = true;
