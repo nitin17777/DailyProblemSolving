@@ -1,20 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int>& a, int h, int l)
+int solve(vector<int>&a,int h, int l)
 {
-    unordered_map<int,int> freq;
+    int n = a.size();
 
-    // Count frequencies
-    for(int x : a)
-        freq[x]++;
+    vector<int>freq(n);
+    for(int i =0;i<n;i++)
+    {
+        freq[a[i]]++;
+    }
+    sort(freq.rbegin(),freq.rend());
 
-    // Find maximum frequency
-    int maxFreq = 0;
-    for(auto& p : freq)
-        maxFreq = max(maxFreq, p.second);
+    int maxFreq=freq[0];
 
-    return maxFreq / 2;
+    return maxFreq/2;
 }
 
 int main()
