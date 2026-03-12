@@ -1,17 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string solve(vector<int> &a)
+string solve(vector<int> &arr)
 {
 
-    int n = a.size();
+    int n = arr.size();
     /*
 
     Append the given query qi if the array remains beautiful after appending, otherwise do nothing
 
     And after each query report whether appended or not
-
     */
+
+    //The element we insert must be either greater than last digit or smaller than the first digit
+
+    vector<int>a;
+    int cnt = 0;
+    string ans = "";//No problem with 1st two char ig
+
+    for(int x:arr)
+    {
+        int newCnt = cnt;
+
+        if(!a.empty() && a.back() >x)newCnt++;
+
+        if (newCnt == 0 || (newCnt == 1 && x <= a[0]))
+        {
+            a.push_back(x);
+            cnt = newCnt;
+            ans += '1';
+        }
+
+        else ans+='0';
+    }
+    return ans;
 }
 
 int main()

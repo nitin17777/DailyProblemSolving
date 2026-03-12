@@ -33,7 +33,6 @@ string pushDominoes(string s)
             result+=string(gap,'.');
         }
 
-
             // if(s[i] == 'R' && s[j] =='L')
         else 
         {
