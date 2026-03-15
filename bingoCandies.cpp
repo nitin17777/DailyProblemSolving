@@ -1,10 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool solve(vector<int>&a)
+bool solve(int n,vector<int>&a)
 {
-    int n = a.size();
-
     //Can we rearrange the grid such that no row or col consits of n numbers of same value
 
     ///total candies = n*n
@@ -16,8 +14,7 @@ bool solve(vector<int>&a)
     {
         maxi = max(maxi,x.second);
     }
-
-    return maxi < n*n -n;
+    return maxi <= n*n - n;
 }
 
 int main()
@@ -32,13 +29,13 @@ int main()
         int n;
         cin>>n;
 
-        vector<int>a(n);
+        vector<int>a(n*n);
 
-        for(int i = 0;i<n;i++)
+        for(int i = 0;i<n*n;i++)
         {
             cin>>a[i];
         }
-        cout<<(solve(a)? "Yes":"No")<<endl;        
+        cout<<(solve(n,a)? "Yes":"No")<<endl;        
     }
     return 0;
 }
