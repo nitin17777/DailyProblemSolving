@@ -31,7 +31,7 @@ int main()
         int n,k,p,m;
         cin>>n>>k>>p>>m;
 
-        vector<int>&a(n);
+        vector<int> a(n);
         for(auto& x:a)cin>>x;
 
         cout<<solve(a,k,p,m)<<endl;

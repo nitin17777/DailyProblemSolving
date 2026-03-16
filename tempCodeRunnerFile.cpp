@@ -1,23 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
+const int MOD = 1e9+7;
 
-bool solve(vector<int>&a)
+
+int solve(vector<ll>&a,int k)
 {
     int n = a.size();
 
-    //Can we rearrange the grid such that no row or col consits of n numbers of same value
+    //Inone operation, wec can selcet any contiguous sub and insert the sum of this subarray anywhere in the array
 
-    ///total candies = n*n
-    unordered_map<int,int>freq;
-    for(auto& x:a)freq[x]++;
 
-    int maxi = 0;
-    for(auto& x:freq)
+    //find the max possible sum of the array after k operations
+
+    ll s = 0;
+    for(int x : a)s+=x;
+
+    // max subarray sum x
+    ll curr = 0,mx = 0;
+    for(int i =0;i<n;i++)
     {
-        maxi = max(maxi,x.second);
+        curr = max(curr+a[i], 0LL);
+        mx = max(mx,curr);
     }
 
-    return maxi < n*n -n;
+    //Computing 2^k %MOD
+
+    ll pow2 = 1;
+    for(int i = 0;i<k;i++)
+    {
+        pow2 = pow2 * 2 % MOD;
+    }
+
+    s = (s % MOD + MOD)%MOD;//For handling negative
+
+    ll ans = (s + mx* (pow2 - 1) %MOD + MOD)%MOD;
+
+    return ans;
 }
 
 int main()
@@ -29,16 +48,14 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
+        int n,k;
+        cin>>n>>k;
 
-        vector<int>a(n);
+        vector<ll>a(n);
+        for(auto & x:a)cin>>x;
 
-        for(int i = 0;i<n;i++)
-        {
-            cin>>a[i];
-        }
-        cout<<(solve(a)? "Yes":"No")<<endl;        
+        cout<<solve(a,k)<<endl;
+
     }
     return 0;
 }
