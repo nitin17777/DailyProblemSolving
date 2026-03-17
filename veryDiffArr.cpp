@@ -53,6 +53,7 @@ int main()
     while(t--)
     {
         int n,m;
+        
         cin>>n>>m;
 
         vector<int>a(n),b(m);
