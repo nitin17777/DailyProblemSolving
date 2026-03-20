@@ -42,7 +42,7 @@ int maxDistance(vector<vector<int>>& a)
 }
     */
 
-
+//Just checking the extemums
 int maxDistance(vector<vector<int>>& a)
 {
     int minVal = a[0][0],maxVal = a[0].back();
