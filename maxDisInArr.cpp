@@ -69,6 +69,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+
     vector<vector<int>>a = {{1,2,3},{4,5},{1,2,3}};
     cout<<maxDistance(a)<<endl;
     return 0;
