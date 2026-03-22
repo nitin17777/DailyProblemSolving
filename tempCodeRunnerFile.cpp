@@ -1,40 +1,86 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int solve(vector<int>&a)
+ll maximumImportance(int n, vector<vector<int>>& roads)
 {
-    int n = a.size();
+    /*
+    r[i] = a[i],b[i] : Denotes the bidirectional road connecting cities ai and bi
 
-    //Remove elements in such a way that this algo creates as many arrays as possible
 
-    int last = -1,ans = 0;
+    Return the max total importance of all roads possible
 
-    for(int i = 0;i<n;i++)
+
+    Sort in the order of highest elements in adjacency matrix of each element,Assign the numbers accordingly and then for every connected road, find the importance
+    */
+
+    vector<int>cnt(n);
+
+    //Counting degree of each city
+    for(auto &road : roads)
     {
-        if(a[i] - last > 1)
-        {
-            ans++;
-            last = a[i];
-        }
+        cnt[road[0]]++;
+        cnt[road[1]]++;
+    }
+
+    //Now we have to how many components the given component is connected to.
+
+    //MAx heap : Degree, that city
+    priority_queue<pair<int,int>>pq;
+    for(int i =0;i<n;i++)
+    {
+        pq.push({cnt[i], i});
+    }
+
+    vector<int>distri(n);
+
+    int temp = n;
+    while(!pq.empty())
+    {
+        auto[a,idx] = pq.top();
+        pq.pop();
+
+        distri[idx] = temp--;
+    }
+
+    ll ans = 0;
+    for(auto & road:roads)
+    {
+        ans += distri[road[0]] + distri[road[1]];
     }
     return ans;
 }
 
+
+//Another cleaner approach: 
+ll maximumImportance2(int n, vector<vector<int>>& roads)
+{
+    vector<int>deg(n,0);
+
+    for(auto &r : roads)
+    {
+        deg[r[0]]++;
+        deg[r[1]]++;
+    }
+    sort(deg.begin(),deg.end());
+
+    ll ans = 0;
+
+    for(int i = 0;i <n;i++)
+    {
+        ans += 1LL * deg[i] * (i+1);
+    }
+    return ans;
+}
+
+
 int main()
 {
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    
 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        vector<int>a(n);
-        for(auto & x:a)cin>>x;
+    vector<vector<int>>r = {{0,1},{1,2},{2,3},{0,2},{1,3},{2,4}};
+    cout<<maximumImportance2(5,r)<<endl;
 
-        cout<<solve(a)<<endl;
-    }
     return 0;
 }
