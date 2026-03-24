@@ -56,12 +56,16 @@ int main()
         vector<int>b(m);
         for(auto & x:b)cin>>x;
 
+        //Sorting must take place just once, and not for every query
         sort(b.begin(),b.end());
 
-        int a;
-        cin>>a;
-        
-        cout<<solve(n,b,a)<<endl; 
+
+        while(q--)
+        {
+            int a;
+            cin>>a;
+            cout<<solve(n,b,a)<<'\n'; 
+        }
     }
     return 0;
 }

@@ -26,4 +26,4 @@ int main()
     cout<<findCenter(g)<<endl;
 
     return 0;
-}//
+}

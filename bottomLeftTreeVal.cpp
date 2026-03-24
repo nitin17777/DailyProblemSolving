@@ -26,6 +26,7 @@ int findBottomLeftValue(TreeNode* root)
     queue<TreeNode*>q;
     q.push(root);
 
+    //Storing the left of current node 
     int ans = root->val;
 
     while(!q.empty())
@@ -37,6 +38,7 @@ int findBottomLeftValue(TreeNode* root)
             TreeNode* node = q.front();
             q.pop();
 
+            //First node processed in this level is the leftmost node of that level
             if(i==0)ans = node->val;
 
             if(node->left)q.push(node->left);
@@ -45,6 +47,8 @@ int findBottomLeftValue(TreeNode* root)
     }
     return ans;
 }
+
+
 
 //DFS Approach now
 int result = 0,maxDepth = -1;
