@@ -1,37 +1,37 @@
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
+#define ll long long 
 
-bool canTile(long long w, long long h, long long a, long long b, long long x1, long long y1, long long x2, long long y2)
+bool solve(int a,int b,int x1,int y1,int x2,int y2)
 {
-    // We need to cover the roof with tiles of size a*b : Sheets can't be rotated + they must not overlap + These sheets can extend beyond thhe boundaries of the recatngualar roof
+    //To sheets has already been placed such that they don't overlap and each of them partially covers the roof
 
-    // Determine if it is possible to completely tile the roof without removing either of the two already placed sheets
+    //Determine if we can still the full roof without removing the already placed sheets
+    //We have the coordinates of bottom left corners of already placed sheets
+
+    if((x1 != x2 && (x2-x1)%a == 0) || y1 != y2 && (y2-y1)%b == 0)return true;
+
+    return false;
+
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int t;
-    cin >> t;
-
-    while (t--)
+    cin>>t;
+    while(t--)
     {
-        long long w, h, a, b;
+        int w,h,a,b;
+        cin>>w>>h>>a>>b;
 
-        long long x1, y1, x2, y2;
-        cin >> w >> h >> a >> b;
-        cin >> x1 >> y1 >> x2 >> y2;
+        int x1,y1,x2,y2;
+        cin>>x1>>y1>>x2>>y2;
+        
+        cout<<(solve(a,b,x1,y1,x2,y2)?"Yes":"NO")<<endl;
 
-        if (canTile(w, h, a, b, x1, y1, x2, y2))
-        {
-            cout << "Yes\n";
-        }
-        else
-        {
-            cout << "No\n";
-        }
     }
     return 0;
 }

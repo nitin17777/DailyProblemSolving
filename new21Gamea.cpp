@@ -11,11 +11,14 @@ double new21Game(int n, int k, int maxPts)
 
     */
 
+    if (n >= k + maxPts - 1) return 1.0;
+
     if(k == 0)return 1.0;
 
     //dp[i] = probability of getting exactly i points
     vector<double>dp(n+1,0.0);
-    dp[0] = 1.0;
+    
+    dp[0] = 1.0;//since initially 0 points are there only
 
 
     double windowSum = 1.0, res = 0.0;
@@ -38,6 +41,8 @@ double new21Game(int n, int k, int maxPts)
         //Removing elements going out of the window
         if(i-maxPts >= 0)windowSum -= dp[i-maxPts];
     }
+
+    
     return res;
 }
 
