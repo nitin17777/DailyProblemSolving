@@ -13,6 +13,7 @@ vector<int>solve(vector<int>&a)
 
 
 
+    //Lower bound for this array would be 2
     vector<int>arr(n,2);
     //Choose the subarray of size 3 and delete either either the smallest or largest element within it
 

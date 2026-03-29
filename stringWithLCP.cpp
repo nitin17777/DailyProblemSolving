@@ -22,9 +22,7 @@ string findTheString(vector<vector<int>>& lcp)
         if(lcp[i][i] != n-i)return "";
     }
 
-
     //initiallising dsu now
-
     vector<int>parent(n);
 
     for(int i =0;i<n;i++)parent[i] = i;
