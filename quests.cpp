@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
+/*
 int solve(int n,int k,vector<int>& a,vector<int>&b)
 {
     /*1st quest is always available for completion 
@@ -13,29 +15,37 @@ int solve(int n,int k,vector<int>& a,vector<int>&b)
     He can do only k quests
 
     Calculate max possible experience he can get
+
     
+}*/
 
 
-    */
-    
-
-}
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     int t;
-    cin>>t;
-    while(t--)
-    {
-        int n,k;
-        cin>>n>>k;
+    cin >> t;
 
-        vector<int>a(n),b(n);
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
 
-        cout<<solve(n,k,a,b);
+        vector<int> a(n), b(n);
+
+        for (int i = 0; i < n; i++) cin >> a[i];
+        for (int i = 0; i < n; i++) cin >> b[i];
+
+        int res = 0, sum = 0, mx = 0;
+
+        for (int i = 0; i < min(n, k); i++) {
+            sum += a[i];
+            mx = max(mx, b[i]);
+            res = max(res, sum + mx * (k - i - 1));
+        }
+
+        cout << res << "\n";
     }
+
     return 0;
 }
