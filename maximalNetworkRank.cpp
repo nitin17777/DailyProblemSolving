@@ -10,6 +10,8 @@ int maximalNetworkRank(int n, vector<vector<int>>& roads)
     vector<int>degree(n,0);
     set<pair<int,int>>st;
 
+
+    //Making adjacency list and degree of each edge
     for(auto & r :roads)
     {
         int u = r[0];
@@ -25,6 +27,7 @@ int maximalNetworkRank(int n, vector<vector<int>>& roads)
     int maxi = 0;
 
 
+    //checking all pairs now
     for(int i = 0;i<n;i++)
     {
         for(int j = i+1;j<n;j++)
