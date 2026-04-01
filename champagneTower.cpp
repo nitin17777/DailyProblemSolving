@@ -10,14 +10,14 @@ double champagneTower(int poured, int row, int col)
 
     dp[0][0] = poured;
 
-    for(int i = 0;i<row;i++)
+    for(int i = 0;i<=row;i++)
     {
-        for(int j = 0;j<i;j++)
+        for(int j = 0;j<=i;j++)
         {
 
             if(dp[i][j] > 1.0)
             {
-                double of = (dp[i][j] - 1.0 )/ 2;
+                double of = (dp[i][j] - 1.0 )/ 2.0;
 
                 dp[i][j] = 1.0;
                 dp[i+1][j]+=of;
