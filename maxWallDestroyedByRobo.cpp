@@ -38,10 +38,7 @@ int maxWalls(vector<int>& r, vector<int>& d, vector<int>& w)
         int L = max(pos - dist, leftBlock + 1);
         int R = min(pos + dist, rightBlock - 1);
 
-        //Left side shooting 
-        int leftL = L; //Left boundary of valid range
-        int leftR = r[i] - 1; // Can't shoot at or beyond itself
-
+       //Left side shooting
 
         if(L <= pos - 1)//Valid interval
         {
@@ -55,10 +52,8 @@ int maxWalls(vector<int>& r, vector<int>& d, vector<int>& w)
             }
         }
 
-        //Right side shooting now
 
-        int rightL = r[i] + 1;//Starting just after the robot
-        int rightR = R; // right boundary
+        //Right side shooting
 
         if(pos+1 <= R)
         {
