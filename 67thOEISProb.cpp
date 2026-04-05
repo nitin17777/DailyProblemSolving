@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 int main()
 {
@@ -11,12 +12,15 @@ int main()
         int n;
         cin >> n;
 
-        vector<long long> a(n);
+        vector<ll> a(n);
         a[0] = 1;
 
-        for(int i = 1; i < n; i++)
+        for(int i = 0; i < n; i++)
         {
-            a[i] = 1LL * i * (i+1);
+            ll bi = 2*i + 1;
+            ll bnext = 2* (i+1) + 1;
+
+            a[i] = bi * bnext;
         }
 
          for(auto x : a)

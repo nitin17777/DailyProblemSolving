@@ -3,13 +3,20 @@ using namespace std;
 
 int solve(vector<int>&a)
 {
+    int n = a.size();
 
     int ans = 0;
-    for(auto & x:a)
+    int maxi = 0;
+    for(int i = 0;i<n;i++)
     {
-        ans |= x;
+
+        for(int j= i+1;j<n;j++)
+        {
+            //finding the greatest XOR value
+            maxi = max(maxi,(a[i]^a[j]));
+        }
     }
-    return ans;
+    return maxi;
 }
 
 
