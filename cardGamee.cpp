@@ -30,7 +30,7 @@ int solve(vector<int>&a, int n)
     //Simulating full game:
     if(f(a[0],a[2]) + f(a[1],a[3]) > 0)ans++;
 
-    if(f(a[0], a[3]) + f(a[1], a[3]) > 0)ans++;
+    if(f(a[0], a[3]) + f(a[1], a[2]) > 0)ans++;
 
 
     if(f(a[1],a[2]) + f(a[0],a[3]) > 0)ans++;
