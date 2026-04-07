@@ -1,83 +1,62 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-
-bool canPass(int n,int buttonSec,vector<int>&doors)
+bool solve(vector<int>&a,int x)
 {
+    int n = a.size();
 
-    //he need to pass all the doors from 1 to n in order of number and reach the exit
+    // HE can open all closed door for x seconds for once
 
-    //each door can be open or close, if a door is open he can pass through it in 1 second and if it is closed he can't pass through it at all
+    //determine if he can pass through all the doors
 
-    // he can use a button which makes all closed doors open for x seconds
+    //Distance between 1st and last door must be less than equa to x
 
-    //we have to check if he can pass through all the doors or not
-
-
-    //0 -> Open
-    //1 -> Closed
-
-
-    for(int i = 0; i < n; i++)
+    int fs = 0;
+    for(int i = 0;i<n;i++)
     {
-        bool possible = true;
-
-        for(int j = i;j <n; j++)
+        if(a[i] == 1)
         {
-        if(doors[j] == 1)
-        {
-            buttonSec--;
-        }
-        else
-        {
-            buttonSec--;
-        }
-
-        if(buttonSec < 0)
-        {
-            possible =false;
+            fs = i;
             break;
         }
-
-        }
-        if (possible)
-        return true;
-        
     }
-    return false;
-    
+
+
+    int ls =n-1;
+
+    for(int i = n-1;i>=0;i--)
+    {
+        if(a[i] == 1)
+        {
+            ls = i;
+            break;
+        }
+    }
+
+    int diff = ls - fs+1;
+    return diff <= x;
 
 }
 
+      
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int t;
-    cin >> t;
+    cin>>t;
 
     while(t--)
     {
-        int n , x;
+        int n,x;
         cin>>n>>x;
 
-        vector<int>doors(n);
+        vector<int>a(n);
+        for(auto&x:a)cin>>x;
 
-        for(int i = 0; i<n;i++)
-        {
-            cin>>doors[i];
-        }
-
-        if(canPass(n,x,doors))
-        {
-            cout<<"YES"<<endl;
-
-        }
-
-        else
-        {
-            cout<<"NO"<<endl;
-
-        }
+        cout<<(solve(a,x)?"Yes":"No")<<endl;
+    
     }
 
     return 0;

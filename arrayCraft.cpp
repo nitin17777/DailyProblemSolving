@@ -3,7 +3,7 @@ using namespace std;
 
 vector<int>solve(int n,int x,int y)
 {
-    vector<int>a(n,1);
+    
 
     /*
 
@@ -15,6 +15,9 @@ vector<int>solve(int n,int x,int y)
     max suffix posi of a is y
 
     */
+   x--;
+   y--;
+    vector<int>a(n,1);
 
     //Now right side of x
     int e = -1;
