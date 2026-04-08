@@ -17,13 +17,13 @@ int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries)
                     idx+=ki    
     */
 
-    for(auto&a:queries)
+    for(int a:queries)
     {
         int idx = a[0];
 
         while(idx <= a[1])
         {
-            nums[idx] = (nums[idx] * a[3])%MOD;
+            nums[idx] = (1LL*nums[idx] * a[3])%MOD;
             idx+=a[2];
         }
     }
