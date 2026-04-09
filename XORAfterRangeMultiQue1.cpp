@@ -17,7 +17,7 @@ int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries)
                     idx+=ki    
     */
 
-    for(int a:queries)
+    for(auto& a:queries)
     {
         int idx = a[0];
 

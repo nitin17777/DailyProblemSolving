@@ -13,13 +13,11 @@ int solve(vector<int>&a,int l,int r)
 
 
     int n = a.size();
-    vector<int>prefix(n,0);
-    prefix[0]= a[0];
+    vector<int>prefix(n+1);
 
-    int ans = 0;
-    for(int i = 1;i<n;i++)
+    for(int i = 0;i<n;i++)
     {
-        prefix[i] = prefix[i-1] + a[i];
+        prefix[i+1] = prefix[i] + a[i];
     }
 
 
