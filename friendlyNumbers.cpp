@@ -25,10 +25,15 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n;
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
     cin>>n;
 
-    cout<<solve(n)<<endl;
+    cout<<solve(n)<<endl;}
 
     return 0;
 }
