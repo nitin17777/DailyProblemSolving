@@ -2,6 +2,40 @@
 #define ll long long
 using namespace std;
 
+
+int solve(vector<int>&a,int n)
+{
+    //dp[i] = longest neat subsequence using first i elements
+
+    vector<int>dp(n+1,0);
+
+    //Storing all occurence positions of each value
+    unordered_map<int,vector<int>>pos;
+
+    for(int i = 1;i<=n;i++)
+    {
+        int val = a[i-1];
+
+        dp[i] = dp[i-1];
+
+        pos[val].push_back(i);
+        int sz = pos[val].size();
+
+        if(sz >= val)
+        {
+            // starting index of last valid block
+            int x = pos[val][sz - val];
+
+            // take this block
+            dp[i] = max(dp[i], dp[x - 1] + val);
+        }
+    }
+
+    return dp[n];
+
+}
+
+/*
 int solve(vector<int>&a,int n)
 {
     if(a.empty())return 0;
@@ -24,12 +58,13 @@ int solve(vector<int>&a,int n)
         if(cnt >= num)
         {
             int blocks = cnt/num;
-            ans+= blocks;
+            ans+= blocks*num;
         }
     }
     return ans;
 
 }
+    */
 
       
 int main()
