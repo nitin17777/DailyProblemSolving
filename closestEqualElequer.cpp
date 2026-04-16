@@ -32,7 +32,7 @@ int findMin(vector<int>&a,int q,int n)
 
     if(a.back() != q)
     {
-        mini = min(mini,min(distFirst,n-distFirst));
+        mini = min(mini,min(distLast,n-distLast));
     }
     return mini;
 
