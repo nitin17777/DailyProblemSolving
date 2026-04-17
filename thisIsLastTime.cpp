@@ -1,26 +1,54 @@
-#include<iostream>
-#include<vector>
-
+#include<bits/stdc++.h>
+#define ll long long
 using namespace std;
 
-int lastTime(int n,int k, vecotr<int>l, vector<int>r,vector<int>real) // k=initial number of coins
+vector<int> solve(int a, int b)
 {
-    //we can play at casino i only if current number of coins x satisfies: li < current coins <ri
+    /*
 
-    //find the max coins that can be obtained
+    An array is beautiful if it's mean = a and median = b
 
-    //we can only visit one casino once
+    Find such array
+
+    Mean = sum / length = a
+    Median = mid element = b
+    
+    */
 
 
+    // Place median in mid and we can manage mean accordingly
+
+    vector<int>ans(3);
+
+    ans[1] = b;
+
+    ans[0] = b;
 
 
+    //Since the array must be sorted as well, because median is mid element in case of sorted array only
+    ans[2] = a*3 - 2*b;
+
+    return ans;  
 
 }
 
+      
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int a,b;
+    cin>>a>>b;
+
+    vector<int>ans = solve(a,b);
+
+    cout<<ans.size()<<endl;
+
+    for(auto & x:ans)cout<<x<<" ";
+
+    cout<<endl;
 
 
     return 0;
-    
 }
