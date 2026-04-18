@@ -5,10 +5,14 @@ using namespace std;
 struct TreeNode {
     int data;
     TreeNode* next;
+    TreeNode* right;
+    TreeNode* left;
 
     TreeNode(int val) {
         data = val;
         next = NULL;
+        this->right = NULL;
+        this->left = NULL;
     }
 };
 
@@ -28,15 +32,12 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
 
-    while(t--)
-    {
-        int n;
-        cin>>n;
-    
-    }
+
+    vector<vector<string>>ans = printTree(root);
+
 
     return 0;
 }
