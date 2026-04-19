@@ -5,7 +5,7 @@ using namespace std;
 int solve(vector<int>&a,int n)
 {
 
-    //Choose pair of indices i,j and a[i] > a[j] and remove a[j] from the array
+    //Choose pair of indices i<j and a[i] > a[j] and remove a[j] from the array
 
     //For every element check if any smaller number is there after it and count
 

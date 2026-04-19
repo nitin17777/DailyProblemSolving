@@ -49,10 +49,7 @@ bool canFinish(int n, vector<vector<int>>& pre)
         {
             indegree[nbr]--;
 
-
-
             //If all the pre for this nbr are completed -> Add this to queue for completion count
-            
             if(indegree[nbr] == 0)q.push(nbr);
         }
     }
