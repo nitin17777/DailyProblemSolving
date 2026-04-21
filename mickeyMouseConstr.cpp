@@ -64,6 +64,8 @@ int main()
 
         vector<int>ans;
 
+        //Pushing 1 first and -1 afterwards
+
         for(int i = 0;i<x;i++)
         {
             ans.push_back(1);
