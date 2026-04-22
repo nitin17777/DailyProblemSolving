@@ -38,7 +38,7 @@ int main()
 
     while(t--)
     {
-        int a,b,c,m;
+        ll a,b,c,m;
         cin>>a>>b>>c>>m;
 
         /*
