@@ -6,12 +6,14 @@ void dfs(vector<vector<int>>&g,int i,int j,queue<pair<int,int>>&q)
 {
     int n = g.size();
 
+    //Boundary checks
     if(i<0 || j<0 || i>=n || j>=n || g[i][j] != 1)return;
 
 
     //Marking the cell first as part of 1st island
     g[i][j] = 2;
 
+    //storing for bfs further
     q.push({i,j});
 
     int dx[4] = {1,0,-1,0};
@@ -78,13 +80,10 @@ int shortestBridge(vector<vector<int>>& g)
                 int nx = x+dx[d];
                 int ny = y + dy[d];
 
-
                 if(nx<0 || ny<0 || nx>=n || ny>= n)continue;
-
 
                 //reached second island
                 if(g[nx][ny] == 1)return steps;
-
 
                 //to avoid visiting the same cell again during bfs
                 if(g[nx][ny] == 0)
