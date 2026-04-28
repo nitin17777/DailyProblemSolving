@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+int minOperations(vector<vector<int>>& grid, int x)
+{
+
+    int ans = 0;
+    int modVal = grid[0][0] % x;
+
+    vector<int>g;
+
+    for(auto & k:grid)
+    {
+        for(auto &y:k)
+        {
+            if(y%x != modVal)return -1;
+            g.push_back(y);
+        }
+    }
+
+    //make all the elements equal to that element is in optimal distance from other elements 
+
+    sort(g.begin(),g.end());
+
+    int median = g[g.size()/2];
+
+    for(auto & num : g)
+    {
+        ans += abs(num-median)/x;
+    }
+    return ans;
+}
+
+      
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    vector<vector<int>>g = {{2,4},{6,8}};
+    cout<<minOperations(g,2)<<endl;
+
+    return 0;
+}
