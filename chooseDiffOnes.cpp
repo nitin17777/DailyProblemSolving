@@ -29,7 +29,10 @@ bool solve(vector<int>&a,vector<int>&b,int n,int m,int k)
     }
 
 
-    //Checking final conditions now
+    //Checking final conditions now"
+
+    // if more than required nums are from either from one array + elements are not sufficient
+    
 
     if(c[1] > k/2 || c[2] > k/2 || (c[1] + c[2] + c[3] != k))return false;
 
