@@ -16,11 +16,12 @@ vector<int>solve(vector<int>&a,int n)
     //Just maximise the distance bw multiples of 3 and 2
 
 
-    vector<int>two,three,other,ans;
+    vector<int>two,three,other,ans,both;
 
     for(int i = 0;i<n;i++)
     {
-        if(a[i]%2 == 0)two.push_back(a[i]);
+        if(a[i]%6 == 0)both.push_back(a[i]);
+        else if(a[i]%2 == 0)two.push_back(a[i]);
         else if(a[i]%3 == 0)three.push_back(a[i]);
         else other.push_back(a[i]);
     }
@@ -28,6 +29,8 @@ vector<int>solve(vector<int>&a,int n)
     for(auto & x:two)ans.push_back(x);
     for(auto & x:other)ans.push_back(x);
     for(auto & x:three)ans.push_back(x);
+    for(auto & x:both)ans.push_back(x);
+
     
 
     return ans;
