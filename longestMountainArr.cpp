@@ -8,16 +8,13 @@ int longestMountain(vector<int>& a)
     int n = a.size();
 
     /*
-    
-
 
 
     Return the length of the longest subarray which is a mountain, else return 0
 
     */
 
-    string ans = 
-
+    
     
 
 }
