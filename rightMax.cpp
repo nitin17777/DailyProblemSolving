@@ -13,7 +13,7 @@ int solve(vector<int>&a,int n)
     for(auto &x:a)
     {
         if(x>=mx)ans++;
-        mx = max(mx,ans);
+        mx = max(mx,x);
     }
     return ans;
 
