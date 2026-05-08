@@ -1,24 +1,40 @@
-#include <iostream>
-#include <vector>
-
+#include<bits/stdc++.h>
+#define ll long long
 using namespace std;
 
-int solve(vector<int> &arr, int s)
+int solve(vector<int>&a,int s)
 {
-    // we are initially at pos = s on X axis,  we can perform exactly one of the two actions
+    int n = a.size();
 
-    // either position + 1 or position-1
-    // steps will be considered succesful if during the entire journey we visit each xi on X axis atleast once
+    //In one step, we can move either forward or backeward by 1 step
 
-    // determine the min steps in any successful sequence of steps
+    int maxi = a[n-1],mini = a[0];
+
+    int ans = min(abs(s-maxi),abs(s-mini))+ maxi-mini;
+
+    return ans;
 }
 
+      
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    vector<int> arr = {1, 2, 3, 9, 10, 11};
+    int t;
+    cin>>t;
 
-    cout << solve(arr, 6) << endl;
+    while(t--)
+    {
+        int n,s;
+        cin>>n>>s;
+
+        vector<int>a(n);
+        for(auto & x:a)cin>>x;
+
+        cout<<solve(a,s)<<endl;
+    
+    }
 
     return 0;
 }
