@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-vector<vector<int>> rotateGrid(vector<vector<int>>& grid, int k)
+vector<vector<int>> rotateGrid(vector<vector<int>>& g, int k)
 {
     int m = g.size(),n = g[0].size();
 
