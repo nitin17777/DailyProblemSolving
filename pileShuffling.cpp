@@ -1,16 +1,6 @@
 #include <bits/stdc++.h>
+#define ll long long
 using namespace std;
-
-int solve()
-{
-    // In one operation we can take the top element of any pile and move it to any position in any pile
-
-    // ai zeroes on top and bi ones on bottom
-
-    // sO we have to make both the arrays to have finally ci zeroes at top and di ones at bottom
-
-    // and count the number of ops requried for this
-}
 
 int main()
 {
@@ -24,7 +14,27 @@ int main()
         int n;
         cin >> n;
 
-        cout << solve() << endl;
+        ll final = 0;
+
+        while(n--)
+        {
+            ll a,b,c,d;
+            cin>>a>>b>>c>>d;
+
+            ll ans = 0;
+
+            if(b>d)
+            {
+                ans += a + b-d;
+            }
+            else if(a>c)
+            {
+                ans+= (a-c);
+            }
+
+            final += ans;
+        }
+        cout<<final<<endl;
     }
     return 0;
 }
