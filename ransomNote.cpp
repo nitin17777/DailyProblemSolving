@@ -21,8 +21,13 @@ bool canConstruct(string ransomNote, string magazine) {
 }
 
 int main() {
+    string ransomNote = "aa";
+    string magazine = "aab";
 
-    cout<<(canConstruct("aa", "aab")?"True":"False")<<endl;
+    if (canConstruct(ransomNote, magazine))
+        cout << "true";
+    else
+        cout << "false";
 
     return 0;
 }
