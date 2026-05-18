@@ -2,17 +2,19 @@
 #define ll long long
 using namespace std;
 
-int mySqrt(int x)
-{
-    int s = 0;
+int mySqrt(int x) {
+
+        if(x == 0)
+            return 0;
+
+        int s = 1;
         int e = x;
 
-        long long mid;
         int ans = 0;
 
         while(s <= e) {
 
-            mid = s + (e - s) / 2;
+            long long mid = s + (e - s) / 2;
 
             if(mid <= x / mid) {
                 ans = mid;
@@ -24,7 +26,7 @@ int mySqrt(int x)
         }
 
         return ans;
-}
+    }
 
       
 int main()
