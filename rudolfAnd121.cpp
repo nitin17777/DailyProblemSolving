@@ -15,7 +15,7 @@ bool solve(vector<int>&a,int n)
 
         int op = a[i];
         a[i+1] -= 2*op;
-        a[i-1] -= op;
+        a[i+2] -= op;
     }
 
     if(a[n - 1] != 0 || a[n - 2] != 0)return false;
