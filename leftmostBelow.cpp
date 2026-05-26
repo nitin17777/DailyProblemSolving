@@ -1,8 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isPos(vector<int> &a)
+bool isPos(vector<int> &b,int n)
 {
+
+    //Choose an integer less than x and increment it by x
+
+    //Determine if we can wver reach array b
+
+    int mini = b[0];
+
+    for(auto & x:b)
+    {
+        if(x>=2*mini)return false;
+
+        mini = min(mini,x);
+    }
+    return true;
 }
 
 int main()
@@ -21,7 +35,7 @@ int main()
         for (auto &x : a)
             cin >> x;
 
-        cout << (isPos(a) ? "Yes" : "No") << endl;
+        cout << (isPos(a,n) ? "Yes" : "No") << endl;
     }
     return 0;
 }
