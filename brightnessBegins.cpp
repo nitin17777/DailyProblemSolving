@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-int solve(int k)
+ll solve(ll k)
 {
     /*
 
@@ -10,9 +10,29 @@ int solve(int k)
 
     After performing all ops -> We have to make number of bulbs on  = k
     
-    
+
+    ///find the smallest possible n such that after performing operations , exactly k bulbs are on 
+
+
+    Non perfect square -> ON
+    Perfect Square -> Off
     */
 
+    ll l = 1,r = 2e18;
+
+    while(r-l >1)
+    {
+        ll mid = (l+r)>>1;
+
+        ll cnt = mid-int(sqrtl(mid));
+
+        if(cnt >= k)
+        {
+            r=mid;
+        }
+        else l = mid;
+    }
+    return r;
 }
 
       
@@ -26,11 +46,10 @@ int main()
 
     while(t--)
     {
-        int n;
+        ll n;
         cin>>n;
 
         cout<<solve(n)<<endl;
-    
     }
 
     return 0;
