@@ -2,44 +2,65 @@
 #define ll long long
 using namespace std;
 
-string intToRoman(int num)
+int solve(vector<int>&a,int n)
 {
+    //Find k such that only distinct elements are there in array at last
 
-    vector<pair<int,string>> roman = {
-    {1000,"M"},
-    {900,"CM"},
-    {500,"D"},
-    {400,"CD"},
-    {100,"C"},
-    {90,"XC"},
-    {50,"L"},
-    {40,"XL"},
-    {10,"X"},
-    {9,"IX"},
-    {5,"V"},
-    {4,"IV"},
-    {1,"I"}
-};
-
-    string ans;
-
-    for(auto &[val,symbol]:roman)
+    //If odd number is there -> ans = 2
+    bool odd = false;
+    bool even = false;
+    for(auto&x:a)
     {
-        while(num >= val)
-        {
-            ans+=symbol;
-            num-=val;
-        }
+        if(x%2 != 0)odd = true;
+        else even  = false;
     }
-    return ans;    
+
+    if(odd && even)return 2;
+
+
+    // if all odd
+
+    ll k = 2;
+
+    while(true)
+    {
+
+        set<ll>s;
+
+        for(auto &x:a)
+        {
+            s.insert(x%k);
+        }
+
+        if(s.size() == 2)
+        {
+            return k;
+        }
+        k*=2;
+    }
+    return 0;
+    
 }
+
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<intToRoman(3749)<<endl;
-    
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
+        cin>>n;
+
+        vector<int>a(n);
+        for(auto& x:a)cin>>x;
+
+        cout<<solve(a,n)<<endl;    
+    }
+
     return 0;
 }
