@@ -20,7 +20,7 @@ bool solve(vector<int>&a,int n)
     for(int i = 0;i<n;i+=2)a[i] = -a[i];
 
     ll pref = 0;
-    //if two prefix sums are equal, then the subarray between them has sum 0 ,otherwise, no subarray has sum 0
+    //  IMPORTANTR RESULT : if two prefix sums are equal, then the subarray between them has sum 0 ,otherwise, no subarray has sum 0
     
     set<ll>st;
     st.insert(0);
