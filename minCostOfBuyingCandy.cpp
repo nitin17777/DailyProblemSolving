@@ -19,6 +19,7 @@ int minimumCost(vector<int>& cost)
         
     */
 
+    
     sort(cost.rbegin(),cost.rend());
     int ans = cost[0];
     int ig = 2;
