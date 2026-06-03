@@ -4,7 +4,10 @@ using namespace std;
 
 int solve(vector<int>&a,int n)
 {
-    
+
+    sort(a.begin(),a.end());
+
+    return ((a[n-1]-a[0]+1)/2);   
 }
 
       

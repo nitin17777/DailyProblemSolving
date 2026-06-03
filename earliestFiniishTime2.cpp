@@ -15,18 +15,13 @@ int solve(vector<int>& start1, vector<int>& duration1, vector<int>& start2,vecto
     int f2 = INT_MAX;
     for(int i = 0;i<start2.size();i++)
     {
-        f2 = min(f2,max(start2[i],f1)) + duration2[i];
+        f2 = min(f2,max(start2[i],f1) + duration2[i]);
     }
     return f2;
 }
 
 int earliestFinishTime(vector<int>& landStartTime, vector<int>& landDuration, vector<int>& waterStartTime, vector<int>& waterDuration)
 {
-
-    int n = landStartTime.size();
-    int m = waterStartTime.size();
-    
-    ll ans = LLONG_MAX;
     /*
 
     A tourist must experience exactly one ride from each category
