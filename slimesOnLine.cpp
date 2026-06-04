@@ -10,7 +10,7 @@ int solve(vector<int>&a,int n)
     return ((a[n-1]-a[0]+1)/2);   
 }
 
-      
+    
 int main()
 {
     ios_base::sync_with_stdio(false);
