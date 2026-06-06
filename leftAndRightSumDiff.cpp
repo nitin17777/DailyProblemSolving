@@ -35,7 +35,10 @@ int main()
 
     vector<int>a={10,4,8,3};
     vector<int>ans = leftRightDifference(a);
-    for(auto &x:ans)cout<<x<<endl;
+    for(auto &x:ans)cout<<x<<" ";
+
+    cout<<endl;
+    
 
     return 0;
 }
