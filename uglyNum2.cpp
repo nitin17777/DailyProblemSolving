@@ -37,7 +37,7 @@ int nthUglyNumber1(int n)
 int nthUglyNumber(int n)
 {
     vector<ll>ugly(n);
-s
+
     ugly[0] = 1;
     int i2 =0,i3 = 0,i5 = 0;
 

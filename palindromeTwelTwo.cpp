@@ -26,6 +26,7 @@ int main()
 
         bool found = false;
 
+        //200 is just to be on safer side to be greater than 22
         for(ll a = 0; a <= min(n, 200LL); a++)
         {
             if(isPal(a) && (n-a)% 12 == 0)
