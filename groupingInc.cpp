@@ -29,6 +29,31 @@ int solve(vector<int>&a,int n)
     find the penalty is the above process is optimally done
         
     */
+   if(n<=1)return 0;
+
+    vector<int>b,c;
+
+    b.push_back(a[0]);
+    c.push_back(INT_MAX);
+    int ans = 0;
+
+    //b should have smaller back firstly
+    for(int i = 1;i<n;i++)
+    {
+        //To ensure b is smaller always
+        if(b.back() > c.back())swap(b,c);
+
+        if(a[i] <= b.back())b.push_back(a[i]); 
+
+        else if(a[i] <= c.back())c.push_back(a[i]);
+
+        else
+        {
+            b.push_back(a[i]);
+            ans++;  
+        }
+    }
+    return ans;
 }
 
       
