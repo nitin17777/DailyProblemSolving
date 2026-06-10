@@ -23,6 +23,8 @@ int longestPalindromeSubseq(string s)
 
             if(s[i] == s[j])
             {
+
+                //for base case: since no middle part in between them
                 if(len == 2)dp[i][j] = 2;
 
                 else dp[i][j] = 2 + dp[i+1][j-1];

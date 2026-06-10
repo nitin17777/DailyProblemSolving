@@ -2,6 +2,10 @@
 #define ll long long
 using namespace std;
 
+int int_ceil(int x,int d)
+{
+    return (x+d-1)/d;
+}
       
 int main()
 {
@@ -30,17 +34,17 @@ int main()
         
         */
 
-        ll t1= (n+x+y-1)/(x+y);
-      
-        ll maxi = (n+x-1)/x;
+        int ans = int_ceil(n,x+y);//ceil division
 
-        ll t2;
+        //IF usese ai -> maxim uses ai for first z hours ,so lines = x*z and remaining = n - x*z lines and after this speed = x+10y
 
-        if(maxi <=z)t2 = maxi;
+        //so z + max(0,n-xz / x+10y)  ceil
 
-        else t2 = z + (n - 1LL*z*x + (x + 10LL*y) - 1) / (x + 10LL*y);
-
-        cout<<min(t1,t2)<<endl;
+        if(z*x<=n)
+        {
+            ans = min(ans,int_ceil(n-z*x, x+10*y)+z);
+        }
+        cout<<ans<<'\n';   
     }
 
     return 0;
