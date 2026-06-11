@@ -2,48 +2,63 @@
 #define ll long long
 using namespace std;
 
-int longestPalindromeSubseq(string s)
-{
-    int n = s.size();
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
 
-    //find the length of longest palindromic subsequence
-
-    //dp[i][j] = length of lps in s[i...j]
-
-    vector<vector<int>>dp(n,vector<int>(n,0));
-
-    //For single characters
-    for(int i = 0;i<n;i++)dp[i][i] = 1;
-
-    for(int len = 2;len<=n;len++)
-    {
-        for(int i = 0; i+len-1 < n;i++)
-        {
-            int j = i+len-1;
-
-            if(s[i] == s[j])
-            {
-                if(len == 2)dp[i][j] = 2;
-
-                else dp[i][j] = 2 + dp[i+1][j-1];
-            }
-            else
-            {
-                //either ignore one character: left or right
-                dp[i][j] = max(dp[i+1][j],dp[i][j-1]);
-            }
-        }
+    TreeNode(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
     }
+};
 
-    return dp[0][n-1];    
+int dfs(TreeNode* root,int maxi)
+{
+    if(!root)return 0;
+    
+    int cnt = 0;
+
+    if(root->data>=maxi)cnt=1;
+    
+    maxi = max(maxi,root->data);
+
+    cnt+=dfs(root->left,maxi);
+    cnt+=dfs(root->right,maxi);
+
+    return cnt;
 }
+
+int goodNodes(TreeNode* root)
+{
+
+    /*
+
+    good if -> path from root to that node does not have any node value > that current node value
+
+    
+    */
+   return dfs(root,INT_MIN);
+}
+
+
+
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout<<longestPalindromeSubseq("bbbab")<<endl;
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
+        cin>>n;
+    
+    }
 
     return 0;
 }
