@@ -83,7 +83,6 @@ int main()
 
         if(!dist.count(val))dist[val] = cost;
 
-
         if(val == 0)break;
 
         val/=x;
