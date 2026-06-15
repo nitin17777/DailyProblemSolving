@@ -19,7 +19,7 @@ int dist(vector<pair<int,int>>&a)
 }
 
 
-int solve(vector<int,pair<int,int>>&a)
+int solve(map<int,vector<pair<int,int>>>&a)
 {
     //sum the distance bw cell having same number 
 
@@ -28,7 +28,7 @@ int solve(vector<int,pair<int,int>>&a)
 
     for(auto&arr:a)
     {
-        ans+=dist(arr);
+        ans+=dist(arr.second);
     }
     return ans;
 }
@@ -43,19 +43,42 @@ int main()
     int n,m;
     cin>>n>>m;
 
-    vector<int,pair<int,int>>idx;
+//     map<int,vector<pair<int,int>>>idx;
 
-   for(int i=1;i<n;i++)
-   {
-        for(int j = 1;j<m;j++)
+//    for(int i=0;i<n;i++)
+//    {
+//         for(int j = 0;j<m;j++)
+//         {
+//             int x;
+//             cin>>x;
+//             idx[x].push_back({i+1,j+1});
+//         }
+//    }
+
+//    cout<<solve(idx)/2<<'\n';
+
+
+    const int MAXC =100000;
+
+    vector<int>rows(MAXC+1);
+    vector<int>cols(MAXC+1);
+
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
         {
             int x;
-            cin>>x;
-            idx[x].push_back({i,j});
-        }
-   }
+            cin >> x;
 
-   cout<<solve(idx)<<'\n';
+            rows[x].push_back(i);
+            cols[x].push_back(j);
+        }
+    }
+
+    ll ans = 0;
+    
+
+
 
     return 0;
 }
