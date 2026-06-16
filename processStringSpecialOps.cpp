@@ -2,8 +2,9 @@
 #define ll long long
 using namespace std;
 
-string reverse(condy ystring& s)
+string reverse(const string& s)
 {
+    if(s.empty())return "";
     string res ="";
 
     for(int i=s.size()-1;i>=0;i--)
@@ -21,7 +22,7 @@ string processStr(string s)
     {
         if(x=='*')
         {
-            if(!s.empty())res.pop_back();
+            if(!res.empty())res.pop_back();
         }
 
         else if(x=='#')res += res;
