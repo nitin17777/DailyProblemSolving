@@ -21,17 +21,28 @@ int main()
         for(auto& x:a)cin>>x;
 
         sort(a.rbegin(), a.rend());
-	
-	for (int i = 0; i < n-1; i++)
-		if (a[i] == a[i+1]) {
-			cout << "-1\n";
-			return;
-		}
-	
-	for (auto x : a)
-		cout << x << " ";
-	cout << "\n";
-    
+        
+        bool ok = true;
+
+for (int i = 0; i < n - 1; i++)
+{
+    if (a[i] == a[i + 1])
+    {
+        ok = false;
+        break;
+    }
+}
+
+if (!ok)
+{
+    cout << "-1\n";
+    continue;      // goes to next test case
+}
+
+for (auto x : a)
+    cout << x << " ";
+
+cout << "\n";
     }
 
     return 0;
