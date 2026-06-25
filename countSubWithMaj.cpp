@@ -12,7 +12,7 @@ int countMajoritySubarrays(vector<int>& nums, int target)
 
     // number of subarrays where target is the majority element
 
-    ll ans=0;
+    int ans=0;
 
     for(int i = 0;i<n;i++)
     {

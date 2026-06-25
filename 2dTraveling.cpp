@@ -32,11 +32,6 @@ int main()
         vector<int>x(n+1),y(n+1);
 
         for (int i = 1; i <= n; i++)cin >> x[i] >> y[i];
-
-
-        
-
-        cout<<solve(cords,n,k,a,b)<<'\n';
     }
 
     return 0;
