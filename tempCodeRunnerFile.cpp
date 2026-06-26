@@ -2,39 +2,55 @@
 #define ll long long
 using namespace std;
 
-int countMajoritySubarrays(vector<int>& nums, int target)
-{
-    int n = nums.size();
-
-
-    //Majority element ->Element that appears strictly more than half of the times in that subarray
-
-
-    // number of subarrays where target is the majority element
-
-    ll ans=0;
-
-    for(int i = 0;i<n;i++)
-    {
-        int targetCnt = 0;
-
-        for(int j = i;j<n;j++)
-        {
-            if(nums[j] == target)targetCnt++;
-
-            int len = j-i+1;
-            if(2*targetCnt > len)ans++;
-        }
-    }
-    return ans;
-}
-
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    int t;
+    cin>>t;
+
+    while(t--)
+    {
+        int n;
+        cin>>n;
+
+        vector<int>a(n);
+        for(auto& x:a)cin>>x;
+
+
+        /*
+
+        Elements of chosen subarray must have consecutive different parity
+        
+        Find the max sum of such subarray
+
+        */
+    
+        int ans = INT_MIN;
+        for(int i = 0;i<n;i++)
+        {
+            int sum = a[i];
+
+            bool parity = (a[i]%2==0);
+            ans = max(ans,sum);
+
+            for(int j=i+1;j<n;j++)
+            {
+                bool currPar = (a[j]%2 == 0);
+                if(parity!=currPar)
+                {
+                    sum+=a[j];
+                    parity = currPar;
+                    ans = max(ans,sum);
+                }
+                else break;
+            }
+            
+        }
+        cout<<ans<<'\n';
+    }
 
     return 0;
 }
