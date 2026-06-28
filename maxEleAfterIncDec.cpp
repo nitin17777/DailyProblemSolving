@@ -21,8 +21,6 @@ int maximumElementAfterDecrementingAndRearranging(vector<int>& a)
         a[i]=min(a[i],a[i-1]+1);
     }
     return a[n-1];
-
-    
 }
       
 int main()
