@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-int solve(vector<int>&a,int n,int x)
+ll solve(vector<int>&a,int n,int x)
 {
     /*
 
@@ -17,23 +17,22 @@ int solve(vector<int>&a,int n,int x)
 
     //Every day cost increases by (n-1)*day
 
-    vector<int>pref(n);
+    vector<ll>pref(n);
     pref[0] = a[0];
 
     for(int i=1;i<n;i++)pref[i] = pref[i-1]+a[i];
 
     ll ans = 0;
 
-
     ll prev = -1;
 
     for(int i = n;i>=1;i--)
     {
-        if(pref[i-1]>x)continue;
+        //If already exceeds -> SKIP
+        if(pref[i-1] > x)continue;
 
         //Last day we can buy i packs
         ll lastDay = (x-pref[i-1])/i;
-
 
         ll days = lastDay - prev;
 
