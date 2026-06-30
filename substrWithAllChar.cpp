@@ -6,7 +6,7 @@ int numberOfSubstrings(string s)
 {
     int n = s.size();
 
-    vector<int>cnt(n);
+    vector<int>cnt(3);
 
     int l = 0;
     int ans = 0;
