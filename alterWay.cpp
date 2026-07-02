@@ -16,7 +16,7 @@ int main()
         int n;
         cin>>n;
 
-        vector<int>a(n),b(n);
+        vector<ll>a(n),b(n);
 
         for(auto& x:a)cin>>x;
         for(auto& x:b)cin>>x;
@@ -24,57 +24,31 @@ int main()
         if(a==b)
         {
             cout<<"Yes"<<'\n';
-            break;
+            continue;
         }
 
         /*
 
-        Cann we make a equal to b??
+        Can we make a equal to b??
 
 
-        We can always decrease single number to any less
-
+        We can always increase single number to any greater
+        And applying operation on [i-1,i] : ai decreases by 1 and ai-1 increases by 1
+        
         left or right greater and bi%ai ==0
         
         */
 
-        if(a[0] < b[0])
-        {
-            if(a[1] > a[0])continue;
+        //So simply do the operation
 
-            else
+        for(int i = n-1;i>0;i--)
+        {
+            if(a[i]>b[i])
             {
-                cout<<"No"<<'\n';
-                break;
+                a[i-1]+= (a[i]-b[i]);
             }
         }
-
-        if(a[n-1]<b[n-1])
-        {
-            if(a[n-2]>a[n-1])continue;
-
-            else
-            {
-                cout<<"No"<<'\n';
-                break;
-            }
-        }
-
-        for(int i=1;i<n-1;i++)
-        {
-            if(a[i]<b[i])
-            {
-                if(a[i-1] > 0 || a[i+1] > 0)continue;
-
-                else 
-                {
-                    cout<<"NO"<<'\n';
-                    break;
-                }
-            }
-        }
-        cout<<"Yes"<<'\n';
+        cout<<((a[0] <= b[0])?"Yes":"No" )<< '\n';
     }
-
     return 0;
 }
