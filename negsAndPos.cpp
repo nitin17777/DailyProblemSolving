@@ -16,14 +16,15 @@ int main()
         int n;
         cin>>n;
 
-        int sum = 0;
+        ll sum = 0;
 
-        vector<int>a(n);
-        int mini = INT_MAX;
+        vector<ll>a(n);
+        ll mini = LLONG_MAX;
 
         for(auto&x:a)
         {
             cin>>x;
+
             sum+=abs(x);
             mini=min(mini,abs(x));
         }
@@ -39,12 +40,11 @@ int main()
         
         */
 
-        int negs=0;
+        ll negs=0;
         for(auto&x:a)if(x<0)negs++;
 
         if(negs%2==0)cout<<sum<<'\n';
         else cout<<sum-2*mini<<'\n';      
-    
     }
 
     return 0;
