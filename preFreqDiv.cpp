@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define ll long long
 using namespace std;
-
+const ll INF = 1e9+7;
       
 int main()
 {
@@ -16,19 +16,37 @@ int main()
         int n;
         cin>>n;
 
-        vector<int>a(n);
+        vector<ll>a(n);
         for(auto& x:a)cin>>x;
 
         //left 
 
-        vector<int>pref1(n),pref2(n),pref3(n);
+        vector<ll>pref1(n+1),pref2(n+1);
         for(int i =0;i<n;i++)
         {
-            if(a[i]==1)pref1[i]++;
-            else if (a[i]==2)pref[2]++;
-            else pref2[i]++;
+            pref1[i+1] = pref1[i] + (a[i]==1?1:-1); 
+            pref2[i+1] = pref2[i] + (a[i]==3?-1:1);
         }
-    
+
+        ll mn = INF;
+        bool ok = false;
+
+        for(int i = 1;i<n;i++)
+        {
+            //if in that range after first cut, prefix sum is positive, then YES
+            if(pref2[i]-mn >= 0)
+            {
+                ok = true;
+                break;
+            }
+
+            //We can make the first cut here 
+            if(pref1[i]>=0)
+            {
+                mn = min(mn,pref2[i]);
+            }
+        }
+        cout<<(ok?"Yes\n":"No\n");
     }
 
     return 0;

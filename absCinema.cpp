@@ -16,7 +16,7 @@ int main()
         int n;
         cin>>n;
 
-        vector<int>a(n),b(n);
+        vector<ll>a(n),b(n);
 
         for(auto & x:a)cin>>x;
         for(auto & x:b)cin>>x;
@@ -26,15 +26,15 @@ int main()
         {
             if(a[i]>b[i])
             {
-                int temp = a[i];
+                ll temp = a[i];
                 a[i]=b[i];
                 b[i]=temp;
             }
         }
 
-        int maxiA = *max_element(a.begin(),a.end());
+        ll maxiA = *max_element(a.begin(),a.end());
 
-        int totalB = accumulate(b.begin(),b.end(),0);
+        ll totalB = accumulate(b.begin(),b.end(),0LL);
 
         cout<<maxiA + totalB<<'\n';
         // 1 2 3 4 5 6 7 8
