@@ -32,20 +32,23 @@ int main()
 
 
 
-        vector<bool>a(n+1);
-        for(int i=1;i<=n;i++)a[i] = (s[i-1] == '1');
+        vector<bool>keep(n+1);
+        for(int i=1;i<=n;i++)keep[i] = (s[i-1] == '1');
         
 
         ll ans = 0;
 
     
-        int cost[n+1];
+        //cost[i] = min cost using which i can be deleted
+        vector<int>cost(n+1);
+
         
         for(int i = n;i>=1;i--)
         {
             for(int j = i;j<=n;j+=i)
             {
-                if(a[j])break;
+                // If this multiple is needed, we need to stop
+                if(keep[j])break;
                 
                 cost[j] = i;
             }
@@ -53,7 +56,7 @@ int main()
 
         for(int i = 1;i<=n;i++)
         {
-            if(!a[i])ans += cost[i];
+            if(!keep[i])ans += cost[i];
         }
         cout<<ans<<'\n';
     }

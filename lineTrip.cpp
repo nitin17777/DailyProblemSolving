@@ -17,27 +17,23 @@ int main()
         cin>>n>>x;
 
         vector<int>a(n);
-        for(auto & x:a)cin>>x;
+        for(auto & y:a)cin>>y;
+
+        int last = a.back()+ 2*(x-a.back());
+        a.push_back(last);
 
         //0 to x and x to 0
 
         //Determine min tank capacity that would allow the travel
-        
-        
 
-        if(n==1)
-        {
-            cout<<a[0]<<'\n';
-            break;
-        }
-        int last = 2*(x-a.back());
-        int maxi = last;
+       
+        int ans = a[0];
 
-        for(int i = 1;i<n;i++)
+        for(int i = 1;i<a.size();i++)
         {
-            maxi = max(maxi,a[i]-a[i-1]);
+            ans = max(ans,a[i] - a[i-1]);
         }
-        cout<< maxi<<'\n';
+        cout<< ans<<'\n';
     }
 
     return 0;
