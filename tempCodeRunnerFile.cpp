@@ -13,31 +13,52 @@ int main()
 
     while(t--)
     {
-        int n,x;
-        cin>>n>>x;
+        int n;
+        cin>>n;
 
-        vector<int>a(n);
-        for(auto & x:a)cin>>x;
-
-        //0 to x and x to 0
-
-        //Determine min tank capacity that would allow the travel
-        
-        
-
-        if(n==1)
+        if(n==2)
         {
-            cout<<a[0]<<'\n';
-            break;
+            cout<<-1<<'\n';
+            return 0;
         }
-        int last = 2*(x-a.back());
-        int maxi = last;
+        //Construct such array : sum is divisible by all elements in the array
+
+
+        //But each element must be distinct
+        // for(int i = 0;i<n;i++)cout<<1<<" ";
+
+
+        vector<ll>a;
+        ll sum = 0;
 
         for(int i = 1;i<n;i++)
         {
-            maxi = max(maxi,a[i]-a[i-1]);
+            a.push_back(i);
+            sum+=i;
         }
-        cout<< maxi<<'\n';
+
+        ll lcmm = 1;
+
+        for(int i = 1;i<=n;i++)
+        {
+            lcmm = lcm(lcmm,ll(i));
+        }
+
+
+        ll x = 0;
+        for (int k = 0;; k++) 
+        {
+            x = (k+1)*lcmm-sum;
+
+            if (x <= n - 1) continue;
+
+            if (((k + 1)*lcmm) % x == 0) break;
+        }
+
+        for(auto& y:a)cout<<y<<" ";
+
+        cout<<endl;
+    
     }
 
     return 0;

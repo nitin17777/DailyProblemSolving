@@ -16,12 +16,14 @@ int main()
         int n,k;
         cin>>n>>k;
 
+        vector<int>a(n);
+
         for(auto & x:a)cin>>x;
 
         //Mark first element and elements i such that ai != ai-1
         //then either delete all those marked elements or duplicate them
 
-        //Determine how many different array of lenght k can we achieve
+        //Determine how many different array of length k can we achieve
         
     
     }
