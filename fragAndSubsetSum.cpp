@@ -22,6 +22,7 @@ int main()
 
         //either add: i*pi or subtract i*pi or do nothing
     
+        //Putting even at odd places and odd numbers at even places, so 1 won't ever come
         for(int i = 1;i<=n;i+=2)
         {
             cout<<i+1<<" "<<i <<" ";

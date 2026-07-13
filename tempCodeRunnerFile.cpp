@@ -2,64 +2,51 @@
 #define ll long long
 using namespace std;
 
+void op2(vector<int>&a,int x)
+{
+    for(int i=0;i<a.size();i++)
+    {
+        a[i] = x;
+    }
+}
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
+    int n,q;
+    cin>>n>>q;
 
-    while(t--)
+    vector<int>a(n);
+    for(auto & x:a)cin>>x;
+
+
+    //Calculate sum after performing each query
+
+    while(q--)
     {
-        int n;
-        cin>>n;
+        //if t = 1 -> i and x
+        //if t = 2 -> new value of each element
+        int t;
+        cin>>t;
 
-        if(n==2)
+        if(t==1)
         {
-            cout<<-1<<'\n';
-            return 0;
-        }
-        //Construct such array : sum is divisible by all elements in the array
-
-
-        //But each element must be distinct
-        // for(int i = 0;i<n;i++)cout<<1<<" ";
-
-
-        vector<ll>a;
-        ll sum = 0;
-
-        for(int i = 1;i<n;i++)
-        {
-            a.push_back(i);
-            sum+=i;
+            int i,x;
+            cin>>i>>x;
+            a[i] = x;
         }
 
-        ll lcmm = 1;
-
-        for(int i = 1;i<=n;i++)
+        else
         {
-            lcmm = lcm(lcmm,ll(i));
+            int x;
+            cin>>x;
+
+            op2(a,x);
         }
 
-
-        ll x = 0;
-        for (int k = 0;; k++) 
-        {
-            x = (k+1)*lcmm-sum;
-
-            if (x <= n - 1) continue;
-
-            if (((k + 1)*lcmm) % x == 0) break;
-        }
-
-        for(auto& y:a)cout<<y<<" ";
-
-        cout<<endl;
-    
+        cout<< accumulate(a.begin(),a.end(),0)<<'\n';
     }
-
     return 0;
 }
