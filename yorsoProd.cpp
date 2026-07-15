@@ -23,6 +23,7 @@ int main()
 
         for(auto & x:b)cin>>x;
 
+        //Find max possible productivity
         
         
 
