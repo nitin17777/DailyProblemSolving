@@ -13,27 +13,24 @@ int main()
 
     while(t--)
     {
-        int n,a,b;
+        ll n,a,b;
         cin>>n>>a>>b;
 
         //min amount of money needed for n students
 
         bool bless = true;
 
-        int ans = 0;
+        ll ans = 0;
         bless = 3*a > b;
 
-        if(bless)
-        {
-            int bwale = n/3;
-            int awale = n%3;
+        if(b>=3*a)cout<<n*a<<endl;
 
-            cout<<bwale*b + awale* a<<'\n';
-        }
-
-        else 
+        else
         {
-            cout<<a*n<<endl;
+            ll groups = n/3;
+            ll rem = n%3;
+
+            cout<<groups * b + min(rem*a,b)<<'\n';
         }
     }
 
