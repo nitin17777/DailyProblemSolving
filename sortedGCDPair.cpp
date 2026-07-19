@@ -54,7 +54,7 @@ vector<int> gcdValues(vector<int>& nums, vector<long long>& queries)
 
     vector<ll>gcdCnt(mx+1);
 
-    for(int i mx;i>=1;i--)
+    for(int i = mx;i>=1;i--)
     {
         ll total = 1LL * cnt[i] * (cnt[i]-1)/2;
 
