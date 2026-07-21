@@ -1,9 +1,9 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define int long long
 using namespace std;
 
       
-int main()
+signed main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -17,16 +17,26 @@ int main()
         cin>>n>>c;
 
         vector<int>a(n+1);
-        for(int i = 1;i<=n;i++)cin>>a[i];
+        for(int i = 1;i<=n;i++)
+        {
+            cin>>a[i];
+            a[i]-=c;
+        }
 
         //Calculate the max possible final score we an achieve
 
         int ans=0;
 
+        sort(a.begin(),a.end());
 
-        //if element is greater than c: remove solo else remove in pair
+        for(int i = 0;i<n/2;i++)
+        {
+            a[i] = max(0LL,a[i]);
+        }
 
-       
+        for (int x : a)ans += x;
+
+        cout<<ans<<'\n';       
     }
     return 0;
 }
