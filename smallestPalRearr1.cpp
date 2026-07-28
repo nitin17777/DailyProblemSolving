@@ -27,10 +27,9 @@ string smallestPalindrome(string s)
 
     reverse(right.begin(),right.end());
 
-    // if(mid)
-    return left+mid+right;
+    if(mid)return left+mid+right;
 
-    // else return left+right;
+    else return left+right;
 }
 
       
