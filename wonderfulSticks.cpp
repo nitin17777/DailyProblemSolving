@@ -32,12 +32,15 @@ int main()
             }
 
             if(s[i]=='>')
-            a[i+1]=r;
-            r--;
+            {
+                a[i+1]=r;
+                r--;
+            }
         }
         a[0]=l;
 
-        for(auto&x:a)cout<<x<<" ";
+    
+        for (int i = 0; i < n; i++)cout << a[i] << " ";
 
         cout<<endl;
     }
