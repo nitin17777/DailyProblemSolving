@@ -28,17 +28,18 @@ int main()
         //Select any prefix with equal number of zeros and ones and invert       
         int cnt =0;
 
+        bool ok = true;
         for(int i = 0;i<n;i++)
         {
             cnt+=(a[i]=='1')-(a[i]=='0');
 
             if((a[i]==b[i]) != (a[i+1]==b[i+1]) && cnt != 0)
             {
-                cout<<"No\n";
+                ok = false;
                 break;
             }
         }
-        cout<<"Yes\n";
+        cout<<(ok?"Yes":"No")<<'\n';
     }
     return 0;
 }
