@@ -16,29 +16,16 @@ int main()
         int n;
         cin>>n;
 
-        string a,b;
-        cin>>a>>b;
+        vector<int>c(2*n);
+        for(auto&x:c)cin>>x;
+        
+        unordered_map<int,int>freq;
 
-        a.push_back('0');
-        b.push_back('0');
+        for(auto&x:c)freq[x]++;
 
-
-        //Transform string a into b
-
-        //Select any prefix with equal number of zeros and ones and invert       
-        int cnt =0;
-
-        for(int i = 0;i<n;i++)
-        {
-            cnt+=(a[i]=='1')-(a[i]=='0');
-
-            if((a[i]==b[i]) != (a[i+1]==b[i+1]) && cnt != 0)
-            {
-                cout<<"No\n";
-                break;
-            }
-        }
-        cout<<"Yes\n";
+        int ans = 0;
+        for(auto&x:freq)ans=max(ans,x.second);
+        cout<<ans<<'\n';
     }
     return 0;
 }
