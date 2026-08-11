@@ -15,14 +15,14 @@ int main()
     string s;
     cin>>s;
 
-    set<char>vow = {'a','e','i','o','u'};
+    set<char>vow = {'a','e','i','o','u','y'};
 
     string ans = "";
     ans+=s[0];
 
     for(int i = 1;i<n;i++)
     {
-        if(vow.find(ans[i-1]) != vow.end())
+        if(vow.find(s[i-1]) != vow.end())
         {
             if(vow.find(s[i]) == vow.end())ans+=s[i];
         }
