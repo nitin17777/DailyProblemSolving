@@ -27,6 +27,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    vector<int>num = {1,2,3};
+
     vector<int>ans = addToArrayForm(num);
 
     for(auto& x:ans)cout<<x<<" ";
