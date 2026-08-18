@@ -16,9 +16,6 @@ int main()
         int n,m;
         cin>>n>>m;
 
-        vector<int>a(n),b(m);
-        for(auto&x:a)cin>>x;
-
         //Beas range : a(left to right), ver's b(right to left)
 
         //in each turn height of each other 's tower is decreased by 1
@@ -29,27 +26,19 @@ int main()
 
         //Determine who will win
 
-        int as,bs = 0;
+        ll a0,b0;
+        cin>>a0;
 
-        for(int i=1;i<n;i++)
-        {
-            as+= a[i-1]-a[i]+1;
-        }
-        as+=a[n-1];
+        ll skip;
+        for(int i = 1;i<n;i++)cin>>skip;
 
-        for(int i=1;i<m;i++)
-        {
-            bs+=b[i-1]-b[i]+1;
-        }
-        bs+=a[m-1];
+        cin>>b0;
+        for(int i = 1;i<m;i++)cin>>skip;
 
-        
+        ll bea = a0+n;
+        ll ver = b0+m;
 
-
-
-
-    
+        cout<<((bea>=ver)?1:2)<<'\n';
     }
-
     return 0;
 }

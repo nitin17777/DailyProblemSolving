@@ -2,32 +2,6 @@
 #define ll long long
 using namespace std;
 
-string solve(ll p,ll q)
-{
-
-    //Alice plays first
-    /*
-
-    A player can : p-1 or q-1
-
-    Game ends : p == 0 and q == 1
-
-    Bob wins : p/q == 2/3 anytime during the game
-
-    Determine the winner
-
-    
-    */
-
-    if(p>q) return "Alice";
-    ll a = min((p/2), (q/3));
-    ll b = q-p;
-
-    if(a >=b)return "Bob";
-
-    return "Alice";
-}
-
       
 int main()
 {
@@ -42,7 +16,28 @@ int main()
         ll p,q;
         cin>>p>>q;
 
-        cout<<solve(p,q)<<endl;
+        //Alice plays first
+    /*
+
+    A player can : p-1 or q-1
+
+    Game ends : p == 0 and q == 1
+
+    Bob wins : p/q == 2/3 anytime during the game,else alice wins 
+
+    3p = 2q ->Game over
+    
+
+    Determine the winner
+    */
+
+    //Condition 1:q>p,else bob wont have any chance to match our given expression
+    //condition 2 : 
+        //If alice decreases p, then bob decreases q to keep q-p constant 
+
+
+        if((q>p) && min(p/2, q/3) >= q-p)cout<<"Bob"<<'\n';
+        else cout<<"Alice"<<'\n'; 
     }
 
     return 0;

@@ -3,56 +3,28 @@
 using namespace std;
 
 
-        //DP APPROACH : O(n^2)
-
-// int jump(vector<int>& nums)
-// {
-//     int n = nums.size();
-
-//     // Min jumps to reach index n-1
-
-//     //Try every jump from current index and determine the shortest one
-
-//     int ans = 0;
-
-//     vector<int>dp(n,INT_MAX);
-
-//     dp[0] = 0;
-
-//For every position i : 
-    //Try every position j that i can jump to 
-        //update the min jumps to reach j
-
-//     for(int i = 0;i<n;i++)
-//     {
-//         for(int j = i+1;j<n && j <= i+nums[i];j++)
-//         {
-//             dp[j] = min(dp[j], dp[i]+1);
-
-//         }
-//     }
-//     return dp[n-1];
-// }
-
-
-int jump(vector<int>& nums)
+int largestInteger(vector<int>& nums, int k)
 {
     int n = nums.size();
-    int jumps = 0; 
 
-    int currEnd = 0,farthest = 0;
+    //Almost missing if that number x is only present in one subarray of size k
 
-    for(int i = 0;i<n-1;i++)
+    unordered_map<int,int>cnt;
+    for(int l=0;l<=n-k;l++)
     {
-        farthest = max(farthest,i+nums[i]);
+        unordered_set<int>seen;
 
-        if(i == currEnd)
-        {
-            jumps++;
-            currEnd = farthest;
-        }
+        for(int i=l;i<l+k;i++)seen.insert(nums[i]);
+
+        for(int x:seen)cnt[x]++;
     }
-    return jumps;
+
+    int ans = -1;
+    for(auto&[x,c]:cnt)
+    {
+        if(c==1)ans = max(ans,x);
+    }
+    return ans;
 }
       
 int main()
@@ -60,8 +32,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>nums = {2,3,1,1,4};
-    cout<<jump(nums)<<endl;
+    vector<int>nums = {3,9,2,1,7};
+    cout<<largestInteger(nums,3)<<'\n';
 
     return 0;
 }
