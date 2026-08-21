@@ -13,7 +13,7 @@ int main()
 
     while(t--)
     {
-        int n,x1,x2,k;
+        ll n,x1,x2,k;
         cin>>n>>x1>>x2>>k;
 
         //at time 0 : Reimu is at position x1 and rem at x2
@@ -26,15 +26,13 @@ int main()
 
         //find number of seconds till he finds her
             
-        if(k==0)
+        if(n<=3)
         {
-            cout<<abs(x1-x2)<<'\n';
+            cout<<1<<'\n';
+            continue;
         }
 
-        else
-        {
-            cout<< abs(x1-x2)+k<< '\n';
-        }
+        cout<<min(abs(x1-x2),n-abs(x1-x2))+k<< '\n';
     }
 
     return 0;
