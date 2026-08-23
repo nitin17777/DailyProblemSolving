@@ -3,6 +3,8 @@
 using namespace std;
 
       
+
+//Full brute force approach but eliminared most of the unneccessary searches
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -16,7 +18,6 @@ int main()
         int n;
         cin>>n;
         //find number of pairs: ai * aj = i+j
-
 
         //since i+j <= 2n => So a[i] * a[j] can atmost go tilll 2n
 
