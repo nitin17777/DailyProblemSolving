@@ -38,7 +38,7 @@ int main()
 
             //Counting how many elements contain each bit
             for(int b = 0;b<30;b++)
-            {
+             {
                 if(a[i] &&(1<<b))cnt[b]++;
 
                 //In one elimination, we choose k elements and calculate their AND
