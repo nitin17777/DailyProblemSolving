@@ -30,13 +30,10 @@ int widthOfBinaryTree(Node* root)
     {
         int sz = q.size();
 
-
         ///All the nodes in queue belongs to the same level and first node's index represents leftmost occupied position
         ll firstIndex = q.front().second;
         
-
-        ll right = 0;
-        ll left = 0;
+        ll right = 0,left = 0;
 
         for(int i=0;i<sz;i++)
         {
