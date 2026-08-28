@@ -10,8 +10,10 @@ ll power(ll p)
     
     while(p>0)
     {
+        // Include current power of 2 if this bit of p is set
         if(p&1)ans = ans * base % MOD;
 
+        //Move to next power of 2
         base = base*base %MOD;
 
         p>>=1;
@@ -36,7 +38,6 @@ int main()
         //n rows and m columns
 
         //Clean matrix if: bitwise XOR sum of elements in each submatrix is 0
-
 
         //Calculate number of such clean matrices
 
