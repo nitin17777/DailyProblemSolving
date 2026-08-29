@@ -1,16 +1,12 @@
-#include<iostream>
-#include<vector>
-
+#include<bits/stdc++.h>
 using namespace std;
 
 int peak(vector<int>&nums)
 {
     int left = 0, right = nums.size() -1;
 
-
     while(left < right)
     {
-
         int mid = left + (right - left)/2;
         if(nums[mid] > nums[mid+1])
             {
@@ -28,10 +24,8 @@ int main()
 {
 
     vector<int>nums = {1,2,3,1};
-
-    int ans= peak(nums);
     
-    cout<<ans<<endl;
+    cout<<peak(nums)<<endl;
 
     return 0;
     
