@@ -29,22 +29,25 @@ int main()
 
         // else return n
 
-        unordered_map<int,int>freq;
-        for(auto&x:a)freq[x]++;
+        //for any x answer is the number of carrots greater than x + carrots of length 2x
+        sort(a.begin(),a.end());
 
-        int maxi = 0;
+        unordered_map<int,int>freq(m+1);
+        for(auto &x:a)freq[x]++;
 
-        sort(a.rbegin(),a.rend());
+        vector<int>suffix(m+2,0);
 
-        for(auto &x:freq)
+        for(int x = m;x>=1;x--)
         {
-            if(x.second >= n/2)
-            {
-                freq[(x.first)/2]+= x.second * 2; 
-                maxi=max(maxi,freq[x.first/2]);
-            }
+            suffix[x] = suffix[x+1]+freq[x];
         }
-        cout<<max(maxi*2,n)<<'\n';
+
+        int ans=0;
+        for(int x = 1;x<=m;x++)
+        {
+            ans = max(ans,suffix[x]+(2*x <= m? freq[2*x]:0));
+        }
+        cout<<ans<<'\n';
     }
     return 0;
 }
