@@ -16,8 +16,8 @@ int main()
         int n,a,b;
         cin>>n>>a>>b;
     
-        vector<int>a(n);
-        for(auto&x:a)cin>>x;
+        vector<int>arr(n);
+        for(auto&x:arr)cin>>x;
 
         
     }
