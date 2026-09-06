@@ -12,6 +12,7 @@ int combinationSum4(vector<int>& nums, int target)
     if (target <0)return 0;
     else if(target == 0)return 1;
 
+    //because we are not sure that intermediate values crosses even long long or not
     vector<__int128>dp(target+1,0);
 
     dp[0] = 1;
