@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-struct Node {
+struct TreeNode {
     int data;
     Node* left;
     Node*right;

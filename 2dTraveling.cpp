@@ -1,12 +1,6 @@
 #include<bits/stdc++.h>
 #define ll long long
 using namespace std;
-
-int solve(pair<int,int>&cords,int n,int k,int a,int b)
-{
-
-}
-
       
 int main()
 {
@@ -27,11 +21,15 @@ int main()
         //First k cities are considered as major cities
 
 
-        //Find min cost of all air tickets if he can take any number of flights
-        
-        vector<int>x(n+1),y(n+1);
+        //Find min cost of all air tickets if he can take any number of flight
 
-        for (int i = 1; i <= n; i++)cin >> x[i] >> y[i];
+        vector<pair<int,int>>city(n+1);
+        for(auto &x:city)
+        {
+            cin>>x.first;
+            cin>>x.second;
+        }
+       
     }
 
     return 0;
