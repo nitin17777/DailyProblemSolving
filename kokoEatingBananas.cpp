@@ -44,11 +44,12 @@ int minEatingSpeed(vector<int>& a, int h)
     int mid = (right-left)/2;
     while(left<=right)
     {
-
+        
         int num = hours(a,a[mid]);
 
         if(num>h)left = mid+1;
         else right = mid-1;
+
     }
 
     return mid;
