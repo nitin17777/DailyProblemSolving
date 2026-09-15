@@ -3,25 +3,23 @@
 using namespace std;
 
 
-int hours(vector<int>&a,int num)
+ll hours(vector<int>&a,int speed)
 {
-
-
-    int sum = 0;
+    ll sum = 0;
 
     for(int i =0;i<a.size();i++)
     {
 
-        sum+= (a[i]/num);
+        sum+= a[i]/speed;
+
+        if(a[i]%speed != 0)sum++;
     }
     return sum;
-
 }
 
 
 int minEatingSpeed(vector<int>& a, int h)
 {
-    int n=a.size();
 
     /*
 
@@ -34,25 +32,22 @@ int minEatingSpeed(vector<int>& a, int h)
 
     
     */
+    int left = 1;
+    int right = *max_element(a.begin(),a.end());
 
-
-
-    sort(a.begin(),a.end());
-
-    int left = 0,right = n-1;
-
-    int mid = (right-left)/2;
     while(left<=right)
     {
         
-        int num = hours(a,a[mid]);
+        int mid = left+(right-left)/2;
 
-        if(num>h)left = mid+1;
+        ll reqHrs = hours(a,mid);
+
+        if(reqHrs>h)left=mid+1;
+
         else right = mid-1;
-
     }
 
-    return mid;
+    return left;
 
 }
       

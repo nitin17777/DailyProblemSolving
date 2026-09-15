@@ -8,6 +8,9 @@ int findUnsortedSubarray(vector<int>& nums)
 
     //Return the shortest continuous subarray : If we sort this subarray whole array will be sorted 
 
+
+    if(is_sorted(nums.begin(),nums.end()))return 0;
+
     vector<int>sorted = nums;
 
     sort(sorted.begin(),sorted.end());
