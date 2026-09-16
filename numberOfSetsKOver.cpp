@@ -2,8 +2,6 @@
 #define ll long long
 using namespace std;
 
-
-
 //Not able to understnad this solution fully though
 static const ll MOD = 1000000007;
 ll power(ll a,ll b)
@@ -17,9 +15,8 @@ ll power(ll a,ll b)
 
         a = (a*a)%MOD;
 
-
         //Move to the next bit
-        b>>=1;
+        b>>=1; //equivalent to b/2
     }
     return res;
 }
@@ -35,10 +32,8 @@ int numberOfSets(int n, int k)
 
     */
 
-
     int N = n+k-1;
     int R = 2*k;
-
 
     ll numer = 1;
     ll denom = 1;
