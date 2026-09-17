@@ -11,7 +11,7 @@ vector<vector<string>> groupAnagrams(vector<string>& strs)
     //anagrams -> Words formed by arranging same letters exactly same numebr of times
     vector<vector<string>>ans;
 
-    unordered_map<string ,vector<string>>mp;
+    unordered_map<string, vector<string>>mp;
 
     for(auto s:strs)
     {
@@ -27,7 +27,9 @@ vector<vector<string>> groupAnagrams(vector<string>& strs)
     }
     return ans;
 }
-      
+
+
+
 int main()
 {
     ios_base::sync_with_stdio(false);

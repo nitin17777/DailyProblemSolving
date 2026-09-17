@@ -10,6 +10,14 @@ int minDistance(string word1, string word2)
     // we can only insert, delete or replace a character at a time
 
     int m = word1.size(), n = word2.size();
+
+
+    //dp[i][j] = 
+
+
+
+
+
 }
 
 int main()
