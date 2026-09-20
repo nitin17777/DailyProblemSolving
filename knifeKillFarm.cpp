@@ -26,9 +26,7 @@ int main()
         When he publishes the ith chosen draft, his score changes by i *(bi- bi-1) and b0 = 0
 
 
-        Determine the max score he can achieve by choosing whichever drafts he wants
-        
-        
+        Determine the max score he can achieve by choosing whichever drafts he wants        
         */
 
         int ans=0;
