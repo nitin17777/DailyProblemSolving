@@ -86,14 +86,14 @@ int main()
         
         //Handling final horde  now
         if(i==j)
-            {
-                if(combo==0)
-                {
-                    ans+=a[i];
-                }
-                else if(combo>=a[i])ans++;
-                else ans+=a[i]-combo+1;
-            }
+        {
+            ll m = a[i];
+            ll c = combo;
+
+            ll k = max(0LL, (m-c+1)/2);//ceil((m-c)/2)
+
+            ans+=min(m,k+1);
+        }
         cout<< ans << '\n';
     }
     return 0;

@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-vector<ll> resultArray(vector<int>& nums, int k)
+vector<ll> resultArray(vector<int>& a, int k)
 {
     vector<ll>ans;
     int n = a.size();
@@ -26,7 +26,7 @@ int main()
 
    
     vector<int>nums = {1,2,3,4,5};
-    cout<<resultArray(nums)<<endl;
+    cout<<resultArray(nums,3)<<endl;
 
     return 0;
 }
