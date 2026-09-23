@@ -23,12 +23,22 @@ int main()
 
         int target = total-s;
 
+        if(target<0)
+        {
+            cout<<-1<<'\n';
+            continue;
+        }
+
         if(target==0)
         {
             cout<<0<<'\n';
             continue;
         }
-        cout<<"LOL"<<'\n';
+
+        int left = 0;
+        int ans = 0;
+        int maxLen = -1;
+    
     }
 
     return 0;
