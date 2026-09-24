@@ -65,7 +65,7 @@ int openLock(vector<string>& deadends, string target)
                 //If wheel is moved down
                 next=curr;
 
-                if(next[i] = '0')next[i] = '9';
+                if(next[i] == '0')next[i] = '9';
                 else next[i]--;
 
 
