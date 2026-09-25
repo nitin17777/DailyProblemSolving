@@ -86,7 +86,6 @@ int minCut(string s)
         }
 
         dp[i]=i;//Max possible cuts ; worst case
-
         for(int j=1;j<=i;j++)
         {
             if(pal[j][i])
