@@ -97,9 +97,6 @@ int main()
 
         // cout<<ans<<'\n';
 
-
-
-
         //Count happy ones,
         //If unhappy check it's (frequency>1) and do : ans+=nCr(thatFreq,2)
 
