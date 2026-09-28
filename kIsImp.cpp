@@ -39,8 +39,7 @@ int main()
             for(int i=k;i<=n-k+1;i++)ans+=a[i];
 
             int l = 1,r=n;
-
-
+            
             while(l<k)
             {
                 ans+=max(a[l],a[r]);

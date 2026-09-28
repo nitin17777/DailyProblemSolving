@@ -9,27 +9,35 @@ string reverseParentheses(string s)
     
     //Reverse strings in each pair of matching paranthese starting from the innermost one
 
-    string ans = "";
+    string curr = "";
 
-    stack<char>st;
+    stack<string>st;
 
-    for(auto&x:s)st.insert(x);
-
-
-    while(!st.empty())
+    for(char c:s)
     {
-        int curr = st.top();
-        st.pop();
+        if(c=='(')
+        {
+            //Saving the string built before this 
+            st.push(curr);
 
-        if(curr = ')')
+            //Starting new string now
+            curr = "";
+        }
         
+        else if(c==')')
+        {
 
+            //Reversing the innermost string 
+            reverse(curr.begin(),curr.end());
+            
+            //Restore the string before '('
+            curr=st.top()+curr;
+            st.pop();
+        }
+
+        else curr+=c;
     }
-    
-
-
-
-
+    return curr;
 }
 
       
@@ -38,7 +46,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    
+    cout<<reverseParentheses("(u(love)i)")<<endl;
 
     return 0;
 }

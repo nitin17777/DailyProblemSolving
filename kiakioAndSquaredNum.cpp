@@ -2,6 +2,8 @@
 #define ll long long
 using namespace std;
 
+const ll CYC[8] = {4, 16, 37, 58, 89, 145, 42, 20};
+
 int next(int x)
 {
     int ans=0;
@@ -14,25 +16,52 @@ int next(int x)
     return ans;
 }
 
-ll nCr(ll n, ll r)
-{
-    r = min(r, n - r);
+// ll nCr(ll n, ll r)
+// {
+//     r = min(r, n - r);
 
-    ll ans = 1;
+//     ll ans = 1;
 
-    for (ll i = 1; i <= r; i++)
-        ans = ans * (n - i + 1) / i;
+//     for (ll i = 1; i <= r; i++)
+//         ans = ans * (n - i + 1) / i;
 
-    return ans;
-}
+//     return ans;
+// }
 
-bool isHappy(int x)
-{
-    while(x!=1 && x!=4)x=next(x);
+// bool isHappy(int x)
+// {
+//     while(x!=1 && x!=4)x=next(x);
     
-    return x==1;
-}
+//     return x==1;
+// }
 
+
+int getSign(int x)
+{
+    ll steps = 0;
+
+    while(true)
+    {
+        //! cycle
+        if(x==1)return 8;
+
+        //k tells us the position inside the cycle
+        for(int k = 0;k<8;k++)
+        {
+            if(x==CYC[k])return (k-steps+8)%8;
+        }
+
+        ll y = 0;
+        while(x>0)
+        {
+            ll digit=x%10;
+            y+=digit*digit;
+            x/=10;
+        }
+        x=y;
+        steps++;
+    }
+}
 
       
 int main()
@@ -103,22 +132,38 @@ int main()
 
         //IF they are unhappy but happy frequency greater than 1 and add nCr(unhappy,2)to ans;
 
-        unordered_map<int,int>freq;
-        for(auto &x:a)freq[x]++;
+        // unordered_map<int,int>freq;
+        // for(auto &x:a)freq[x]++;
 
-        int ans = 0;
-        int happy=0;
-        for(auto&x:a)
+        // int ans = 0;
+        // int happy=0;
+        // for(auto&x:a)
+        // {
+        //     if(isHappy(x))happy++;
+
+        //     else
+        //     {
+        //         if(freq[x] > 1)ans+=nCr(freq[x],2);
+        //     }
+        // }
+
+        // if(happy>=2)ans+=nCr(happy,2);
+        // cout<<ans<<'\n';
+
+
+        //Calculating signature of every given number
+        vector<ll>cnt(9,0);
+        for(auto& x:a)
         {
-            if(isHappy(x))happy++;
-
-            else
-            {
-                if(freq[x] > 1)ans+=nCr(freq[x],2);
-            }
+            int sign = getSign(x);
+            cnt[sign]++;
         }
 
-        if(happy>=2)ans+=nCr(happy,2);
+        ll ans=0;
+        for(int i=0;i<9;i++)
+        {
+            ans+= cnt[i] * (cnt[i]-1)/2;
+        }
         cout<<ans<<'\n';
     }
 
