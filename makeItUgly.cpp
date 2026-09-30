@@ -31,24 +31,26 @@ int main()
         }
       
         //Counting the smallest block of nums[0] in the given array
-        int num = a[0];
+       
+        int target = a[0];
+        int cnt = 0;
 
-        for(int right=0;right<n;right++)
+        for(int x:a)
         {
-            if(a[right]!=num)
+            if(x==target)cnt++;
+
+            else
             {
-                ans = min(ans,right-left);
-                left = right;
+                if(cnt>0)ans=min(ans,cnt);
+                cnt=0;
             }
         }
+        if(cnt>0)ans=min(ans,cnt);
+        
+        if(ans==n)cout<<-1<<'\n';
 
-        ans = min(ans,n-left);
-        if(ans == n)
-        {
-            cout<<-1<<'\n';
-            continue;
-        }
-        cout<< ans<<'\n';    
+        else cout<<ans<<'\n';
+        
     }
     return 0;
 }

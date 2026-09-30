@@ -36,6 +36,7 @@ int next(int x)
 // }
 
 
+//Learnt this way to do from official editorial
 int getSign(int x)
 {
     ll steps = 0;

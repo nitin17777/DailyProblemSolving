@@ -2,7 +2,6 @@
 #define ll long long
 using namespace std;
 
-      
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -29,7 +28,6 @@ int main()
         */
 
         ll ans = 0;
-
 
         //For a specific index i -> We are forced to delete exactly one element either from last or form first, so we should always go for the bigger one
 
