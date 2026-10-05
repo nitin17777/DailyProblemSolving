@@ -2,7 +2,6 @@
 #define ll long long
 using namespace std;
 
-      
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -13,35 +12,61 @@ int main()
 
     while(t--)
     {
-        int n,x;
-        cin>>n;
+        int n;
+        ll x;
+        cin>>n>>x;
 
+        vector<ll> a(n);
 
-        vector<int>a(n);
-        for(auto& y:a)cin>>y;
+        for(auto &v:a)
+        {
+            cin>>v;
+        }
 
-        /*
-
-        He can use x to steal coins
-        He chooses an index :  ai>0 && gcd(ai,x) != 1 , if no such index -> pirate stops
-
-        He steals gcd(ai,x) = g coins from pile i , after which ai decrease by g
-        sets x to g and continue stealing
-
-        Determine max number of coins he can steal       
-        
-        */
-       if(x==1)
-       {
+        if(x==1)
+        {
             cout<<0<<'\n';
             continue;
-       }
+        }
 
-       //Coins in pile i can be represented as p*g
-       
+        ll ans = 0;
 
+        // Check every distinct prime factor of x
+        for(ll p=2; p*p<=x; p++)
+        {
+            if(x%p!=0)
+                continue;
 
-    
+            ll sum = 0;
+
+            // Take all piles divisible by p
+            for(auto v:a)
+            {
+                if(v%p==0)sum += v;
+            }
+
+            ans = max(ans,sum);
+
+            // Remove this prime factor completely
+            while(x%p==0)
+                x/=p;
+        }
+
+        // Remaining x is a prime factor
+        if(x>1)
+        {
+            ll sum = 0;
+
+            for(auto v:a)
+            {
+                if(v%x==0)
+                    sum += v;
+            }
+
+            ans = max(ans,sum);
+        }
+
+        cout<<ans<<'\n';
     }
 
     return 0;

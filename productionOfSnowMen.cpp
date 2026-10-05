@@ -2,51 +2,13 @@
 #define ll long long
 using namespace std;
 
-ll solve(vector<vector<ll>>&a,int n)
+bool good(vector<int>&a,vector<int>&b,int n, int k)
 {
-    /*
-
-    Stable = a<b<c
-
-    Circular conveyor is there
-
-    Count the number of suitable combos of parameters
-
-
-
-    WE have 3*n 2d array, we have to find the number of combos satisfiying : Every row has greater element than previous one
-
-    */
-
-
-    vector<vector<ll>>dp(3,vector<ll>(n,0));
-
-    //When we stat a sequence from any element from top row, it contributes 1 way
-    for(int j = 0;j<n;j++)dp[0][j] = 1;
-
-
-    // Processing row 1 and row 2
-    for(int r = 1;r<3;r++)
+    for(int i = 0;i<n;i++)
     {
-        //Current column in that row r
-        for(int j = 0;j<n;j++)
-        {
-            ll ways = 0;
-
-            for(int k = 0;k<j;k++)
-            {
-                if(a[r-1][k] < a[r][j])ways+=dp[r-1][k];
-            }
-            dp[r][j] = ways;
-        }
+        if(a[i]<= b[(i+k)%n])return false;
     }
-
-    ll ans = 0;
-    for(int j=0; j<n;j++)
-    {
-        ans +=dp[2][j];
-    }
-    return ans;
+    return true;
 }
 
       
@@ -63,13 +25,23 @@ int main()
         int n;
         cin>>n;
 
-        vector<vector<ll>>a(3,vector<ll>(n));
+        vector<int>a(n),b(n),c(n);
+        for(auto &x:a)cin>>x;
+        for(auto &x:b)cin>>x;
+        for(auto &x:c)cin>>x;
 
-        for(auto &row :a)
+        ll k1 = 0,k2 = 0;
+
+        //We need to determine the number of suitable combos of parameters
+        for(int i = 0;i<n;i++)
         {
-            for(auto &x:row)cin>>x;
+            if(good(b,a,n,i))k1++;
+            
+            if(good(c,b,n,i))k2++;
         }
-        cout<<solve(a,n)<<endl;
+
+        cout<<k1*k2*n<<'\n';
+
     }
     return 0;
 }
