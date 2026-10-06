@@ -27,18 +27,17 @@ int main()
 
     */
 
-    map<int,vector<int>>freq;
+    map<ll,ll>sum;
 
     for(int i =1;i<=n;i++)
     {
-        freq[i-a[i]].push_back(a[i]);
+        sum[i-a[i]]+=(a[i]);
     }
 
-    int ans=0;
-    for(auto&key:freq)
+    ll ans=0;
+    for(auto&it:sum)
     {
-        int currSum = accumulate(key.second.begin(),key.second.end(),0);
-        ans = max(ans,currSum);  
+       ans = max(ans,it.second);  
     }
 
     cout<<ans<<'\n';
