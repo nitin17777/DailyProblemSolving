@@ -14,7 +14,7 @@ struct Node {
 
 int dfs(TreeNode* node,int mn)
 {
-    if(!node)return 0;
+    if(!node)return -1;
 
     if(node->val > mn)return node->val;
 

@@ -2,11 +2,11 @@
 #define ll long long
 using namespace std;
 
-struct Node {
+struct TreeNode {
     int data;
-    Node* next;
+    TreeNode* next;
 
-    Node(int val) {
+    TreeNode(int val) {
         data = val;
         next = NULL;
     }
