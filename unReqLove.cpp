@@ -56,7 +56,6 @@ int main()
 
             cnt[sum[i]]++;
         }
-
         cout << ans << '\n';
     }
 
