@@ -1,9 +1,9 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define int long long
 using namespace std;
 
       
-int main()
+signed main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -16,47 +16,36 @@ int main()
         int n;
         cin>>n;
 
-        vector<int>even,odd;
         vector<int>a(n);
-        for(auto&x:a)cin>>x;
+        for(auto &x:a)cin>>x;
 
-        /*
-        
-        n keys are there giving a1, a2.... units of audience love
+        // we want to choose exactly 2 different triads that don't share any keys
+        //Determine the max number of ways to choose such triads 
 
+        //Group triads with same amount of love
+        //And then remove overlapping triads in a group
 
-        Triad brings : love of x , x+2, x+4
+        //Two traids : x<y intersect only when y-x == 2 or y-x == 4
 
-        Determine the number of ways to choose two such triads such that both have same love  
-        */
+        //arr will store curr value calculated for every earlier starting index
+        vector<int>arr;
+        map<int,int>mp;
 
-        vector<ll>sum(n-4);
+        int ans = 0;
 
-      for(int i = 0; i <= n - 5; i++)
+        for(int i = 0;i < n-4;i++)
         {
-            sum[i] = a[i] + a[i+2] + a[i+4];
+            int curr = a[i] + a[i+2] - a[i+4];
+
+            ans+=mp[curr];
+
+            if(i>=2 && arr[i-2] == curr)ans--;
+            if(i>=4 && arr[i-4] == curr)ans--;
+
+            mp[curr]++;
+            arr.push_back(curr);
         }
-
-        // cnt[x] = number of previous triads having sum x
-        unordered_map<ll, ll> cnt;
-        ll ans = 0;
-
-        for(int i = 0; i <= n - 5; i++)
-        {
-            // All previous triads with the same sum
-            ans += cnt[sum[i]];
-
-            // Triad i overlaps with triad i-2
-            if(i >= 2 && sum[i-2] == sum[i])
-                ans--;
-
-            // Triad i overlaps with triad i-4
-            if(i >= 4 && sum[i-4] == sum[i])
-                ans--;
-
-            cnt[sum[i]]++;
-        }
-        cout << ans << '\n';
+        cout<<ans<<'\n';
     }
 
     return 0;

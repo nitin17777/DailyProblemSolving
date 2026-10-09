@@ -12,10 +12,9 @@ int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k)
     ans += min(numOnes,k);
     k-= min(numOnes,k);;
 
-    k-=min(numOnes,k);
+    k-=min(numZeros,k);
 
     ans -= min(numNegOnes,k);
-    k-=min(numNegOnes,k);
     
     return ans;
 }       
