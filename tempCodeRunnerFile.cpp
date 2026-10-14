@@ -2,30 +2,26 @@
 #define ll long long
 using namespace std;
 
-int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k)
+bool isSubsequence(string s, string t)
 {
-    // Pick exactly k items . return the max possible sum
+    int n = s.size(),m = t.size();
 
-    int ans = 0;
+    int curr = 0 ;
 
-    
-    ans += min(numOnes,k);
-    k-= min(numOnes,k);;
+    for(int i=0;i<m;i++)
+    {
+        if(t[i] == s[curr])curr++;
+    }
 
-    k-=min(numOnes,k);
-
-    ans -= min(numNegOnes,k);
-    k-=min(numNegOnes,k);
-    
-    return ans;
-}       
+    return curr == n;
+}
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    cout<<kItemsWithMaximumSum(3,2,0,2)<<endl;
+    
+    cout<<(isSubsequence("abc","ahbgdc")?"True":"False")<<endl;
 
     return 0;
 }
