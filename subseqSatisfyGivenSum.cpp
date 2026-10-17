@@ -3,7 +3,7 @@
 
 using namespace std;
 
-numSubseq(vector<int>& nums, int target)
+int numSubseq(vector<int>& nums, int target)
 {
     //return the number of subsequence such that max and min element's sum  is equal to or less than the targer given
 
