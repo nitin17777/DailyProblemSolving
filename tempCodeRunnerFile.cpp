@@ -2,30 +2,44 @@
 #define ll long long
 using namespace std;
 
-
-int numMatchingSubseq(string s, vector<string>& words)
+int minOperations(vector<int>& nums)
 {
-    //Return number of words[i] that is subsequence of s
+    int n = nums.size();
 
-    int n = words.size();
+    //We can reverse the entire array  or rotate left by one 
 
-    //Two pointer approach first
-    int ans = 0;
+    //Determine min number of ops to sort the array else return -1
 
-    for(string&word:words)
+
+    //Both of it's adjacent elements must be adjacent to it somehow surely else -1
+
+    //finding index of 0 in the array
+    int z = find(nums.begin(),nums.end(),0)-nums.begin();
+
+    bool forward = true,backward = true;
+
+    for(int i = 0;i<n;i++)
     {
-        int i = 0,j=0;
+        if(nums[(z+i)%n] != i)forward = false;
 
-        while(i<s.size() && j <word.size())
-        {
-            if(s[i] == word[j])j++;
-
-            i++;            
-        }
-
-        if(j == word.size())ans++;
+        if(nums[(z-i+n) %n] != i)backward = false;
     }
-    return ans;    
+
+    int ans = INT_MAX;
+    if(forward)
+    {
+        // Rotate directly, or reverse twice with rotations between.
+        ans = min(ans,z);
+        ans = min(ans,n-z+2);
+    }
+
+    if(backward) 
+    {
+        // Reverse first, or rotate then reverse.
+        ans = min(ans, n - z);
+        ans = min(ans, z + 2);
+    }
+    return ans == INT_MAX ? -1: ans;
 }
 
       
@@ -34,9 +48,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<string>words = {"a","bb","acd","ace"};
-    cout<<numMatchingSubseq("abcde",words)<<endl;
-
+    vector<int>nums = {0,2,1};
+   cout<<minOperations(nums)<<'\n';
 
     return 0;
 }
