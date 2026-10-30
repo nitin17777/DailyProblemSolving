@@ -1,75 +1,79 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node
+struct TreeNode
 {
-    int data;
-    Node* left;
-    Node* right;
+    int val;
+    TreeNode* left;
+    TreeNode* right;
 
-    Node(int d)
+    TreeNode(int d)
     {
-        this->data = d;
+        this->val = d;
         this ->right = NULL;
         this ->left = NULL;    
     }
 };
 
-
-vector<int>verticalOrder(Node* root)
+vector<vector<int>>verticalTraversal(TreeNode* root)
 {
-    map<int, map<int,vector<int> > > nodes;
-    queue<pair<Node*, pair<int,int> > > q;
-    vector<int>ans;
 
-    if(root == NULL)
-    {
-        return ans;
+    vector<vector<int>>ans;
 
-    }
+    //Stores col , row and value of nodes
+    vector<tuple<int,int,int>>nodes;
 
-    q.push(make_pair(root,make_pair(0,0)));
+
+    //Stores node, row and column
+    queue<tuple<TreeNode*,int,int>>q;
+    q.push({root,0,0});
 
     while(!q.empty())
     {
-        pair<Node* ,pair<int,int> >temp = q.front();
+        auto[node,row,col] = q.front();
+        q.pop();
 
-        Node* frontNode = temp.first;
-        int hd = temp.second.first;
-        int lvl = temp.second.second;
+        nodes.push_back({col,row,node->val});
 
-
-        nodes[hd][lvl].push_back(frontNode->data);
-
-        if(frontNode ->left)
-        q.push(make_pair(frontNode->left,make_pair(hd-1,lvl-1)));
-
-        if(frontNode ->right)
-        {
-            q.push(make_pair(frontNode->right, make_pair(hd+1,lvl+1) ));
-
-        }
+        //Inc on right and dec on left
+        if(node->left)q.push({node->left,row+1,col-1});
+        if(node->right)q.push({node->right,row+1,col+1});
     }
 
-    for(auto i :nodes)
+
+    //col > row > val  : priority
+    sort(nodes.begin(),nodes.end());
+
+    int prevCol = INT_MIN;
+    for(auto[col,row,val]:nodes)
     {
-        for(auto j :i.second)
+        if(col!=prevCol)
         {
-            for(auto k : j.second)
-            {
-                ans.push_back(k);
-
-            }
+            
+            ans.push_back({});
+            prevCol = col;
         }
+        ans.back().push_back(val);
     }
+    
     return ans;
-
-
 }
 
 int main()
 {
 
+    TreeNode* root= new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->right = new TreeNode(7);
+    root->right->left = new TreeNode(15);
 
+    vector<vector<int>>ans = verticalTraversal(root);
+
+    for(auto&x:ans)
+    {
+        for(auto &y:x)cout<<y<<" ";
+        cout<<endl;
+    }
     return 0;
 }
