@@ -2,6 +2,16 @@
 #define ll long long
 using namespace std;
 
+
+int pref(vector<int>&a,int k)
+{
+    int ans = 0;
+
+    for(int i =1;i<k;i++)ans+=a[i];
+    
+    return ans;
+}
+
       
 int main()
 {
@@ -19,20 +29,23 @@ int main()
         vector<ll>a(n);
         for(auto&x:a)cin>>x;
 
-        //find Max value of array after performing all these ops
-        ll ans = a[0];
-        ll sum = a[0];
+        //s = prefix[i]
 
-        for(int i = 1;i<n;i++)
+        // find: max(a)after doing this process
+
+        ll L = 0,H=0;
+        ll ans = LLONG_MIN;
+
+        for(int i =0;i<n;i++)
         {
-            a[i] = max(a[i]+sum,a[i]-sum);
+            ans = max(ans,max(a[i] + H, a[i]-L));
 
-            ans = max(ans,a[i]);
+            ll newL = min(a[i],a[i]+2*L);
+            ll newH = max(a[i],a[i]+2*H);
 
-            sum+=a[i];
+            L = newL,H = newH;
         }
         cout<<ans<<'\n';
     }
-
     return 0;
 }
