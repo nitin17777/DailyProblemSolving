@@ -12,7 +12,8 @@ int pref(vector<int>&a,int k)
     return ans;
 }
 
-      
+
+//Didn't fully understood this      
 int main()
 {
     ios_base::sync_with_stdio(false);

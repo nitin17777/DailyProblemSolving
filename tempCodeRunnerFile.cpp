@@ -13,52 +13,32 @@ int main()
 
     while(t--)
     {
-        int n,k;
-        cin>>n>>k;
+        int l,r;
+        cin>>l>>r;
 
-        //difference bw number of chars 0 and 1 in s is at most 1
+        /*
 
-        //there are exactly k indices i: si == si+1
+        Beautiful number if :  it is equal to sum of all numbers on the board
+        Erase any number from the board
+        
 
-        string s = "";
+        Find minimum number of numbers to be deleted from the board to have atleast one beautiful number on the board
+        
 
-        if(n>1 && k == n-1)
-        {
-            cout<<-1<<'\n';
+        */
+       //If there is no zero on the board initially -> All the numbers have same sign -> so no subset of numbers can have sum of 0 -> Answer = r-l
+
+       // so we need to keep a subset of maximum size whose sum is 0
+
+       if((l>0 && r>0 )|| (l<0 && r<0))
+       {
+            cout<<abs(r-l)<<'\n';
             continue;
-        }
+       }
 
-        k=n-k;
-
-        int c0 = (n+1)/2;
-        int c1 = n/2;
-
-
-        for(int i= 0;i<=k;i++)
-        {
-            if(i&1)
-            {
-                if(i+2 > k)while(c0--)cout<<0;
-
-                else
-                {
-                    c0--;
-                    cout<<0;
-                }
-            }
-
-            else
-            {
-                if(i+2>k)while (c1--) cout << 1;
-
-                else
-                {
-                    c1--;
-                    cout<<1;
-                }
-            }
-        }
-        cout<<'\n';
+       int m = min(r,-l);
+       int ans = max(0,r-l-2*m-1);
+       cout<<ans<<'\n';
     }
     return 0;
 }
