@@ -13,32 +13,34 @@ int main()
 
     while(t--)
     {
-        int l,r;
-        cin>>l>>r;
+        int n;
+        cin>>n;
+    
+        vector<int>a(n);
+        for(auto&x:a)cin>>x;
 
-        /*
+        //In one operation -> coordinate of point changes by b power of 2 exactly
+        //Perform n ops of this type : Chooose any point and increase it's coordinate by 1
 
-        Beautiful number if :  it is equal to sum of all numbers on the board
-        Erase any number from the board
-        
 
-        Find minimum number of numbers to be deleted from the board to have atleast one beautiful number on the board
-        
+        //find max doubled area of triangle ABC
 
-        */
-       //If there is no zero on the board initially -> All the numbers have same sign -> so no subset of numbers can have sum of 0 -> Answer = r-l
 
-       // so we need to keep a subset of maximum size whose sum is 0
+        // vector<ll>power(n);
+        // for(int i = 0 ;i < n;i++)power[i] = 1>>a[i];
 
-       if((l>0 && r>0 )|| (l<0 && r<0))
-       {
-            cout<<abs(r-l)<<'\n';
-            continue;
-       }
+        sort(a.rbegin(), a.rend());   // descending
 
-       int m = min(r,-l);
-       int ans = max(0,r-l-2*m-1);
-       cout<<ans<<'\n';
+        ll x = 0, y = 0;
+        for(int i = 0; i < n; i++)
+        {
+            ll v = 1LL << a[i];
+            if(x <= y) x += v;
+            else y += v;
+        }
+
+        cout << x * y << '\n';
     }
+
     return 0;
 }
