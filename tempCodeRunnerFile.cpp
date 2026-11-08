@@ -15,31 +15,50 @@ int main()
     {
         int n;
         cin>>n;
-    
-        vector<int>a(n);
+
+        vector<int>a(n),b(n);
         for(auto&x:a)cin>>x;
+        for(auto&x:b)cin>>x;
 
-        //In one operation -> coordinate of point changes by b power of 2 exactly
-        //Perform n ops of this type : Chooose any point and increase it's coordinate by 1
+        // Special case: only one element
+    // There are no subarrays of length >= 2 to constrain it.
+    if (n == 1)
+    {
+        cout << (a[0] > 1 ? 1 : 0) << '\n';
+        continue;
+    }
+    
+    int ans=0;
+
+    // First element: only needs to preserve GCD with a[1]
+    if (gcd(a[0], a[1]) < a[0])
+    {
+        ans++;
+    }
 
 
-        //find max doubled area of triangle ABC
+    // Last element: only needs to preserve GCD with a[n-2]
+    if (gcd(a[n - 2], a[n - 1]) < a[n - 1])
+    {
+        ans++;
+    }
 
+    // Check all internal elements
+    for (int i = 1; i < n - 1; i++)
+    {
+        // GCD with left neighbor
+        ll g1 = gcd(a[i - 1], a[i]);
 
-        // vector<ll>power(n);
-        // for(int i = 0 ;i < n;i++)power[i] = 1>>a[i];
+        // GCD with right neighbor
+        ll g2 = gcd(a[i], a[i + 1]);
 
-        sort(a.rbegin(), a.rend());   // descending
+        // Smallest value preserving both adjacent GCDs
+        ll smallest = lcm(g1, g2);
 
-        ll x = 0, y = 0;
-        for(int i = 0; i < n; i++)
-        {
-            ll v = 1LL << a[i];
-            if(x <= y) x += v;
-            else y += v;
-        }
-
-        cout << x * y << '\n';
+        // We must strictly decrease the original element
+        if (smallest < a[i])ans++;
+    }
+    cout<<ans<<'\n';
     }
 
     return 0;
