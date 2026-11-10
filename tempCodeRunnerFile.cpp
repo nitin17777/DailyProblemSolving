@@ -2,64 +2,39 @@
 #define ll long long
 using namespace std;
 
+int climbStairs(int n, vector<int>& costs)
+{
+   //costs[i] = cost of ith step
+
+
+   //from i we can only jump to i+1,i+2, or i+3
+    //dp[i] = min cost to reach step i
+   vector<ll>dp(n+1,LLONG_MAX);
+   dp[0]=0;
+
+//    3: 
+
+//    0->3
+//    1->3   dp[1]+ (1-0)^2
+//    2->3   which one would be the min?? : dp[2] + (3-2)^2
+
+   for(int i = 1;i<=n;i++)
+   {
+       for(int j = 1;j<=3;j++)
+       {
+            if(i-j >= 0)dp[i] = min(dp[i],dp[i-j]+j*j + costs[i-1]);
+       } 
+   }
+   return dp[n];
+}
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-
-    while(t--)
-    {
-        int n;
-        cin>>n;
-
-        vector<int>a(n),b(n);
-        for(auto&x:a)cin>>x;
-        for(auto&x:b)cin>>x;
-
-        // Special case: only one element
-    // There are no subarrays of length >= 2 to constrain it.
-    if (n == 1)
-    {
-        cout << (a[0] > 1 ? 1 : 0) << '\n';
-        continue;
-    }
-    
-    int ans=0;
-
-    // First element: only needs to preserve GCD with a[1]
-    if (gcd(a[0], a[1]) < a[0])
-    {
-        ans++;
-    }
-
-
-    // Last element: only needs to preserve GCD with a[n-2]
-    if (gcd(a[n - 2], a[n - 1]) < a[n - 1])
-    {
-        ans++;
-    }
-
-    // Check all internal elements
-    for (int i = 1; i < n - 1; i++)
-    {
-        // GCD with left neighbor
-        ll g1 = gcd(a[i - 1], a[i]);
-
-        // GCD with right neighbor
-        ll g2 = gcd(a[i], a[i + 1]);
-
-        // Smallest value preserving both adjacent GCDs
-        ll smallest = lcm(g1, g2);
-
-        // We must strictly decrease the original element
-        if (smallest < a[i])ans++;
-    }
-    cout<<ans<<'\n';
-    }
+    vector<int>costs = {1,2,3,4};
+    cout<<climbStairs(4,costs)<<endl;
 
     return 0;
 }
