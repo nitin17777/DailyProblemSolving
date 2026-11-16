@@ -2,30 +2,31 @@
 #define ll long long
 using namespace std;
 
-int climbStairs(int n, vector<int>& costs)
+string digitSum(string s, int k)
 {
-   //costs[i] = cost of ith step
+    int n = s.size();
 
+    //s>k -> round complete 
 
-   //from i we can only jump to i+1,i+2, or i+3
-    //dp[i] = min cost to reach step i
-   vector<ll>dp(n+1,LLONG_MAX);
-   dp[0]=0;
+    //Each group is replaced by their sum
 
-//    3: 
+    //Divide s into consecutive groups of size k
 
-//    0->3
-//    1->3   dp[1]+ (1-0)^2
-//    2->3   which one would be the min?? : dp[2] + (3-2)^2
+    while(s.size() > k)
+    {
+        string temp = "";
 
-   for(int i = 1;i<=n;i++)
-   {
-       for(int j = 1;j<=3;j++)
-       {
-            if(i-j >= 0)dp[i] = min(dp[i],dp[i-j]+j*j + costs[i-1]);
-       } 
-   }
-   return dp[n];
+        for(int i=0;i<s.size();i+=k)
+        {
+            int sum = 0;
+
+            for(int j = i; j<min((int)s.size(),i+k); j++)sum+=s[j] - '0';
+
+            temp += to_string(sum);
+        }
+        s=temp;
+    }
+    return s;
 }
       
 int main()
@@ -33,8 +34,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>costs = {1,2,3,4};
-    cout<<climbStairs(4,costs)<<endl;
+    cout<<digitSum("11111222223",3)<<endl;
 
     return 0;
 }
