@@ -2,39 +2,31 @@
 #define ll long long
 using namespace std;
 
-string digitSum(string s, int k)
+int minChanges(string s)
 {
     int n = s.size();
 
-    //s>k -> round complete 
+    //Beautiful string if we can partition it into one or more substrings such that : Each susbtring has even length and each substring contains only 0s and 1s
 
-    //Each group is replaced by their sum
 
-    //Divide s into consecutive groups of size k
+    //Determine min changes required to make string 
 
-    while(s.size() > k)
+    int ans = 0;
+
+    for(int i = 0;i<n;i+=2)
     {
-        string temp = "";
-
-        for(int i=0;i<s.size();i+=k)
-        {
-            int sum = 0;
-
-            for(int j = i; j<min((int)s.size(),i+k); j++)sum+=s[j] - '0';
-
-            temp += to_string(sum);
-        }
-        s=temp;
+        if(s[i] !+ s[i+1])ans++;
     }
-    return s;
+    return ans;
 }
+
       
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    cout<<digitSum("11111222223",3)<<endl;
+    
+    cout<<minChanges("1001")<<endl;
 
     return 0;
 }
